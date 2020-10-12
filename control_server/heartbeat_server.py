@@ -18,7 +18,7 @@ class RequestHandler(BaseHTTPRequestHandler):
     timeout = 2 # seconds
 
     # VideoStations
-    VS_client_list = ['VS-OBS1', 'VS-OBS2', 'VS-MIT1', 'VS-MIT2', 'VS-ADA1', 'VS-ADA2', 'VS-LPAD', 'VS-BEADS']
+    VS_client_list = ['VS-OBS1', 'VS-OBS2', 'VS-MIT1', 'VS-MIT2', 'VS-ADA1', 'VS-ADA2', 'VS-LPAD', 'VS-BEADS', 'VS-VDROME']
     VS_client_dict_1 = {}
     VS_client_dict_2 = {}
 
@@ -41,7 +41,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     client_ip_dict = {}
     client_restart_dict = {} # Holds True/False on whether we should send a reboot command to a clinet with a given ID
-    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP", "IR_CAMERA"] # List of clients that are permitted to reboot
+    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP", "IR_CAMERA", 'VS-VDROME'] # List of clients that are permitted to reboot
 
     def log_request(code='-', size='-'):
 
