@@ -9,35 +9,35 @@ import psutil
 import os
 
 def startSensor():
-    
+
     print('Restarting sensor')
     sensor = serial.Serial('/dev/ttyUSB0', baudrate=57600, parity=serial.PARITY_NONE,
                            stopbits=serial.STOPBITS_ONE, bytesize=serial.EIGHTBITS) # Linux
-    
+
     return(sensor)
 
 def resetVideo(vlc):
-    
+
     vlc.pause()
     time.sleep(0.1)
     vlc.seek(0)
     time.sleep(0.1)
     vlc.frame()
-    
+
 def startVLC():
-    
+
     # Launch an instance of VLC as a separate thread
-       
+
     subprocess.Popen(['vlc', '-I', 'telnet', '--telnet-password','test'], close_fds=True)
 
 def sendHeartbeat(type=1):
-        
+
     # Function to send a heartbeat to the heartbeat server
-    
+
     global _heartbeat_ip
     global _ID
     global _project
-    
+
     try:
         #print('Sending heartbeat... ', end='')
         date = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
@@ -45,28 +45,28 @@ def sendHeartbeat(type=1):
         req = urllib.Request(_heartbeat_ip, msg)
         resp = urllib.urlopen(req, timeout=1)
         command = str(resp.read(), 'UTF-8')
-        print(">>>>>>>>>>>>>>>>>>>>>", command)
         if command != "":
             handleCommand(command)
         #print('done')
     except:
         #print('failed.')
         pass
+        
 def handleCommand(cmd):
-    
+
     # Respond to a command delivered by the heartbeat server
-    
+
     if cmd == "restart":
         os.system("reboot")
-        
+
 def trackAnalytics(action):
-    
+
     # Send a packet to the analytics server reporting an action
-    
+
     global _analytics_ip
     global _ID
     global _project
-    
+
     try:
         #print('Sending analytics... ('+ action +') ', end='')
         date = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
@@ -77,7 +77,7 @@ def trackAnalytics(action):
     except:
         #print('failed.')
         pass
-    
+
 _heartbeat_ip = 'http://10.8.0.168:8081' # Heartbeat server
 _analytics_ip = 'http://10.8.0.168:8080' # Analytics server
 _ID = 'VS-OBS1'
@@ -150,7 +150,7 @@ while True:
                 ref_time = now
                 state = 'loading'
                 vlc.play()
-        
+
         # Send a heartbeat every 10 seconds
         if (now - last_heartbeat) > 10:
             if (state == 'playing') or (state == 'loading'):
@@ -158,7 +158,7 @@ while True:
             else:
                 sendHeartbeat(type=1)
             last_heartbeat = now
-            
+
             print('--------------------------------------')
             print(datetime.datetime.now())
             print('State: ', state)
@@ -167,7 +167,7 @@ while True:
             print('CPU usage: ', psutil.cpu_percent())
             mem = psutil.virtual_memory()
             print('Memory usage: ', mem.used/1024/1024, 'MB')
-            
+
             vlc.fullscreen(switch=False)
-    
+
 sensor.close()

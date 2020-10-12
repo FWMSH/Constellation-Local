@@ -41,7 +41,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     client_ip_dict = {}
     client_restart_dict = {} # Holds True/False on whether we should send a reboot command to a clinet with a given ID
-    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD"] # List of clients that are permitted to reboot
+    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP"] # List of clients that are permitted to reboot
 
     def log_request(code='-', size='-'):
 
