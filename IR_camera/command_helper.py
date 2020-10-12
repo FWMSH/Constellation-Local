@@ -1,11 +1,11 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 from datetime import datetime
 import os
 
 ADDR = ""
 PORT = 8080
 
-class RequestHandler(BaseHTTPRequestHandler):
+class RequestHandler(SimpleHTTPRequestHandler):
 
     timeout = 2 # seconds
 
@@ -44,7 +44,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         if cmd == "restart":
             print("restarting...")
-            system.os("reboot")
+            os.system("reboot")
 
 httpd = HTTPServer((ADDR, PORT), RequestHandler)
 httpd.serve_forever()
