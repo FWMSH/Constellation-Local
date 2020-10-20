@@ -1,1 +1,1 @@
-python3 /home/pi/contactless_video/video_player.py
+python3 /home/pi/contactless_video/watchdog.py
