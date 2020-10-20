@@ -7,6 +7,7 @@ import subprocess
 import objgraph
 import psutil
 import os
+import configparser
 
 def startSensor():
 
@@ -51,7 +52,7 @@ def sendHeartbeat(type=1):
     except:
         #print('failed.')
         pass
-        
+
 def handleCommand(cmd):
 
     # Respond to a command delivered by the heartbeat server
@@ -78,10 +79,26 @@ def trackAnalytics(action):
         #print('failed.')
         pass
 
-_heartbeat_ip = 'http://10.8.0.168:8081' # Heartbeat server
-_analytics_ip = 'http://10.8.0.168:8080' # Analytics server
-_ID = 'VS-OBS1'
-_project = 'project_planet'
+# _heartbeat_ip = 'http://10.8.0.168:8081' # Heartbeat server
+# _analytics_ip = 'http://10.8.0.168:8080' # Analytics server
+# _ID = 'VS-OBS1'
+# _project = 'project_planet'
+
+# Get the directory containing this file (and thus also the config)
+_path = os.path.dirname(os.path.realpath(__file__))
+
+# Read the config.ini file
+config = config = configparser.ConfigParser()
+config.read(os.path.join(_path, "config.ini"))
+defaults = config["DEFAULT"]
+if len(defaults) == 0:
+    print("Error: missing config.ini file")
+
+_heartbeat_ip = defaults.get("HeartbeatIP", "http://10.8.0.168:8081")
+_analytics_ip = defaults.get("AnalyticsIP", "http://10.8.0.168:8080")
+_ID = defaults.get("ID", "ID_MISSING")
+_project = defaults.get("Project", "project_missing")
+_video = defaults.get("Video", "video.mp4")
 
 reboot_date = (datetime.datetime.now() + datetime.timedelta(days=1)).replace(hour=9, minute=0, second=0)
 print("This system will reboot next on: ", reboot_date)
@@ -96,7 +113,7 @@ except:
     vlc= VLCTelnet("localhost", "test", 4212)
 
 vlc.clear()
-vlc.add('/home/pi/contactless_video/video.mp4')
+vlc.add(os.path.join(_path, _video))
 vlc.play()
 time.sleep(2)
 vlc.fullscreen(switch=False)
