@@ -100,7 +100,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         # Function to write analytics data to the appropriate location
 
         global last_recorded_time
-        
+
         print("Analytics received from:", data['id'])
 
         if ("id" in data):
@@ -113,7 +113,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 f.write('\n')
                 #f.write(data['page'] + ',' + data['type'] + ',' + data['target'] + ',' + data['action'] + ',' + data['date'] + ',' + data['lang'] + ',' + data['textSize'] + '\n')
 
-        
+
 httpd = HTTPServer((ADDR, PORT), RequestHandler)
 httpd.serve_forever()
 

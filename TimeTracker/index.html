@@ -1,0 +1,246 @@
+<html>
+  <head>
+    <title>Gallery time tracking</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+        font-size: 24;
+      }
+      .stoppedTimingButton {
+        color: white;
+        background-color: red;
+        width: 100%;
+        height: 15%;
+        font-size: 24;
+      }
+      .runningTimingButton {
+        color: white;
+        background-color: green;
+        width: 100%;
+        height: 15%;
+        font-size: 24;
+      }
+      .selectedOptionButton {
+        color: white;
+        background-color: #27487d;
+        font-size: 24;
+        height: 10%;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .unselectedOptionButton {
+        color: white;
+        background-color: gray;
+        font-size: 24;
+        height: 10%;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .interface {
+        font-size: 24;
+      }
+    </style>
+  </head>
+  <body>
+  <!--<input type="text" id="buttonName" name="Item name">
+  <button onclick="addButton()">Add item</button> -->
+  <button onclick="resetTimingSession()" class='interface'>New session</button>
+  <button onclick="resetTimingSession(log=false)" class='interface'>Clear session</button>
+  <button id='ecosystems' group='timing' class='stoppedTimingButton'>Ecosystemsn</button>
+  <button id='launchpad' group='timing' class='stoppedTimingButton'>Launchpad</button>
+  <button id='beads' group='timing' class='stoppedTimingButton'>Beads</button>
+  <button id='v-drome' group='timing' class='stoppedTimingButton'>V-DROME</button>
+  <button id='steam_lab' group='timing' class='stoppedTimingButton'>STEAM Lab</button>
+  <button id='sci_theater' group='timing' class='stoppedTimingButton'>Science Theater</button>
+
+  <button id='Group' group='group_type' class='unselectedOptionButton'>Group</button>
+  <button id='Family' group='group_type' class='unselectedOptionButton'>Family</button>
+  <button id='Adult' group='group_type' class='unselectedOptionButton'>Adults only</button>
+
+  <div id='buttonList'></div>
+  <div id="sessionLog"></div>
+  </body>
+  <script>
+
+    var timingDict = {'ecosystems': 0, 'launchpad': 0, 'v-drome': 0, 'beads': 0, 'steam_lab': 0, 'sci_theater': 0};
+    var optionDict = {'group_type': ''}
+    var currentlyTimed = '';
+    var startingTime = 0;
+    var sessionStartingTime;
+    var firstRun = true;
+    var resultsBody = ""
+
+    // Analytics variables
+    var project = "analytics";
+    var id = "new_galleries";
+    var analytics_server = "http://10.8.0.168:8080";
+
+    function logTimingSession(){
+
+      // Function to log the current session.
+
+      // Iterate the keys in the timingDict and compute result
+      const keys = Object.keys(timingDict)
+      var record = '' + getNowDateTime()
+      var i;
+      for (i=0; i < keys.length; i++) {
+        //resultsBody += keys[i] + ": " + timingDict[keys[i]] + " ";
+        record += ', ' + timingDict[keys[i]];
+      }
+
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", self.analytics_server, true);
+        xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
+        xhr.send("project=" + self.project + "&id=" + self.id + "&action=record" + "&group_type=" + optionDict['group_type'] + "&record=" + record);
+
+        // Display success message
+        updateMessage('Session logged');
+      }
+      catch(err) {
+        // Display failure message
+        updateMessage('Error!');
+      }
+    }
+
+    function updateMessage(msg) {
+
+      // Function to update the message line with the text given in msg
+
+      div = document.getElementById('sessionLog');
+      div.innerHTML = msg;
+    }
+
+    function getNowDateTime() {
+
+      // Function to return a string with the current date and time
+      // Format: 2019-11-25 15:12:15
+
+      var today = new Date();
+      var date = today.getFullYear()+'-'+padZeros((today.getMonth()+1),2)+'-'+padZeros(today.getDate(),2);
+      var time = padZeros(today.getHours(), 2) + ":" + padZeros(today.getMinutes(), 2) + ":" + padZeros(today.getSeconds(), 2);
+      var now = date+' '+time;
+
+      return now;
+    }
+
+    function padZeros(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+    function resetTimingSession(log=true) {
+
+      // Function to clear the current timings and start over, but preserve the buttons
+
+      if (currentlyTimed != '') { // Do nothing if we're not timing
+
+        // Stop the timer
+        stopTiming();
+
+        // Log the current session
+        if (log == true) {
+          logTimingSession();
+        }
+
+        // Reset the timing dictionary
+        const keys = Object.keys(timingDict)
+        var i;
+        for (i=0; i < keys.length; i++) {
+          timingDict[keys[i]] = 0;
+        }
+      }
+
+      // Reet the option dictionary
+      const keys = Object.keys(optionDict)
+      var i;
+      for (i=0; i < keys.length; i++) {
+        optionDict[keys[i]] = '';
+      }
+      switchGroup('');
+    }
+
+    function stopTiming() {
+
+      // Function to stop the timer without starting another.
+
+      // Add the current values to the timingDict
+      var now = new Date();
+      var diff = (now - startingTime)/1000; // seconds
+
+      timingDict[currentlyTimed] += Math.round(diff);
+
+      // Reset the button appearance
+      btn = document.getElementById(currentlyTimed);
+      btn.className = 'stoppedTimingButton';
+
+      // Set the appropriate variabels to reflect the change
+      currentlyTimed = '';
+      startingTime = 0;
+      firstRun = true;
+
+    }
+
+    function switchTiming(id){
+
+      // Function to log one timer and start another
+
+      if (id in timingDict) {
+
+        if (firstRun == false) {
+
+          var now = new Date();
+          var diff = (now - startingTime)/1000; // seconds
+
+          timingDict[currentlyTimed] += Math.round(diff)
+
+          // Recolor to be stoppedTimingButton
+          btn = document.getElementById(currentlyTimed);
+          btn.className = 'stoppedTimingButton';
+
+        } else {
+          sessionStartingTime = new Date();
+          firstRun = false;
+        }
+
+        startingTime = new Date();
+        currentlyTimed = id;
+        btn = document.getElementById(id);
+        btn.className = 'runningTimingButton';
+
+      }
+      updateMessage('');
+    }
+
+    function switchGroup(id) {
+
+      // function to toggle the group parameter
+
+      var buttons = document.querySelectorAll("[group='group_type']");
+
+      for (i=0; i < buttons.length; i++) {
+        var btn = buttons[i];
+        if (btn.id == id) {
+          btn.className = 'selectedOptionButton'
+          optionDict['group_type'] = btn.id
+        } else {
+          btn.className = 'unselectedOptionButton'
+        }
+      }
+    }
+
+    // Create an event listener for button click
+    document.addEventListener('click',function(e){
+      if(e.target && e.target.id != ''){
+        if (e.target.getAttribute('group') == 'timing') {
+          switchTiming(e.target.id);
+        } else if (e.target.getAttribute('group') == 'group_type') {
+          switchGroup(e.target.id);
+        }
+
+       }
+    });
+  </script>
+</html>

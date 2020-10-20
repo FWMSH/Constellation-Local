@@ -1,4 +1,4 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer, SimpleHTTPRequestHandler
 import time
 import collections
 from datetime import datetime
@@ -6,7 +6,7 @@ from datetime import datetime
 ADDR = "" # Accept connections from all interfaces
 PORT = 8081
 
-class RequestHandler(BaseHTTPRequestHandler):
+class RequestHandler(SimpleHTTPRequestHandler):
 
     # Initialize two lists of clients we want to track. Non-listed ones will be
     # added automatically if they send heartbeats to the server.
@@ -151,6 +151,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                         "<td width='225px'><center><h2>Other</h2></center></td><tr>"
         for table in table_list:
             combo_table += "<td valign='top'>" + table + "</td>"
+        combo_table += "<td><img src='http://10.8.0.168:8081/PP_tech_diagram.jpg' width=300px>></td>"
         combo_table += "</tr></table>"
 
         content = top_part + combo_table +"</body></html>"
@@ -159,16 +160,18 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
 
-        # Respond with a webpage built by build_html()
+        if self.path == "/":
+            # Respond with a webpage built by build_html()
+            print('Status page requested at ' + str(datetime.today()))
+            print('  Respoinding...')
+            self.send_response(200)
+            self.send_header("Content-type", "text/html")
+            self.end_headers()
 
-        print('Status page requested at ' + str(datetime.today()))
-        print('  Respoinding...')
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-
-        self.wfile.write(self.build_html())
-        print('responded')
+            self.wfile.write(self.build_html())
+            print('responded')
+        else:
+            SimpleHTTPRequestHandler.do_GET(self)
 
     def do_POST(self):
 
