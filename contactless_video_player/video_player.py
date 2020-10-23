@@ -99,6 +99,9 @@ _analytics_ip = defaults.get("AnalyticsIP", "http://10.8.0.168:8080")
 _ID = defaults.get("ID", "ID_MISSING")
 _project = defaults.get("Project", "project_missing")
 _video = defaults.get("Video", "video.mp4")
+_loadDuration = float(defaults.get("loadDuration", 5)) # The number of seconds to "load" the video (bail out immediately during this window)
+_resetThresh = float(defaults.get("resetAfter", 10)) # How long to wait to reset after person walks away
+_triggerDist = float(defaults.get("triggerDist", 60)) # distance in inches that counts as "present". Max is 125
 
 reboot_date = (datetime.datetime.now() + datetime.timedelta(days=1)).replace(hour=9, minute=0, second=0)
 print("This system will reboot next on: ", reboot_date)
@@ -147,23 +150,23 @@ while True:
         try:
             dist = int(res[1:4])
         except:
-            dist = 100
+            dist = 125
         if state == 'playing':
-            if (dist < 60):
+            if (dist < _triggerDist):
                 ref_time = now
-            elif (now - ref_time) > 10:
+            elif (now - ref_time) > _resetThresh:
                 resetVideo(vlc)
                 state = 'idle'
                 trackAnalytics("idle")
         elif state == 'loading':
-            if (dist >= 60):
+            if (dist >= _triggerDist):
                 resetVideo(vlc)
                 state = 'idle'
-            elif (now - ref_time) > 2:
+            elif (now - ref_time) > _loadDuration:
                 state = 'playing'
                 trackAnalytics("play")
         elif state == 'idle':
-            if (dist < 60):
+            if (dist < _triggerDist):
                 ref_time = now
                 state = 'loading'
                 vlc.play()
