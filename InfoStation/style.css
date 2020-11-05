@@ -1,0 +1,209 @@
+@font-face {
+  font-family: Gotham-Bold;
+  src: url(Gotham-Bold.otf);
+}
+@font-face {
+  font-family: Gotham-Book;
+  src: url(Gotham-Book.otf);
+}
+
+* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: black; //#002f65;
+}
+
+#tabButtonContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 40px;
+  font-family: Gotham-Book;
+  width: 100%;
+  height: 174px;
+}
+
+/* Style the tab content */
+.tabcontent {
+  color: white;
+  display: none;
+  padding-bottom: 50px;
+  height: 1540px;
+}
+
+/* Image grid */
+.image-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding-top: 5px;
+  width: 100%;
+  margin: auto;
+}
+.image-grid-item {
+    padding: 5px;
+    padding-top: 0px;
+}
+.big-image {
+    display: block;
+    position: relative;
+    height: 990px;
+    padding-top: 50px;
+}
+.featuredImage {
+   max-height: 90%;
+   max-width: 100%;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: 15px;
+   padding-right: 15px;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+}
+
+/* Video grid */
+.video-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto ;
+  padding-top: 5px;
+  width: 100%;
+  margin: auto;
+}
+.video-grid-item {
+    padding: 5px;
+    padding-top: 0px;
+}
+
+.big-video {
+    display: block;
+    position: relative;
+    height: 750px;
+    padding-top: 50px;
+}
+
+.featuredVideo {
+   max-height: 90%;
+   max-width: 100%;
+   width: 100%;
+   display: block;
+   position: relative
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: 15px;
+   padding-right: 15px;
+}
+
+/* Text size buttons */
+.sizeButton{
+   height: 75px;
+   width: 75px;
+   vertical-align: top;
+   font-family: Gotham-Book;
+   color: white;
+   background-color: #5261ac;//#6e298d;
+}
+
+.sizeSmall{
+  font-size: 25px;
+}
+
+.sizeLarge{
+  font-size: 50px;
+}
+
+.langSwitch{
+  font-size: 40px;
+  font-family: Gotham-Book;
+  height: 75px;
+  width: 225px;
+  vertical-align: top;
+  background-color: #5261ac;//#6e298d;
+  color: white;
+  display: none;
+}
+
+.blank{
+  vertical-align: top;
+  background-color: black;
+  height: 75px;
+  width: 705px;
+}
+
+#imgCaptionText {
+  position: absolute;
+  bottom: 0px;
+  left: 15px;
+  color: white;
+  font-size: 25px;
+  font-family: Gotham-Book;
+}
+
+#vidCaptionText{
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  color: white;
+  font-size: 25px;
+  font-family: Gotham-Book;
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#titleText{
+    font-size: 60px;
+    font-family: Gotham-Bold;
+}
+
+#masthead{
+    height: 130px;
+    color: white;
+    background-color: #002f65;
+    font-size: 80px;
+    text-align: center;
+    padding-top: 20px;
+    font-family: Gotham-Bold;
+}
+
+.bodyText{
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 20px;
+  overflow-y: auto;
+  height: 100%;
+  font-size: 25px;
+  font-family: Gotham-Book;
+}
+
+* {
+    -webkit-text-size-adjust: none;
+}
+
+#story {background-color: #002f65;}
+#images {background-color: #002f65;}
+#videos {background-color: #002f65;}
+#artifacts {background-color: #002f65;}
