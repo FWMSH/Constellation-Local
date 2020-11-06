@@ -41,7 +41,8 @@ class RequestHandler(SimpleHTTPRequestHandler):
 
     client_ip_dict = {}
     client_restart_dict = {} # Holds True/False on whether we should send a reboot command to a clinet with a given ID
-    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP", "IR_CAMERA", 'VS-VDROME'] # List of clients that are permitted to reboot
+    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP", "IR_CAMERA", 'VS-VDROME', 'HERITAGE-L'] # List of clients that are permitted to reboot
+    network_control_dict = {} # Holds IDs that have also pinged us using network_control (e.g., heartbeat-3 command)
 
     def log_request(code='-', size='-'):
 
@@ -135,7 +136,7 @@ class RequestHandler(SimpleHTTPRequestHandler):
                 # ID cell
                 table += "<td width='100px' title="+ip+"><div onclick=\"toggleMenu('"+ id + "_menu')\">"+id+"</div>"
                 # If device is allowed to reboot and is online, add a reboot button
-                if (id in self.client_restart_allowed) and (status == "ONLINE"):
+                if (id in self.client_restart_allowed) and (status in ["ONLINE", "ACTIVE"]):
                     table += "<div class='client_menu' id=\"" + id +"_menu\"> <button onclick=\"sendRestart('"+id+"')\">Reboot</button></td>"
                 else:
                     table += "</td>"
@@ -192,11 +193,6 @@ class RequestHandler(SimpleHTTPRequestHandler):
             split2 = seg.split("=")
             data[split2[0]] = split2[1]
 
-        # Send the reboot command if requested
-        if data["id"] in self.client_restart_dict:
-            if self.client_restart_dict[data["id"]] == True:
-                self.wfile.write(b"restart")
-                self.client_restart_dict[data["id"]] = False
 
         try:
             if data['action'] == 'heartbest':
@@ -205,6 +201,8 @@ class RequestHandler(SimpleHTTPRequestHandler):
                 self.handle_heartbeat(data, 1)
             elif data['action'] == 'heartbeat-2':
                 self.handle_heartbeat(data, 2)
+            elif data['action'] == 'heartbeat-3':
+                self.handle_heartbeat(data, 3)
             elif data['action'] == 'restart':
                 print("restart request received...")
                 self.sendRestart(data['target'])
@@ -226,26 +224,33 @@ class RequestHandler(SimpleHTTPRequestHandler):
         print("  Heartbeat received from: " + data['id'] + ' at ' + str(datetime.today()))
         print('   Storing... ', end='')
         try:
-            if type == 1:
-                #if data['id'] in self.IS_client_dict_1:
-                #    self.IS_client_dict_1[data['id']] = time.time()
+            if type == 1: # These heartbeats are sent at regular intervals
                 if data['id'] in self.IN_client_dict_1:
                     self.IN_client_dict_1[data['id']] = time.time()
                 elif data['id'] in self.VS_client_dict_1:
                     self.VS_client_dict_1[data['id']] = time.time()
                 else:
                     self.other_client_dict_1[data['id']] = time.time()
-
-            elif type == 2:
-                #if data['id'] in self.IS_client_dict_2:
-                #    self.IS_client_dict_2[data['id']] = time.time()
+            elif type == 2: # These heartbeats are sent when interaction occurs
                 if data['id'] in self.IN_client_dict_2:
                     self.IN_client_dict_2[data['id']] = time.time()
                 elif data['id'] in self.VS_client_dict_2:
                     self.VS_client_dict_2[data['id']] = time.time()
                 else:
                     self.other_client_dict_2[data['id']] = time.time()
+            elif type == 3: # These heartbeats are sent by network_control for the purpose of checking for commands only
+                self.network_control_dict[data['id']] = True # Register this ID as coming from network_control
+
             self.client_ip_dict[data['id']] = self.address_string()
+
+            # Send the reboot command if requested
+            # If we have network_control for this ID, only send the command to that service
+            if data["id"] in self.client_restart_dict:
+                if ((data["id"] in self.network_control_dict) and (type == 3)) or (data["id"] not in self.network_control_dict):
+                    if self.client_restart_dict[data["id"]] == True:
+                        self.wfile.write(b"restart")
+                        self.client_restart_dict[data["id"]] = False
+
         except:
             print('Error: bad/missing id')
         print('done')

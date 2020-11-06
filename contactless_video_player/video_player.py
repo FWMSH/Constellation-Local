@@ -88,7 +88,7 @@ def trackAnalytics(action):
 _path = os.path.dirname(os.path.realpath(__file__))
 
 # Read the config.ini file
-config = config = configparser.ConfigParser()
+config = configparser.ConfigParser()
 config.read(os.path.join(_path, "config.ini"))
 defaults = config["DEFAULT"]
 if len(defaults) == 0:
