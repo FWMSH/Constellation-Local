@@ -12,14 +12,27 @@ var imageContent = [
   {'image': 'images/2-1-Vostok_1.jpg', 'thumb': 'image_thumbs/2-1-Vostok_1.jpg', 'caption_en': "Cosmonaut Yuri Gagarin performing the world's first spaceflight."},
 ]
 
-var videoContent = [
+var videoContent_AirSpace = [
   {'video': "videos/Anderson-short.mp4", 'thumb': "video_thumbs/Anderson.JPG", "caption_en": ""},
   {'video': "videos/Hamden-short.mp4", 'thumb': "video_thumbs/Hamden.JPG", "caption_en": ""},
-  {'video': "videos/Makins-short.mp4", 'thumb': "video_thumbs/Makins.JPG", "caption_en": ""},
+  {'video': "videos/Sereika-short.mp4", 'thumb': "video_thumbs/Sereika.jpg", "caption_en": ""},
+  {'video': "videos/Esquivel-short.mp4", 'thumb': "video_thumbs/Esquivel.jpg", "caption_en": ""},
+];
+
+var videoContent_Health =[
   {'video': "videos/Masino-short.mp4", 'thumb': "video_thumbs/Masino.JPG", "caption_en": ""},
   {'video': "videos/Mukundan-short.mp4", 'thumb': "video_thumbs/Mukundan.JPG", "caption_en": ""},
+  {'video': "videos/Mirpuri-short.mp4", 'thumb': "video_thumbs/Mirpuri.jpg", "caption_en": ""},
+  {'video': "videos/Sanford-short.mp4", 'thumb': "video_thumbs/Sanford.jpg", "caption_en": ""},
+  {'video': "videos/Tulchin-short.mp4", 'thumb': "video_thumbs/Tulchin.jpg", "caption_en": ""},
+];
+
+var videoContent_Education = [
+  {'video': "videos/Makins-short.mp4", 'thumb': "video_thumbs/Makins.JPG", "caption_en": ""},
   {'video': "videos/Stimpson-short.mp4", 'thumb': "video_thumbs/Stimpson.JPG", "caption_en": ""},
-]
+  {'video': "videos/Cordero-short.mp4", 'thumb': "video_thumbs/Cordero.jpg", "caption_en": ""},
+  {'video': "videos/Perez-short.mp4", 'thumb': "video_thumbs/Perez.jpg", "caption_en": ""},
+];
 
 // Hold the localized content
 var textDict = {'masthead_en': "Preparing for the Moon",
@@ -115,3 +128,13 @@ var textDict = {'masthead_en': "Preparing for the Moon",
                         This mesh grid was one of 111 used in a UNIVAC 1105 computer built around 1960. Each grid was hand-assembled using a microscope. Woven into the mesh are tiny metal rings, each of which could be magnetized to store one bit of information. In total, this memory plane could store 4096 bits or about as much information as is contained in one tweet or text message.
                     </div>`
     };
+
+// This function is called when the InfoStation loads. Add all the commends
+// needed to build your desired setup.
+function buildInfoStation() {
+
+  buildVideoTab("Air, Space, & Energy", videoContent_AirSpace);
+  //buildVideoTab("Health & Medicine", videoContent_Health);
+  //buildVideoTab("Schools & Museums", videoContent_Education);
+
+};

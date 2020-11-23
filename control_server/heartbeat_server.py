@@ -27,7 +27,7 @@ class RequestHandler(SimpleHTTPRequestHandler):
         VS_client_dict_2[client] = 0
 
     # Interactives
-    IN_client_list = ['CO2_DISP', 'IR_CAMERA', 'PSCALE_EAST', 'PSCALE_WEST']
+    IN_client_list = ['CO2_DISP', 'IR_CAMERA', 'PSCALE_EAST', 'PSCALE_WEST', 'HERITAGE-L', 'HERITAGE-M', 'HERITAGE-R']
     IN_client_dict_1 = {}
     IN_client_dict_2 = {}
 
@@ -41,7 +41,7 @@ class RequestHandler(SimpleHTTPRequestHandler):
 
     client_ip_dict = {}
     client_restart_dict = {} # Holds True/False on whether we should send a reboot command to a clinet with a given ID
-    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP", "IR_CAMERA", 'VS-VDROME', 'HERITAGE-L'] # List of clients that are permitted to reboot
+    client_restart_allowed = ["VS-OBS1", "VS-OBS2", "VS-MIT1", "VS-MIT2", "VS-ADA1", "VS-ADA2", "VS-BEADS", "VS-LPAD", "CO2_DISP", "IR_CAMERA", 'VS-VDROME', 'HERITAGE-L', 'HERITAGE-M', 'HERITAGE-R'] # List of clients that are permitted to reboot
     network_control_dict = {} # Holds IDs that have also pinged us using network_control (e.g., heartbeat-3 command)
 
     def log_request(code='-', size='-'):
