@@ -15,12 +15,12 @@ large_i = 0
 
 to_filter = ['want', 'might', 'much', 'will', 'make', 'makes', 'going',
     'things', 'id', 'jeff', 'nancy', 'im', 'cant', 'mutsafa', 'feel',
-     'vibrator', 'juul', 'fldsmdfr', 'foot', 'dont', 'i', 'every', 'put']
+     'vibrator', 'juul', 'foot', 'dont', 'i', 'every', 'put', 'twat']
 
 for word in to_filter:
     STOPWORDS.add(word)
 
-mask = np.array(Image.open("Black_Circle.jpg"))
+#mask = np.array(Image.open("Black_Circle.jpg"))
 
 
 def color_function(word, font_size, position, orientation, font_path, random_state):
@@ -75,17 +75,17 @@ def create_wordcloud(width=1920, height=900):
     #    latest_text = f.read().split(' ')
     
     # Perform one last profanity check
-    pfilter = ProfanityFilter(extra_censor_list=['hell','pussy', 'nigger',
+    pfilter = ProfanityFilter(languages=['en', 'es'], extra_censor_list=['hell','pussy', 'nigger',
         'jew', 'penis', 'vagina', 'boob', 'piss', 'pissing', 'crap', 'nigga', 'dick', 'goddamn'])
     pfilter.set_censor('')
         
     text = pfilter.censor(text).split(' ')
-
+    
     word_bag = list()
     for item in text:
-        if len(item) < 13:
+        if item.strip() != '':
             word_bag += item.split()
-
+    
     # Use only a random fraction to increase variety
     frac_to_use = 1  # Divisor for word list length
     num_words = len(word_bag)

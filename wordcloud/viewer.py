@@ -1,13 +1,5 @@
 from kivy.config import Config
 Config.set('graphics', 'fullscreen','auto')
-#Config.set('graphics', 'borderless',1)
-#Config.set('graphics', 'width', 1920)
-#Config.set('graphics', 'height', 1080)
-#Config.set('graphics', 'position', 'custom')
-#Config.set('graphics', 'left', 500)
-#Config.set('graphics', 'top', 0)
-
-
 
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
@@ -61,7 +53,7 @@ class DisplayScreen(Screen):
         
         self.top_layout = FloatLayout()
         self.top_layout.add_widget(self.layout)
-        self.top_layout.add_widget(self.call_to_action)
+        #self.top_layout.add_widget(self.call_to_action)
 
         self.add_widget(self.top_layout)
 

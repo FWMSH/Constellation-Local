@@ -1,9 +1,5 @@
 from kivy.config import Config
 Config.set('graphics', 'fullscreen','auto')
-#Config.set('graphics', 'height','1080')
-#Config.set('graphics', 'width','1920')
-#Config.set('graphics', 'position','custom')
-#Config.set('graphics', 'left','1920')
 Config.set('kivy', 'keyboard_mode', 'system')
 
 from kivy.app import App
@@ -27,6 +23,8 @@ from threading import Thread
 import urllib.request as urllib
 from datetime import datetime
 import os
+from enchant import Dict
+from enchant.checker import SpellChecker
 
 # class MyKeyboard(VKeyboard):
 # 
@@ -87,16 +85,30 @@ class InputScreen(Screen):
 
         if self.text_input.text != '':
             
+            # Remove words that are not spelled correctly
+            self.spellchecker.set_text(self.text_input.text)
+            for err in self.spellchecker:
+                err.replace("")
+            text = self.spellchecker.get_text()    
+            
             # One last profanity filter
-            self.text_input.text = self.pfilter.censor(self.text_input.text)
-        
+            text = self.pfilter.censor(text)
+            
+            # Try to convert the input to a number. If so, drop it.
+            try:
+                temp = float(text)
+                text = '' # Only reached if text is totally a number
+            except ValueError: # If text is not a number, it will throw and excpeiton -- let text through!            
+                pass
+            
             # Store separately to force into word cloud
-            with open('latest_response.txt', 'w') as f:
-                f.write(self.text_input.text)
-    
-            # Append to the overall list
-            with open('response_list.txt', 'a') as f:
-                f.write(self.eliminate_recent_words(self.text_input.text)+'\n')
+            if text.strip() != "":
+                with open('latest_response.txt', 'w') as f:
+                    f.write(text)
+        
+                # Append to the overall list
+                with open('response_list.txt', 'a') as f:
+                    f.write(self.eliminate_recent_words(text)+'\n')
                 
             self.text_input.text = ''
             
@@ -140,9 +152,11 @@ class InputScreen(Screen):
         # Dictionary to hold list of recently-used words
         self.recent_words = {}
 
-        self.pfilter = ProfanityFilter(extra_censor_list=['hell','pussy', 'nigger',
+        self.pfilter = ProfanityFilter(languages=['en', 'es'], extra_censor_list=['hell','pussy', 'nigger',
         'jew', 'penis', 'vagina', 'boob', 'piss', 'pissing', 'crap', 'nigga', 'dick', 'goddamn'])
         self.pfilter.set_censor('')
+        
+        self.spellchecker = SpellChecker(Dict("en_US"))
         
         master_layout = FloatLayout()
 
