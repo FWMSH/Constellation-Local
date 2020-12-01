@@ -1,18 +1,20 @@
-function buildImageTab(content) {
+function buildImageTab(tabName, content) {
 
   // Function to take an array of dictionaries and convert it into
   // a grid of images.
 
-  var html = ''
-  html = `
-  <div id="images" class="tabcontent">
+  // Add this tab to the list
+  tabList.push(tabName);
+
+  var html = '<div id="' + tabName + '" class="tabcontent">';
+  html += `
       <div class="big-image">
         <img id="expandedImg" class='featuredImage'>
         <div id="imgCaptionText"></div>
       </div>
 
       <div class="image-grid-container">
-  `
+  `;
 
   // Loop over the dictionaries in content and build an image for each.
   var i;
@@ -29,12 +31,12 @@ function buildImageTab(content) {
   html += `
     </div>
   </div>
-`
+  `
 
-document.getElementById('tabArea').innerHTML += html
+  document.getElementById('tabArea').innerHTML += html
 
-// Add button for this tab
-document.getElementById("tabButtonContainer").innerHTML += '<button class="tablink" onclick="openPage(\'images\', this, \'#002f65\')" id="buttonImages">View Images</button>'
+  // Add button for this tab
+  document.getElementById("tabButtonContainer").innerHTML += '<button class="tablink" onclick="openPage(\'images\', this, \'#002f65\')" id="buttonImages">' + tabName + '</button>'
 
 }
 

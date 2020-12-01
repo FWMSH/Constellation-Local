@@ -1,5 +1,5 @@
 // Analytics variables
-var id = "HERITAGE-L"
+var id = "HERITAGE-M"
 var project = "changemakers"
 var analytics_server = "http://10.8.0.168:8080"
 var heartbeat_server = "http://10.8.0.168:8081"
@@ -133,8 +133,35 @@ var textDict = {'masthead_en': "Preparing for the Moon",
 // needed to build your desired setup.
 function buildInfoStation() {
 
-  buildVideoTab("Air, Space, & Energy", videoContent_AirSpace);
-  //buildVideoTab("Health & Medicine", videoContent_Health);
+  //buildVideoTab("Air, Space, & Energy", videoContent_AirSpace);
+  buildVideoTab("Health & Medicine", videoContent_Health);
   //buildVideoTab("Schools & Museums", videoContent_Education);
+
+  document.getElementById("attractor").src = 'attractor.m4v';
+
+  document.getElementById("tabButtonContainer").style.opacity = 0;
+  document.getElementsByClassName("sizeButton")[0].style.display = 'none';
+  document.getElementsByClassName("sizeButton")[1].style.display = 'none';
+
+  var body = document.getElementsByTagName("BODY")[0];
+
+  var prompt = `
+  <div style="position: absolute; left: 0; bottom: 55.5%; width: 100%; text-align: center; color: white; font-family: Gotham-Bold; font-size: 40;">
+  Tap an icon below to explore their stories
+  </div>
+  `
+  body.innerHTML += prompt;
+
+  var qrWindow = `
+  <div style="position:fixed; bottom: 50px; left:28.5%; width:50%;">
+  <div style="float: left; width: 50%; color: white; font-family: Gotham-Book; font-size: 40; padding-right: 10px; padding-top: 10px;">
+  <b>Want to learn more?</b><br><small><small><small>Scan this QR code to go in-depth on our web app.
+  </div>
+  <div style="float: right; width: 50%;">
+  <img src='QR.png' height=200px></img>
+  </div>
+  </div>
+  `
+  body.innerHTML += qrWindow
 
 };

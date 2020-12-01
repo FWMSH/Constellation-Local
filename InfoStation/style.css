@@ -13,7 +13,7 @@
 body, html {
   height: 100%;
   margin: 0;
-  background-color: black; //#002f65;
+  background-color: #002f65;
 }
 
 #tabButtonContainer {
@@ -40,6 +40,7 @@ body, html {
   display: none;
   padding-bottom: 50px;
   height: 1540px;
+  background-color: #002f65;
 }
 
 /* Image grid */
@@ -151,7 +152,7 @@ body, html {
   font-family: Gotham-Book;
 }
 
-#vidCaptionText{
+.vidCaptionText{
   position: absolute;
   bottom: 10px;
   left: 15px;
@@ -202,8 +203,3 @@ body, html {
 * {
     -webkit-text-size-adjust: none;
 }
-
-#story {background-color: #002f65;}
-#images {background-color: #002f65;}
-#videos {background-color: #002f65;}
-#artifacts {background-color: #002f65;}
