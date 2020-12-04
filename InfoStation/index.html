@@ -11,7 +11,7 @@ Changemakers
 </div>
 
 <!-- This overlay covers the whole screen with the video attractor -->
-<div id="overlay" onclick="hideAttractor()">
+<div id="attractorOverlay" onclick="hideAttractor()">
     <video id='attractor' src='attractor.mp4' height=100% width=100% autoplay loop muted>
 </div>
 
@@ -31,6 +31,7 @@ Changemakers
 <!-- Import the code for the various module types -->
 <script src='videoTab.js'></script>
 <script src='imageTab.js'></script>
+<script src='mixedTab.js'></script>
 
 <!-- Import helper code -->
 <script src='analytics.js'></script>
@@ -53,9 +54,6 @@ inactivityTime();
 
 // Start the heartbeat timer
 heartbeatTimer();
-
-// Start timer to refresh the app at midnight
-startReloadTimer();
 
 // Set the default state
 setDefaults();

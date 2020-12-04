@@ -22,11 +22,12 @@ function openPage(pageName,elmnt,color) {
 
   // Send action to analytics servers
   sendAnalytics(pageName, 'show');
+
 }
 
-/* Adjust the text size */
-
 function setTextSize(val){
+
+  /* Adjust the text size */
 
     textSize = val
 
@@ -76,7 +77,7 @@ function showAttractor() {
   };
   if (n_paused == video_players.length){
       document.getElementById("attractor").play()
-      document.getElementById("overlay").style.display = "block";
+      document.getElementById("attractorOverlay").style.display = "block";
       setDefaults()
 
       // Send action to analytics servers
@@ -86,7 +87,7 @@ function showAttractor() {
 
 function hideAttractor() {
   document.getElementById("attractor").pause();
-  document.getElementById("overlay").style.display = "none";
+  document.getElementById("attractorOverlay").style.display = "none";
 
   // Send action to analytics servers
   sendAnalytics('attractor', 'hide');
@@ -181,17 +182,13 @@ function setDefaults(){
 
 }
 
-function startReloadTimer() {
 
-  // Starts a timer that will reload the page at midnight
 
-  var now = new Date();
-  var night = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate() + 1, // the next day, ...
-      0, 0, 0 // ...at 00:00:00 hours
-  );
-  var msTillMidnight = night.getTime() - now.getTime();
-  setTimeout('document.location.refresh()', msTillMidnight);
-}
+
+
+
+
+
+
+
+//
