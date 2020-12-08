@@ -13,6 +13,8 @@ var imageContent = [
 ]
 
 var mixedContent = [
+  //{'title_en': "", "text_en": "<b>What to learn more?</b> Scan this QR code to go in-depth on our web app.", 'image': "QR.png"},
+
   {'title_en': "Person 1", 'text_en': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Porttitor leo a diam sollicitudin tempor. Morbi tincidunt augue interdum velit euismod in pellentesque. Laoreet suspendisse interdum consectetur libero id. Turpis nunc eget lorem dolor sed viverra ipsum nunc. Urna molestie at elementum eu. Odio tempor orci dapibus ultrices in iaculis. Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Dignissim suspendisse in est ante. At urna condimentum mattis pellentesque id nibh tortor id. Eget dolor morbi non arcu. Varius duis at consectetur lorem donec. Nec feugiat in fermentum posuere. Venenatis a condimentum vitae sapien. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum.", "image": "images/test_person_1.jpg", "video": "", "caption_en": "This is Ms. Test Person 1."},
 
   {'title_en': "Person 2", 'text_en': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Porttitor leo a diam sollicitudin tempor. Morbi tincidunt augue interdum velit euismod in pellentesque. Laoreet suspendisse interdum consectetur libero id. Turpis nunc eget lorem dolor sed viverra ipsum nunc. Urna molestie at elementum eu. Odio tempor orci dapibus ultrices in iaculis. Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Dignissim suspendisse in est ante. At urna condimentum mattis pellentesque id nibh tortor id. Eget dolor morbi non arcu. Varius duis at consectetur lorem donec. Nec feugiat in fermentum posuere. Venenatis a condimentum vitae sapien. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum.", "image": "images/test_person_2.jpg", "video": "", "caption_en": "This is Mr. Test Person 2."},
@@ -46,8 +48,9 @@ var videoContent_Education = [
 // needed to build your desired setup.
 function buildInfoStation() {
 
-  buildVideoTab("Air, Space, & Energy", videoContent_AirSpace);
-  buildMixedTab("Local Women", mixedContent);
+  setTitle("Air, Space, & Energy");
+  buildVideoTab("Texas Changemakers", videoContent_AirSpace);
+  buildMixedTab("Fort Worth Changemakers", mixedContent);
   //buildVideoTab("Health & Medicine", videoContent_Health);
   //buildVideoTab("Schools & Museums", videoContent_Education);
 
@@ -64,7 +67,7 @@ function buildInfoStation() {
   Tap an icon below to explore their stories
   </div>
   `
-  document.getElementById('Air, Space, & Energy').innerHTML += prompt;
+  document.getElementById('Texas Changemakers').innerHTML += prompt;
 
   var qrWindow = `
   <div style="position:fixed; bottom: 445px; left:69.5%; width:36%;">
@@ -76,6 +79,6 @@ function buildInfoStation() {
   </div>
   </div>
   `
-  document.getElementById('Air, Space, & Energy').innerHTML += qrWindow
+  document.getElementById('Texas Changemakers').innerHTML += qrWindow
 
 };

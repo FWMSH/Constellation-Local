@@ -18,13 +18,19 @@ function buildMixedTab(tabName, content) {
     row = content[i];
 
     // We need to strip out any single quote (') and replace it with the ASCII code so they can nest properly in the other quotes needed to write the HTML
-    var caption_en = row["caption_en"].replace("'", "&#39;");
-    var text_en = row["text_en"].replace("'", "&#39;");
-    var title_en = row["title_en"].replace("'", "&#39;");
+    if ("caption_en" in row) {
+      var caption_en = row["caption_en"].replace("'", "&#39;");
+    }
+    if ("text_en" in row) {
+      var text_en = row["text_en"].replace("'", "&#39;");
+    }
+    if ("title_en" in row) {
+      var title_en = row["title_en"].replace("'", "&#39;");
+    }
 
     // Add title
     html += '<tr><th colspan="2" class="titleText">' + title_en + '</th></tr>';
-    if (row["image"] != '') {
+    if (("image" in row) && (row["image"] != '')) {
       // Add image
       html += '<tr><td><img src="' + row["image"] + '"width="200px" onclick="enlargeImage(\'' + row["image"] + '\', \'' + caption_en + '\', \'' + tabName + "_imageOverlay'" + ')"></img></td>'
     }

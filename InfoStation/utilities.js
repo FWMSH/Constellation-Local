@@ -182,13 +182,9 @@ function setDefaults(){
 
 }
 
+function setTitle(title) {
 
+  // Function to insert the desired title into the masthead at the top of the screen
 
-
-
-
-
-
-
-
-//
+  document.getElementById('masthead').innerHTML = title;
+}
