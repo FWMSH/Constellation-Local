@@ -1,0 +1,232 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Planet Scale Interface</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.33" />
+	
+	<style>
+	   
+	   @font-face {
+	      font-family: 'Gotham-Book';
+	      src: url('Gotham-Book.otf'); 
+	    }
+	    @font-face {
+	      font-family: 'Gotham-Bold';
+	      src: url('Gotham-Bold.otf'); 
+	    }
+	   body, html {
+	      background-color: black;
+	      margin: 0px;
+	      padding: 0px;
+	      overflow: hidden;
+	      cursor: none;
+	   }
+	   .imageButton {
+	      width: 477px;
+	      height: 216px;
+	      padding: 0px;
+	      margin-left: 0px;
+	      
+	   }
+	   #attractor {
+	      position: absolute;
+	      top: 0px;
+	      left: 0px;
+	      width: 100%;
+	      height: 100%;
+	      margin: 0px;
+	      padding: 0px;
+	      z-index: 100;
+	   }
+	   #backgroundImage {
+	      position: absolute;
+	      top: 100px;
+	      width: 100%;
+	      margin: 0px;
+	      padding: 0px;
+	   }
+	   #weightDisplay {
+	      position: absolute;
+	      text-align: center;
+	      width: 100%;
+	      top: 375px;
+	      left: 0px;
+	      font-size: 150px;
+	      font-family: Gotham-Bold;
+	      color: white;
+	   }
+	   #buttonRow {
+	      position: absolute;
+	      display: flex-wrap;
+	      flex-direction: row;
+	      justify-content: center;
+	      align: center;
+	      width: 100%;
+	      height: 540px;
+	      left: 0px;
+	      top: 640px;
+	      margin: 0px;
+	      padding: 0px;
+	   }
+	</style>
+</head>
+
+<body>
+   
+   <img id="attractor" src="background_images/Attractor.JPG" onclick="hideAttractor()">
+   </img>
+   
+   <img id="backgroundImage" src="background_images/Moon.JPG">
+   </img>
+   
+   <div id="weightDisplay">
+   </div>
+   
+   <div id="buttonRow">
+      <center>
+	 <img class="imageButton" onclick="changeWorld('Mercury')" src="button_images/en_Mercury_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Venus')" src="button_images/en_Venus_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Moon')" src="button_images/en_Moon_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Mars')" src="button_images/en_Mars_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Ceres')" src="button_images/en_Ceres_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Bennu')" src="button_images/en_Bennu_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Titan')" src="button_images/en_Titan_up.JPG"></img>
+	 <img class="imageButton" onclick="changeWorld('Pluto')" src="button_images/en_Pluto_up.JPG"></img>
+      </center>
+   </div>
+	
+</body>
+
+<script src="config.js"></script>
+<script>
+   
+   function hideAttractor() {
+      
+      document.getElementById("attractor").style.display = "none";
+      currentlyActive = true;
+      ticksIdle = 0;
+
+   }
+   
+   function showAttractor() {
+      
+      document.getElementById("attractor").style.display = "block";
+      currentlyActive = false;
+      
+   }
+   
+   function changeWorld(world) {
+      // Switch the display to the specified world
+      
+      currentWorld = world
+      document.getElementById("backgroundImage").src = "background_images/"+world+".JPG";
+      ticksIdle = 0;
+   }
+   
+   function updateDisplay() {
+      
+      factor = {'Mercury': 0.378,
+                        'Venus': 0.91,
+                        'Earth': 1,
+                        'Moon': 0.1656,
+                        'Mars': 0.379,
+                        'Ryugu': 0.0000125,
+                        'Bennu': 0.00000102,
+                        'Ceres': 0.0284,
+                        'Jupiter': 2.53,
+                        'Saturn': 1.07,
+                        'Titan': 0.1381,
+                        'Uranus': 0.91,
+                        'Neptune': 1.14,
+                        'Pluto': 0.0635}
+      var scaledWeight;
+      if (currentWorld != "Bennu") {
+	 scaledWeight = (weightKG*2.204623*factor[currentWorld]).toFixed(0);
+      } else {
+	 scaledWeight = (weightKG*2.204623*factor[currentWorld]).toFixed(5);
+      }
+      document.getElementById("weightDisplay").innerHTML =  scaledWeight + " lbs";
+      
+   }
+   
+   function getWeight() {
+      
+      // Function to retrieve the latest weight measurement in kilograms
+      // from the server managing the wiiboard
+      
+      var requestString = JSON.stringify({"action": "getWeight"});
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost:8081", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+
+        if (this.status == 200) {
+	   data = JSON.parse(this.response);
+	   
+	   if ("weight" in data) {
+	      weightKG = data["weight"];
+	      if (weightKG > 2) {
+		 hideAttractor();
+		 ticksIdle = 0;
+	      } else {
+		 ticksIdle += 1;
+		 if (ticksIdle == 300) {
+		    showAttractor();
+		 }
+	      }
+	      updateDisplay();
+	    }
+        }
+      };
+      xhr.send(requestString);
+      
+   }
+   
+   function sendPing() {
+
+      // Contact the control server and ask for any updates
+
+        requestString = JSON.stringify({"class": "exhibitComponent",
+                                        "id": id,
+                                        "type": type,
+					"currentInteraction": String(currentlyActive)});
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", controlServerAddress, true);
+	xhr.timeout = 2000;
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onerror = function() {
+        }
+        xhr.onreadystatechange = function () {
+
+          if (this.readyState != 4) return;
+
+          if (this.status == 200) {
+          }
+        };
+        xhr.send(requestString);
+    }
+    
+   
+   var weightKG = 0;
+   var currentWorld = "Moon";
+   var currentlyActive = false;
+   var ticksIdle = 0; // Each tick is the length of the getWeight interval (100 ms)
+   setInterval(getWeight, 100);
+   setInterval(sendPing, 10000);
+
+</script>
+
+</html>
+
+
+
+
+
+
