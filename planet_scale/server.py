@@ -5,6 +5,7 @@ from signal import signal, SIGINT
 import sys
 import threading
 import json
+import os
 
 class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
@@ -52,7 +53,7 @@ def main():
     port = 8081
     httpd = SocketServer.TCPServer(("localhost", port), ServerHandler)
     wiiboard = wiiboard_interface.initialize()
-
+    os.system("chromium-browser --kiosk interface.html&")
 
     print "serving at port", port
     httpd.serve_forever()
