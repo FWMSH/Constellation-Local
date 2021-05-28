@@ -4,12 +4,12 @@ function sendAnalytics(target, action) {
   // Sends the current action given by the input variable, plus a bunch of data collected from the current state.
 
   // Let the heartbeat server know we're sending an analytics packet
-  sendHeartbeat(type=2)
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", self.analytics_server, true);
-  xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
-  xhr.send("date=" + getNowDateTime() + "&project=" + self.project + "&id=" + self.id +"&lang=" + self.lang + "&type=" + self.type + "&textSize=" + self.bodyTextSize + "&page=" + self.page + "&target=" + target + "&action=" + action);
+  // sendHeartbeat(type=2)
+  //
+  // var xhr = new XMLHttpRequest();
+  // xhr.open("POST", self.analytics_server, true);
+  // xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
+  // xhr.send("date=" + getNowDateTime() + "&project=" + self.project + "&id=" + self.id +"&lang=" + self.lang + "&type=" + self.type + "&textSize=" + self.bodyTextSize + "&page=" + self.page + "&target=" + target + "&action=" + action);
 }
 
 function sendHeartbeat(type=1) {
@@ -25,12 +25,48 @@ function sendHeartbeat(type=1) {
 
 }
 
+function sendPing() {
+
+  // Contact the control server and ask for any updates
+
+  if (serverAddress != "") {
+    requestString = JSON.stringify({"class": "exhibitComponent",
+                                    "id": id,
+                                    "type": type,
+                                    "currentInteraction": String(currentlyActive),
+                                    "helperPort": helperAddress.split(":")[2]});
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", serverAddress, true);
+    xhr.timeout = 2000;
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState != 4) return;
+
+      if (this.status == 200) {
+      }
+  };
+    xhr.send(requestString);
+  }
+}
+
 function heartbeatTimer (){
 
   // Function to send a heartbeat every ten seconds
 
   sendHeartbeat()
   setTimeout(heartbeatTimer, 10000); // 1000 milliseconds = 1 second
+}
+
+function pingTimer() {
+
+  // Function to send a ping every ten seconds
+
+  sendPing()
+  setTimeout(pingTimer, 10000); // 1000 milliseconds = 1 second
+
 }
 
 function getNowDateTime() {

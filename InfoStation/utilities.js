@@ -22,12 +22,11 @@ function openPage(pageName,elmnt,color) {
 
   // Send action to analytics servers
   sendAnalytics(pageName, 'show');
-
 }
 
-function setTextSize(val){
+/* Adjust the text size */
 
-  /* Adjust the text size */
+function setTextSize(val){
 
     textSize = val
 
@@ -77,20 +76,22 @@ function showAttractor() {
   };
   if (n_paused == video_players.length){
       document.getElementById("attractor").play()
-      document.getElementById("attractorOverlay").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
       setDefaults()
 
       // Send action to analytics servers
       sendAnalytics('attractor', 'show');
+      currentlyActive = false;
   }
 }
 
 function hideAttractor() {
   document.getElementById("attractor").pause();
-  document.getElementById("attractorOverlay").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
 
   // Send action to analytics servers
   sendAnalytics('attractor', 'hide');
+  currentlyActive = true;
 }
 
 var inactivityTime = function () {
@@ -182,9 +183,17 @@ function setDefaults(){
 
 }
 
-function setTitle(title) {
+function startReloadTimer() {
 
-  // Function to insert the desired title into the masthead at the top of the screen
+  // Starts a timer that will reload the page at midnight
 
-  document.getElementById('masthead').innerHTML = title;
+  var now = new Date();
+  var night = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1, // the next day, ...
+      0, 0, 0 // ...at 00:00:00 hours
+  );
+  var msTillMidnight = night.getTime() - now.getTime();
+  setTimeout('document.location.refresh()', msTillMidnight);
 }
