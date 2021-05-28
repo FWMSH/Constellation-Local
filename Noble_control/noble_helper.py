@@ -1,12 +1,14 @@
-#import audio_control
-#import projector_control
-#import iPlayer3_control
+import audio_control
+import projector_control
+import iPlayer3_control
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import json
 import signal
 import sys
 import mimetypes
 import cgi
+import socket
+import subprocess
 
 class RequestHandler(SimpleHTTPRequestHandler):
 
@@ -85,27 +87,42 @@ class RequestHandler(SimpleHTTPRequestHandler):
                     data[split2[0]] = split2[1]
 
             if "action" in data:
-                if data["action"] == "commandProjector":
+                if data["action"] == "commandAmateras":
                     if "command" in data:
-                        #commandProjector(data["command"])
-                        print("Sending projector command:", data["command"])
+                        commandAmateras(data["command"])
+                elif data["action"] == "commandProjector":
+                    if "command" in data:
+                        commandProjector(data["command"])
+                        #print("Sending projector command:", data["command"])
                 elif data["action"] == "getCurrentSettings":
                     response_dict = getCurrentSettings()
                     json_string = json.dumps(response_dict)
                     self.wfile.write(bytes(json_string, encoding="UTF-8"))
                 elif data["action"] == "setVolume":
                     if "percent" in data and "source" in data:
-                        #audio_control.setOverallVolume(data["percent"])
-                        print(f"setting {data['source']} volume:", data["percent"])
+                        audio_control.setVolume(data["source"], int(data["percent"]))
+                        #print(f"setting {data['source']} volume:", data["percent"])
                     else:
                         print("Errpr: must send value 'percent' to set the volume!")
                 elif data["action"] == "triggerLights":
                     if "show" in data:
-                        #triggerLights(data["show"])
-                        print(f"Triggering show", data["show"])
+                        triggerLights(data["show"])
+                        #print(f"Triggering show", data["show"])
                 else:
                     print("Error: unrecognized action:", data["action"])
         #print("do_POST: EXIT")
+
+def commandAmateras(command):
+
+    # Send a command to Amateras
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    if command == "playlist_next":
+        sock.sendto(bytes("playlist_next", "UTF-8"), ("localhost", 4000))
+    if command.startswith("loadPlaylist"):
+        split = command.split("__")
+        loadAmaterasPlaylist(split[1])
 
 def commandProjector(command):
 
@@ -114,7 +131,7 @@ def commandProjector(command):
     com = projector_control.serial_connect_with_url("10.8.0.246", make="barco")
 
     if command in ["power_on", "power_off", "set_dvi_1", "set_dvi_2"]:
-        projector_control.serial_send_command(com, command)
+        projector_control.serial_send_command(com, command, make="barco")
 
 def getCurrentSettings():
 
@@ -124,8 +141,8 @@ def getCurrentSettings():
 
     # Projector power state
     com = projector_control.serial_connect_with_url("10.8.0.246", make="barco")
-    power_state = projector_control.serial_send_command(com, "power_state")
-    if power_sate in ["on", "powering_on"]:
+    power_state = projector_control.serial_send_command(com, "power_state", make="barco")
+    if power_state in ["on", "powering_on"]:
         result["projector_power_state"] = "on"
     else:
         result["projector_power_state"] = "off"
@@ -141,13 +158,26 @@ def getCurrentSettings():
 
     return(result)
 
+def loadAmaterasPlaylist(playlist):
+
+    # Execute a terminal command to load the appropriate playlist
+
+    playlist_dict = {
+        "Black Holes": "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\contents\\Black_Holes.lst",
+        "Our Solar System": "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\contents\\Our_Solar_System.lst"
+    }
+
+    if playlist in playlist_dict:
+        command = "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\Amateras Dome Player.exe"
+        result = subprocess.run([command, playlist_dict[playlist]], capture_output=True)
+        print(result)
 
 def triggerLights(show):
 
     # Send a command to the DMX controller to trigger a specific show
 
     # Mapping of show names to numbers
-    show_dict = {"blues": 0}
+    show_dict = {"blues": 1}
 
     com = iPlayer3_control.connect("COM4")
     iPlayer3_control.trigger_show(com, show_dict[show])

@@ -44,7 +44,7 @@ def setVolume(source, percent):
         if source == "Amateras":
             session = getAmateras()
         elif source == "Microphone":
-            session == getMicrophone()
+            session = getMicrophone()
         else:
             print(f"audio_control: setVolume: source {source} not found!")
             return()
@@ -63,7 +63,7 @@ def getVolume(source):
         if source == "Amateras":
             session = getAmateras()
         elif source == "Microphone":
-            session == getMicrophone()
+            session = getMicrophone()
         else:
             print(f"audio_control: setVolume: source {source} not found!")
             return(None)
