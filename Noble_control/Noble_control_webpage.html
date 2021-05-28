@@ -14,6 +14,9 @@
     <title>Noble Control Panel</title>
 
     <style>
+    .volumeSlider {
+      -webkit-appearance: slider-vertical; /* WebKit */
+    }
     </style>
   </head>
 
@@ -21,7 +24,7 @@
 
     <main role="main" class="container mb-4">
 
-      <div class="row mt-2 mb-2">
+      <div class="row mt-4 mb-2">
         <div class="col-auto">
           <H1>Noble Planetarium</H1>
         </div>
@@ -29,16 +32,29 @@
 
       <div class="row mt-4">
         <div class="col-4">
-          <H3>System</H3>
-          <div class="row col-12 mt-2">
-            <button class="btn btn-info btn-block col-12">Projector Off</button>
-            <button class="btn btn-primary col-6 mt-2">Turn On</button>
+          <H3>Projector</H3>
+          <div class="row col-12">
+            <div class='col-6'>
+              <button id="projectorOnButton" class="btn btn-secondary btn-block" onclick="commandProjector('power_on')">Projector On</button>
+            </div>
+            <div class='col-6'>
+              <button id="projectorOffButton" class="btn btn-success btn-block" onclick="commandProjector('power_off')">Projector Off</button>
+            </div>
+          </div>
+          <hr>
+          <div class="row col-12">
+            <div class='col-6'>
+              <button id="projectorShowInputButton" class="btn btn-success btn-block" onclick="commandProjector('set_show')">Input: Show</button>
+            </div>
+            <div class='col-6'>
+              <button id="projectorStarsInputButton"class="btn btn-secondary btn-block" onclick="commandProjector('set_stars')">Input: Stars</button>
+            </div>
           </div>
         </div>
         <div class="col-4">
           <H3>Content</H3>
           <div class="row col-12 mt-2">
-            <nav class="col-12">
+            <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="public-shows-tab" data-toggle="tab" href="#nav-public-shows" role="tab" aria-controls="nav-public-shows" aria-selected="true">Public</a>
                 <a class="nav-item nav-link" id="school-shows-tab" data-toggle="tab" href="#nav-school-shows" role="tab" aria-controls="nav-school-shows" aria-selected="false">School</a>
@@ -51,6 +67,7 @@
                 <div class="row col-12">
                   <button class='btn btn-secondary btn-block'>Black Holes</button>
                   <button class='btn btn-secondary btn-block'>Our Solar System</button>
+                  <button class='btn btn-secondary btn-block'>Thundering Herd</button>
                 </div>
               </div>
               <div class="tab-pane fade mt-2 col-12" id="nav-school-shows" role="tabpanel" aria-labelledby="school-shows-tab">
@@ -62,11 +79,36 @@
         <div class="col-4">
           <H3>Actions</H3>
           <H4>Lights</H4>
-          <button class='btn btn-secondary btn-block'>Trigger walk-in lights</button>
+          <button class='btn btn-primary btn-block' onclick="triggerLights('blues')">Trigger walk-in lights</button>
           <hr>
           <H4>Sound</H4>
+          <div class="row">
+            <div class="col-4">
+              <div class="row">
+              <div class="text-center col-12">Overall</div>
+                <input id="overallVolumeSlider" type='range' min=0 max=100 step=5 value=25 class="volumeSlider col-12" oninput="updateVolume('Overall')"></input>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="row">
+              <div class="text-center col-12">Show</div>
+                <input id="showVolumeSlider" type='range' min=0 max=100 step=5 value=100 class="volumeSlider col-12" oninput="updateVolume('Amateras')"></input>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="row">
+              <div class="text-center col-12">Microphone</div>
+                <input id="microphoneVolumeSlider" type='range' min=0 max=100 step=5 value=100 class="volumeSlider col-12" oninput="updateVolume('Microphone')"></input>
+              </div>
+            </div>
+          </div>
           <hr>
           <H4>Playback</H4>
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-primary btn-block">Next Action</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -78,6 +120,121 @@
     <script type="text/javascript" src="js/showdown.min.js"></script>
 
     <script>
+
+    function commandProjector(command) {
+
+      // Send a message to the helper to ask it to pass a command to the projector
+
+      if (command == "power_on") {
+        $("#projectorOnButton").addClass("btn-success").removeClass("btn-secondary");
+        $("#projectorOffButton").addClass("btn-secondary").removeClass("btn-success");
+      } else if (command =="power_off") {
+        $("#projectorOnButton").addClass("btn-secondary").removeClass("btn-success");
+        $("#projectorOffButton").addClass("btn-success").removeClass("btn-secondary");
+      } else if (command == "set_show") {
+        $("#projectorShowInputButton").addClass("btn-success").removeClass("btn-secondary");
+        $("#projectorStarsInputButton").addClass("btn-secondary").removeClass("btn-success");
+        command = "set_dvi_1";
+      } else if (command == "set_stars") {
+        $("#projectorShowInputButton").addClass("btn-secondary").removeClass("btn-success");
+        $("#projectorStarsInputButton").addClass("btn-success").removeClass("btn-secondary");
+        command = "set_dvi_2";
+      }
+
+      var requestDict = {"action": "commandProjector",
+                         "command": command};
+
+      var xhr = new XMLHttpRequest();
+      xhr.timeout = 1000;
+      xhr.open("POST", "http://localhost:8000", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(requestDict));
+    }
+
+    function getCurrentSettings() {
+
+      // Ask the helper to poll the various hardware components and return
+      // their present settings
+
+      var requestDict = {"action": "getCurrentSettings"};
+
+      var xhr = new XMLHttpRequest();
+      xhr.timeout = 1000;
+      xhr.open("POST", "http://localhost:8000", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+        if (this.status == 200) {
+          var response = JSON.parse(this.responseText);
+
+          if ("projector_power_state" in response) {
+            if (response["projector_power_state"] == "on") {
+              $("#projectorOnButton").addClass("btn-success").removeClass("btn-secondary");
+              $("#projectorOffButton").addClass("btn-secondary").removeClass("btn-success");
+            } else {
+              $("#projectorOnButton").addClass("btn-secondary").removeClass("btn-success");
+              $("#projectorOffButton").addClass("btn-success").removeClass("btn-secondary");
+            }
+          }
+          if ("projector_input" in response) {
+            if (response["projector_input"] == "DVI 1") {
+              $("#projectorShowInputButton").addClass("btn-success").removeClass("btn-secondary");
+              $("#projectorStarsInputButton").addClass("btn-secondary").removeClass("btn-success");
+            } else if (response["projector_input"] == "DVI 2") {
+              $("#projectorShowInputButton").addClass("btn-secondary").removeClass("btn-success");
+              $("#projectorStarsInputButton").addClass("btn-success").removeClass("btn-secondary");
+            }
+          }
+          if("system_volumes" in response) {
+            volumes = response["system_volumes"];
+            document.getElementById("overallVolumeSlider").value = volumes[0];
+            document.getElementById("howVolumeSlider").value = volumes[1];
+            document.getElementById("microphoneVolumeSlider").value = volumes[2];
+          }
+        }
+      };
+      xhr.send(JSON.stringify(requestDict));
+
+    }
+
+    function triggerLights(show) {
+
+      // Send a message to the helper to communicate with the DMX controller
+      // to play the specified light show
+
+      var requestDict = {"action": "triggerLights",
+                         "show": show};
+
+      var xhr = new XMLHttpRequest();
+      xhr.timeout = 1000;
+      xhr.open("POST", "http://localhost:8000", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(requestDict));
+    }
+
+    function updateVolume(source) {
+
+      // Send a message to the helper to update the volume based on the value
+      // of the slider
+
+      if (source == "Overall") {
+        var slider = document.getElementById("overallVolumeSlider");
+      } else if (source == "Amateras") {
+        var slider = document.getElementById("showVolumeSlider");
+      } else if (source == "Microphone") {
+        var slider = document.getElementById("microphoneVolumeSlider");
+      }
+
+      var requestDict = {"action": "setVolume",
+                         "source": source,
+                         "percent": slider.value};
+
+      var xhr = new XMLHttpRequest();
+      xhr.timeout = 1000;
+      xhr.open("POST", "http://localhost:8000", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(requestDict));
+    }
 
     </script>
 
