@@ -67,7 +67,7 @@
                 <div class="row col-12">
                   <button id="BlackHolesShowButton" class='btn btn-secondary btn-block showButton' onclick="goToShow('Black Holes')">Black Holes</button>
                   <button id="OurSolarSystemShowButton" class='btn btn-secondary btn-block showButton' onclick="goToShow('Our Solar System')">Our Solar System</button>
-                  <button id="ThunderingHerdShowButton" class='btn btn-secondary btn-block showButton'>Thundering Herd</button>
+                  <button id="ThunderingHerdShowButton" class='btn btn-secondary btn-block showButton' onclick="goToShow('Thundering Herd')">Thundering Herd</button>
                 </div>
               </div>
               <div class="tab-pane fade mt-2 col-12" id="nav-school-shows" role="tabpanel" aria-labelledby="school-shows-tab">
@@ -138,31 +138,33 @@
     function commandProjector(command) {
 
       // Send a message to the helper to ask it to pass a command to the projector
+      if (touchesBlocked == false) {
+        blockTouch();
+        if (command == "power_on") {
+          $("#projectorOnButton").addClass("btn-success").removeClass("btn-secondary");
+          $("#projectorOffButton").addClass("btn-secondary").removeClass("btn-success");
+        } else if (command =="power_off") {
+          $("#projectorOnButton").addClass("btn-secondary").removeClass("btn-success");
+          $("#projectorOffButton").addClass("btn-success").removeClass("btn-secondary");
+        } else if (command == "set_show") {
+          $("#projectorShowInputButton").addClass("btn-success").removeClass("btn-secondary");
+          $("#projectorStarsInputButton").addClass("btn-secondary").removeClass("btn-success");
+          command = "set_dvi_1";
+        } else if (command == "set_stars") {
+          $("#projectorShowInputButton").addClass("btn-secondary").removeClass("btn-success");
+          $("#projectorStarsInputButton").addClass("btn-success").removeClass("btn-secondary");
+          command = "set_dvi_2";
+        }
 
-      if (command == "power_on") {
-        $("#projectorOnButton").addClass("btn-success").removeClass("btn-secondary");
-        $("#projectorOffButton").addClass("btn-secondary").removeClass("btn-success");
-      } else if (command =="power_off") {
-        $("#projectorOnButton").addClass("btn-secondary").removeClass("btn-success");
-        $("#projectorOffButton").addClass("btn-success").removeClass("btn-secondary");
-      } else if (command == "set_show") {
-        $("#projectorShowInputButton").addClass("btn-success").removeClass("btn-secondary");
-        $("#projectorStarsInputButton").addClass("btn-secondary").removeClass("btn-success");
-        command = "set_dvi_1";
-      } else if (command == "set_stars") {
-        $("#projectorShowInputButton").addClass("btn-secondary").removeClass("btn-success");
-        $("#projectorStarsInputButton").addClass("btn-success").removeClass("btn-secondary");
-        command = "set_dvi_2";
+        var requestDict = {"action": "commandProjector",
+                           "command": command};
+
+        var xhr = new XMLHttpRequest();
+        xhr.timeout = 1000;
+        xhr.open("POST", "http://localhost:8000", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(requestDict));
       }
-
-      var requestDict = {"action": "commandProjector",
-                         "command": command};
-
-      var xhr = new XMLHttpRequest();
-      xhr.timeout = 1000;
-      xhr.open("POST", "http://localhost:8000", true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(JSON.stringify(requestDict));
     }
 
     function getCurrentSettings() {
@@ -214,15 +216,20 @@
 
       // Ask the helper to tell Amateras to switch shows and configure the
       // interface to reflect the change
+      if (touchesBlocked == false) {
+        blockTouch();
+        $(".showButton").addClass("btn-secondary").removeClass("btn-success");
+        if (show == "Black Holes") {
+          $("#BlackHolesShowButton").addClass("btn-success");
+        } else if (show == "Our Solar System") {
+          $("#OurSolarSystemShowButton").addClass("btn-success");
+        } else if (show == "Thundering Herd") {
+          $("#ThunderingHerdShowButton").addClass("btn-success");
+        }
 
-      $(".showButton").addClass("btn-secondary").removeClass("btn-success");
-      if (show == "Black Holes") {
-        $("#BlackHolesShowButton").addClass("btn-success");
-      } else if (show == "Our Solar System") {
-        $("#OurSolarSystemShowButton").addClass("btn-success");
+        commandAmateras("loadPlaylist__"+show);
+        getCurrentSettings();
       }
-
-      commandAmateras("loadPlaylist__"+show);
     }
 
     function triggerLights(show) {
@@ -230,14 +237,17 @@
       // Send a message to the helper to communicate with the DMX controller
       // to play the specified light show
 
-      var requestDict = {"action": "triggerLights",
-                         "show": show};
+      if (touchesBlocked == false) {
+        blockTouch();
+        var requestDict = {"action": "triggerLights",
+                           "show": show};
 
-      var xhr = new XMLHttpRequest();
-      xhr.timeout = 1000;
-      xhr.open("POST", "http://localhost:8000", true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(JSON.stringify(requestDict));
+        var xhr = new XMLHttpRequest();
+        xhr.timeout = 1000;
+        xhr.open("POST", "http://localhost:8000", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(requestDict));
+      }
     }
 
     function updateVolume(source) {
@@ -264,7 +274,21 @@
       xhr.send(JSON.stringify(requestDict));
     }
 
+    function blockTouch() {
+
+      touchesBlocked = true;
+      setTimeout(unblockTouch, 500);
+    }
+
+    function unblockTouch() {
+
+      touchesBlocked = false;
+    }
+
+    var touchesBlocked = false; // Set to true briefly after each click/tap
+
     getCurrentSettings();
+    setInterval(getCurrentSettings, 60000) // every 1 min
 
     </script>
 

@@ -29,6 +29,14 @@ def getMicrophone():
     print("audio_control: getMicrophone: Session not found!")
     return(None)
 
+def setAllVolumes(percent_list):
+
+    # percent_list is [overall, show, microphone] in percent ([0,100])
+
+    setOverallVolume(float(percent_list[0]))
+    setVolume("Amateras", float(percent_list[1]))
+    setVolume("Microphone", float(percent_list[2]))
+
 def setVolume(source, percent):
 
     # Set the volume for a specific source

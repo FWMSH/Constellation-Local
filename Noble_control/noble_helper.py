@@ -163,14 +163,22 @@ def loadAmaterasPlaylist(playlist):
     # Execute a terminal command to load the appropriate playlist
 
     playlist_dict = {
-        "Black Holes": "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\contents\\Black_Holes.lst",
-        "Our Solar System": "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\contents\\Our_Solar_System.lst"
+        "Black Holes": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Black_Holes.lst",
+        "Our Solar System": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Our_Solar_System.lst",
+        "Thundering Herd": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Thundering_Herd.lst"
+    }
+
+    audio_dict = {
+        "Black Holes": [30, 100, 100],
+        "Our Solar System": [60, 10, 100],
+        "Thundering Herd": [30, 100, 100],
     }
 
     if playlist in playlist_dict:
+        if playlist in audio_dict:
+            audio_control.setAllVolumes(audio_dict[playlist])
         command = "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\Amateras Dome Player.exe"
         result = subprocess.run([command, playlist_dict[playlist]], capture_output=True)
-        print(result)
 
 def triggerLights(show):
 
