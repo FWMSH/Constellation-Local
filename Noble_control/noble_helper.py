@@ -120,7 +120,15 @@ def commandAmateras(command):
 
     if command == "playlist_next":
         sock.sendto(bytes("playlist_next", "UTF-8"), ("localhost", 4000))
-    if command.startswith("loadPlaylist"):
+    elif command == "pause":
+        # Dome player
+        sock.sendto(bytes("pause", "UTF-8"), ("localhost", 4001))
+        # Background music
+        sock.sendto(bytes("pause", "UTF-8"), ("localhost", 4003))
+    elif command == "play":
+        # Play dome player
+        sock.sendto(bytes("play", "UTF-8"), ("localhost", 4002))
+    elif command.startswith("loadPlaylist"):
         split = command.split("__")
         loadAmaterasPlaylist(split[1])
 
@@ -185,7 +193,9 @@ def triggerLights(show):
     # Send a command to the DMX controller to trigger a specific show
 
     # Mapping of show names to numbers
-    show_dict = {"blues": 1}
+    show_dict = {"blues": 1,
+                 "black": 10,
+                 "white": 11}
 
     com = iPlayer3_control.connect("COM4")
     iPlayer3_control.trigger_show(com, show_dict[show])

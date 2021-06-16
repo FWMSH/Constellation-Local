@@ -32,22 +32,46 @@
 
       <div class="row mt-4">
         <div class="col-4">
-          <H3>Projector</H3>
           <div class="row col-12">
+            <H3>Projector</H3>
             <div class='col-6'>
-              <button id="projectorOnButton" class="btn btn-secondary btn-block" onclick="commandProjector('power_on')">Projector On</button>
+              <button id="projectorOnButton" class="btn btn-secondary w-100" onclick="commandProjector('power_on')">Projector On</button>
             </div>
             <div class='col-6'>
-              <button id="projectorOffButton" class="btn btn-success btn-block" onclick="commandProjector('power_off')">Projector Off</button>
+              <button id="projectorOffButton" class="btn btn-success w-100" onclick="commandProjector('power_off')">Projector Off</button>
             </div>
           </div>
           <hr>
           <div class="row col-12">
             <div class='col-6'>
-              <button id="projectorShowInputButton" class="btn btn-success btn-block" onclick="commandProjector('set_show')">Input: Show</button>
+              <button id="projectorShowInputButton" class="btn btn-success w-100" onclick="commandProjector('set_show')">Input: Show</button>
             </div>
             <div class='col-6'>
-              <button id="projectorStarsInputButton"class="btn btn-secondary btn-block" onclick="commandProjector('set_stars')">Input: Stars</button>
+              <button id="projectorStarsInputButton"class="btn btn-secondary w-100" onclick="commandProjector('set_stars')">Input: Stars</button>
+            </div>
+          </div>
+          <hr>
+          <div class="row col-12">
+            <H3>Attendance</H3>
+            <form class="col-8">
+              <div class="form-group">
+                <label for="attendanceInputfield">Attendees:</label>
+                <input type="number" id="attendanceInputfield" class="form-control">
+              </div>
+              <div class="form-group mt-3">
+                <label for="attendanceInputfield">Audience:</label>
+                <select id="showTypeSelection" class="form-control">
+                  <option value=""></option>
+                  <option value="public">Public</option>
+                  <option value="school">School</option>
+                </select>
+              </div>
+              <div class="form-group mt-3">
+                <p id="attendanceFormErrorText" class='text-warning'></p>
+              </div>
+            </form>
+            <div class="col-8">
+              <button class="btn btn-primary" onclick="recordAttendanceData()">Record</button>
             </div>
           </div>
         </div>
@@ -106,7 +130,13 @@
           <H4>Playback</H4>
           <div class="row">
             <div class="col-6">
-              <button class="btn btn-primary btn-block" onclick="commandAmateras('playlist_next')">Next Action</button>
+              <button class="btn btn-primary w-100" onclick="commandAmateras('playlist_next')">Next Action</button>
+            </div>
+            <div class="col-6">
+              <button id="showPauseButton" class="btn btn-warning w-100" onclick="pauseShow()">Pause Show</button>
+            </div>
+            <div class="col-12 mt-5">
+              <button id="showStopButton" class="btn btn-danger w-100" onclick="emergencyStop()">Emergency Stop</button>
             </div>
           </div>
         </div>
@@ -167,6 +197,23 @@
       }
     }
 
+    function emergencyStop() {
+
+      // Send commands to stop the show and bring the lights to 100% white
+
+      if (currentlyPlaying) {
+        commandAmateras("pause");
+        triggerLights("white");
+        currentlyPlaying = false;
+        $("#showStopButton").html("Resume").addClass('btn-success').removeClass("btn-danger");
+      } else {
+        commandAmateras("play");
+        triggerLights("black");
+        currentlyPlaying = true;
+        $("#showStopButton").html("Emergency Stop").addClass('btn-danger').removeClass("btn-success");
+      }
+    }
+
     function getCurrentSettings() {
 
       // Ask the helper to poll the various hardware components and return
@@ -216,8 +263,10 @@
 
       // Ask the helper to tell Amateras to switch shows and configure the
       // interface to reflect the change
+
       if (touchesBlocked == false) {
         blockTouch();
+        currentShow = show;
         $(".showButton").addClass("btn-secondary").removeClass("btn-success");
         if (show == "Black Holes") {
           $("#BlackHolesShowButton").addClass("btn-success");
@@ -230,6 +279,70 @@
         commandAmateras("loadPlaylist__"+show);
         getCurrentSettings();
       }
+    }
+
+    function pauseShow() {
+
+      // Send commands to pause the current playback and trigger blue lights
+
+      if (currentlyPlaying) {
+        commandAmateras("pause");
+        triggerLights("blues");
+        currentlyPlaying = false;
+        $("#showPauseButton").html("Resume").addClass('btn-success').removeClass("btn-warning");
+      } else {
+        commandAmateras("play");
+        triggerLights("black");
+        currentlyPlaying = true;
+        $("#showPauseButton").html("Pause Show").addClass('btn-warning').removeClass("btn-success");
+      }
+    }
+
+    function recordAttendanceData() {
+
+      // Function to retrieve inputted data from the attendance form and
+      // submit it to the Noble control server.
+
+      var data = {};
+      var attendance = document.getElementById("attendanceInputfield").value;
+      var audience = document.getElementById("showTypeSelection").value;
+      var date = new Date();
+      if (attendance == "") {
+        document.getElementById("attendanceFormErrorText").innerHTML = "Error: You must entere a number for attendance!";
+        return;
+      }
+      if (audience == "") {
+        document.getElementById("attendanceFormErrorText").innerHTML = "Error: Select an audience from teh dropdown box!";
+        return;
+      }
+
+      resultDict = {"date": date.toISOString(),
+                    "audience": audience,
+                    "tickets": attendance,
+                    "show": currentShow};
+
+      var requestDict = {"class": "tracker",
+                         "action": "submitData",
+                         "data": resultDict,
+                         "name": "attendance"};
+
+      var requestString = JSON.stringify(requestDict);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://10.8.0.168:8084", true);
+      xhr.timeout = 5000;
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+      xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+        if (this.status == 200) {
+          // If the data has been received successfully, clear the form.
+          document.getElementById("attendanceInputfield").value = "";
+          document.getElementById("showTypeSelection").value = "";
+          document.getElementById("attendanceFormErrorText").innerHTML = "";
+        }
+      };
+      xhr.send(requestString);
     }
 
     function triggerLights(show) {
@@ -286,6 +399,8 @@
     }
 
     var touchesBlocked = false; // Set to true briefly after each click/tap
+    var currentlyPlaying = true; // This should be true unless we've pressed the pause show or emergency stop buttons
+    var currentShow = ""; // Will hold the name of the currently-selected show
 
     getCurrentSettings();
     setInterval(getCurrentSettings, 60000) // every 1 min
