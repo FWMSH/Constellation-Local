@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Display Webcam Stream</title>
+<title>Infrared Camera</title>
 
 <style>
 
@@ -47,68 +47,53 @@ body {
 
   // Analytics variables
   var id = "IR_CAMERA";
-  var project = "launchpad";
-	  var heartbeat_server = "http://10.8.0.168:8081";
+	var serverAddress = "http://10.8.0.168:8084";
 
   var video = document.querySelector("#videoElement");
 
-  function heartbeatTimer (){
-
-      // Function to send a heartbeat every ten seconds
-
-      sendHeartbeat()
-      setTimeout(heartbeatTimer, 10000); // 1000 milliseconds = 1 second
-    }
-
   function getNowDateTime() {
 
-      // Function to return a string with the current date and time
-      // Format: 2019-11-25 15:12:15
+    // Function to return a string with the current date and time
+    // Format: 2019-11-25 15:12:15
 
-      var today = new Date();
-      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      var time = padZeros(today.getHours(), 2) + ":" + padZeros(today.getMinutes(), 2) + ":" + padZeros(today.getSeconds(), 2);
-      var now = date+' '+time;
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = padZeros(today.getHours(), 2) + ":" + padZeros(today.getMinutes(), 2) + ":" + padZeros(today.getSeconds(), 2);
+    var now = date+' '+time;
 
-      return now;
-    }
+    return now;
+  }
 
-    function padZeros(n, width, z) {
-      z = z || '0';
-      n = n + '';
-      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-    }
+  function padZeros(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
 
-		function sendCommand(cmd) {
+	function sendPing() {
 
-			// Function to relay a command to the local helper server so that it can
-			// be executed by the machine
+		// Contact the control server and ask for any updates
 
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "http://localhost:8080", true);
-			xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
-			xhr.send("cmd=" + cmd);
-		}
+		requestString = JSON.stringify({"class": "exhibitComponent",
+																		"id": id,
+																		"type": "INTERACTIVE",
+																		"helperPort": 8000});
 
-    function sendHeartbeat(type=1) {
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", serverAddress, true);
+		xhr.timeout = 2000;
+		xhr.setRequestHeader('Content-Type', 'application/json');
 
-      // Function to send a ping to the analytics server to report that we're online
-      // Type 1 heartbeat is sent every ten getSeconds
-      // Type 2 heartbeat is sent every time something is interacted with
+		xhr.onreadystatechange = function () {
 
-      var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-						if (this.responseText != ""){
-							sendCommand(this.responseText);
-						}
-       	}
-    	};
-      xhr.open("POST", self.heartbeat_server, true);
-      xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
-      xhr.send("date=" + getNowDateTime() + "&project=" + project + "&id=" + self.id + "&action=heartbeat-"+type);
+			if (this.readyState != 4) return;
 
-    }
+			if (this.status == 200) {
+				//readUpdate(this.responseText);
+			}
+		};
+		xhr.send(requestString);
+	}
 
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -120,8 +105,7 @@ body {
       });
   }
 
-  // Start the heartbeat timer
-  heartbeatTimer();
+	setInterval(sendPing, 5000);
 
 </script>
 </body>
