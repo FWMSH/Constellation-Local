@@ -9,6 +9,7 @@ import mimetypes
 import cgi
 import socket
 import subprocess
+import time
 
 class RequestHandler(SimpleHTTPRequestHandler):
 
@@ -90,10 +91,19 @@ class RequestHandler(SimpleHTTPRequestHandler):
                 if data["action"] == "commandAmateras":
                     if "command" in data:
                         commandAmateras(data["command"])
+                        # Wait a moment to allow this to take effect
+                        time.sleep(1)
+                        response_dict = getCurrentSettings()
+                        json_string = json.dumps(response_dict)
+                        self.wfile.write(bytes(json_string, encoding="UTF-8"))
                 elif data["action"] == "commandProjector":
                     if "command" in data:
                         commandProjector(data["command"])
-                        #print("Sending projector command:", data["command"])
+                        # Wait a moment to allow this to take effect
+                        time.sleep(1)
+                        response_dict = getCurrentSettings()
+                        json_string = json.dumps(response_dict)
+                        self.wfile.write(bytes(json_string, encoding="UTF-8"))
                 elif data["action"] == "getCurrentSettings":
                     response_dict = getCurrentSettings()
                     json_string = json.dumps(response_dict)
@@ -101,7 +111,9 @@ class RequestHandler(SimpleHTTPRequestHandler):
                 elif data["action"] == "setVolume":
                     if "percent" in data and "source" in data:
                         audio_control.setVolume(data["source"], int(data["percent"]))
-                        #print(f"setting {data['source']} volume:", data["percent"])
+                        response_dict = getCurrentSettings()
+                        json_string = json.dumps(response_dict)
+                        self.wfile.write(bytes(json_string, encoding="UTF-8"))
                     else:
                         print("Errpr: must send value 'percent' to set the volume!")
                 elif data["action"] == "triggerLights":
@@ -173,18 +185,29 @@ def loadAmaterasPlaylist(playlist):
     playlist_dict = {
         "Black Holes": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Black_Holes.lst",
         "Our Solar System": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Our_Solar_System.lst",
+        "Texas Sky Tonight": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Texas_Sky_Tonight.lst",
         "Thundering Herd": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Thundering_Herd.lst"
     }
 
     audio_dict = {
-        "Black Holes": [30, 100, 100],
-        "Our Solar System": [60, 10, 100],
-        "Thundering Herd": [30, 100, 100],
+        "Black Holes": [50, 100, 0],
+        "Our Solar System": [80, 15, 100],
+        "Texas Sky Tonight": [60, 30, 100],
+        "Thundering Herd": [50, 100, 0],
+    }
+
+    input_dict = {
+        "Black Holes": "set_dvi_1",
+        "Our Solar System": "set_dvi_1",
+        "Texas Sky Tonight": "set_dvi_2",
+        "Thundering Herd": "set_dvi_1",
     }
 
     if playlist in playlist_dict:
         if playlist in audio_dict:
             audio_control.setAllVolumes(audio_dict[playlist])
+        if playlist in input_dict:
+            commandProjector(input_dict[playlist])
         command = "C:\\Users\\user\\Desktop\\Do not delete - Amateras\\Amateras Dome Player.exe"
         result = subprocess.run([command, playlist_dict[playlist]], capture_output=True)
 

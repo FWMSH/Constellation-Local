@@ -91,6 +91,7 @@
                 <div class="row col-12">
                   <button id="BlackHolesShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Black Holes')">Black Holes</button>
                   <button id="OurSolarSystemShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Our Solar System')">Our Solar System</button>
+                  <button id="TexasSkyTonightShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Texas Sky Tonight')">Texas Sky Tonight</button>
                   <button id="ThunderingHerdShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Thundering Herd')">Thundering Herd</button>
                 </div>
               </div>
@@ -160,9 +161,16 @@
                          "command": command};
 
       var xhr = new XMLHttpRequest();
-      xhr.timeout = 1000;
+      xhr.timeout = 3000;
       xhr.open("POST", "http://localhost:8000", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (this.readyState != 4) return;
+        if (this.status == 200) {
+          var response = JSON.parse(this.responseText);
+          updateCurrentSettings(response);
+        }
+      };
       xhr.send(JSON.stringify(requestDict));
     }
 
@@ -191,9 +199,16 @@
                            "command": command};
 
         var xhr = new XMLHttpRequest();
-        xhr.timeout = 1000;
+        xhr.timeout = 3000;
         xhr.open("POST", "http://localhost:8000", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+          if (this.readyState != 4) return;
+          if (this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            updateCurrentSettings(response);
+          }
+        };
         xhr.send(JSON.stringify(requestDict));
       }
     }
@@ -223,38 +238,14 @@
       var requestDict = {"action": "getCurrentSettings"};
 
       var xhr = new XMLHttpRequest();
-      xhr.timeout = 1000;
+      xhr.timeout = 3000;
       xhr.open("POST", "http://localhost:8000", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onreadystatechange = function () {
         if (this.readyState != 4) return;
         if (this.status == 200) {
           var response = JSON.parse(this.responseText);
-
-          if ("projector_power_state" in response) {
-            if (response["projector_power_state"] == "on") {
-              $("#projectorOnButton").addClass("btn-success").removeClass("btn-secondary");
-              $("#projectorOffButton").addClass("btn-secondary").removeClass("btn-success");
-            } else {
-              $("#projectorOnButton").addClass("btn-secondary").removeClass("btn-success");
-              $("#projectorOffButton").addClass("btn-success").removeClass("btn-secondary");
-            }
-          }
-          if ("projector_input" in response) {
-            if (response["projector_input"] == "DVI 1") {
-              $("#projectorShowInputButton").addClass("btn-success").removeClass("btn-secondary");
-              $("#projectorStarsInputButton").addClass("btn-secondary").removeClass("btn-success");
-            } else if (response["projector_input"] == "DVI 2") {
-              $("#projectorShowInputButton").addClass("btn-secondary").removeClass("btn-success");
-              $("#projectorStarsInputButton").addClass("btn-success").removeClass("btn-secondary");
-            }
-          }
-          if("system_volumes" in response) {
-            volumes = response["system_volumes"];
-            document.getElementById("overallVolumeSlider").value = volumes[0];
-            document.getElementById("showVolumeSlider").value = volumes[1];
-            document.getElementById("microphoneVolumeSlider").value = volumes[2];
-          }
+          updateCurrentSettings(response);
         }
       };
       xhr.send(JSON.stringify(requestDict));
@@ -273,12 +264,13 @@
           $("#BlackHolesShowButton").addClass("btn-success");
         } else if (show == "Our Solar System") {
           $("#OurSolarSystemShowButton").addClass("btn-success");
+        } else if (show == "Texas Sky Tonight") {
+          $("#TexasSkyTonightShowButton").addClass("btn-success");
         } else if (show == "Thundering Herd") {
           $("#ThunderingHerdShowButton").addClass("btn-success");
         }
 
         commandAmateras("loadPlaylist__"+show);
-        getCurrentSettings();
       }
     }
 
@@ -358,10 +350,41 @@
                            "show": show};
 
         var xhr = new XMLHttpRequest();
-        xhr.timeout = 1000;
+        xhr.timeout = 3000;
         xhr.open("POST", "http://localhost:8000", true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(requestDict));
+      }
+    }
+
+    function updateCurrentSettings(update) {
+
+      // Take a dictionary of settings provided by the helper and use it
+      // to update various aspects of the UI
+
+      if ("projector_power_state" in update) {
+        if (update["projector_power_state"] == "on") {
+          $("#projectorOnButton").addClass("btn-success").removeClass("btn-secondary");
+          $("#projectorOffButton").addClass("btn-secondary").removeClass("btn-success");
+        } else {
+          $("#projectorOnButton").addClass("btn-secondary").removeClass("btn-success");
+          $("#projectorOffButton").addClass("btn-success").removeClass("btn-secondary");
+        }
+      }
+      if ("projector_input" in update) {
+        if (update["projector_input"] == "DVI 1") {
+          $("#projectorShowInputButton").addClass("btn-success").removeClass("btn-secondary");
+          $("#projectorStarsInputButton").addClass("btn-secondary").removeClass("btn-success");
+        } else if (update["projector_input"] == "DVI 2") {
+          $("#projectorShowInputButton").addClass("btn-secondary").removeClass("btn-success");
+          $("#projectorStarsInputButton").addClass("btn-success").removeClass("btn-secondary");
+        }
+      }
+      if("system_volumes" in update) {
+        volumes = update["system_volumes"];
+        document.getElementById("overallVolumeSlider").value = volumes[0];
+        document.getElementById("showVolumeSlider").value = volumes[1];
+        document.getElementById("microphoneVolumeSlider").value = volumes[2];
       }
     }
 
