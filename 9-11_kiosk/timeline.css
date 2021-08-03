@@ -65,6 +65,7 @@ h1 {
   z-index: 1;
 }
 
+/* This controls the appearance of the box for each element */
 .timeline ul li div {
   position: relative;
   bottom: 0;
