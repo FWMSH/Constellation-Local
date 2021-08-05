@@ -19,6 +19,7 @@
         margin: 0px;
         padding: 0px;
         background: #456990;
+        /* cursor: none; */
       }
       ::-webkit-scrollbar {
         width: 0;
@@ -168,8 +169,12 @@
       $('.hero-image').not("#heroImage-"+id.split("-")[1]).animate({opacity:0, queue:false});
       $("#heroImage-"+id.split("-")[1]).animate({opacity: 1, queue:false})
     }
-    selectTopic("icon-attack");
-    window.addEventListener("load", function(){$("#fadeOutZone").animate({opacity: 1})});
+
+    $(document).ready(function(){
+      selectTopic("icon-attack");
+      $("#fadeOutZone").animate({opacity: 1, queue: false}, 1000)
+    });
+    //window.addEventListener("DOMContentLoaded", function(){});
 
   </script>
 
