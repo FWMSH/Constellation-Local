@@ -41,12 +41,21 @@
         position: absolute;
         width: 60vw;
         height: 25vh;
-        top: 30vh;
+        top: 40vh;
         left: 20vw;
         background-color: rgba(1,1,1, 0.5);
       }
       #fadeOutZone {
         opacity: 0;
+      }
+      #header {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #header-text {
+        font-size: 55px;
       }
       #icon-attack {
       }
@@ -58,7 +67,7 @@
       }
       #icon-row {
         position: absolute;
-        top: 55vh;
+        top: 65vh;
         height: 25vh;
         width: 100vw;
       }
@@ -79,6 +88,14 @@
 
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
+
+      <header id='header' class='bg-secondary sticky-top'>
+        <div class="row">
+          <div id='header-text' class="col-12 text-center text-white">
+            Explore the Events of 9/11
+          </div>
+        </div>
+      </header>
 
       <div id="fadeOutZone">
 

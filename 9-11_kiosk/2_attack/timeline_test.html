@@ -24,9 +24,19 @@
         width: 0;
       }
       .timeline {
+        margin-bottom: 100px;
       }
       #fadeOutZone {
         opacity: 0;
+      }
+      #header {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #header-text {
+        font-size: 85px;
       }
       #toolbar {
         height:5vh;
@@ -37,6 +47,15 @@
 
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
+
+      <header id='header' class='bg-secondary sticky-top'>
+        <div class="row">
+          <div id='header-text' class="col-12 text-center text-white">
+            Attack
+          </div>
+        </div>
+      </header>
+
       <div id='fadeOutZone'>
         <section class="timeline">
           <ul>
