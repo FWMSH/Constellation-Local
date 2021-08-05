@@ -20,24 +20,23 @@
       ::-webkit-scrollbar {
         width: 0;
       }
+      .hero-image {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+      }
       .icon {
-        height: 10vh;
-        width: 10vw;
-        border-style: solid;
-        border-width: 1px;
-        border-color: white;
+        height: 100%;
+        align-items: flex-end;
+        display: flex;
       }
       #icon-attack {
-        background-color: red;
       }
       #icon-legacy {
-        background-color: green;
       }
       #icon-prologue {
-        background-color: blue;
       }
       #icon-response {
-        background-color: orange;
       }
       #icon-row {
         position: absolute;
@@ -46,7 +45,6 @@
         width: 100vw;
       }
       #icon-terror {
-        background-color: yellow;
       }
       #learn-more {
         position: absolute;
@@ -56,7 +54,6 @@
       #top-panel {
         width: 100vw;
         height: 70vh;
-        background-color: black;
       }
     </style>
   </head>
@@ -66,6 +63,11 @@
     <main id='mainContainer' role="main" class="container-fluid px-0">
 
       <div id="top-panel">
+        <img id="heroImage-prologue" class="hero-image" src="media/1_Looming_Crisis.jpeg" width="100%"></img>
+        <img id="heroImage-attack" class="hero-image" src="media/2_Attack.jpeg" width="100%"></img>
+        <img id="heroImage-response" class="hero-image" src="media/3_Rescue.jpeg" width="100%"></img>
+        <img id="heroImage-terror" class="hero-image" src="media/4_Military_Response.jpeg" width="100%"></img>
+        <img id="heroImage-legacy" class="hero-image" src="media/5_Legacy.jpeg" width="100%"></img>
 
         <button id='learn-more' class='btn btn-secondary' onclick="gotoPage()">Learn More</button>
 
@@ -73,25 +75,30 @@
 
       <div id='icon-row' class='row mt-5 align-items-end'>
         <div class='col'>
-          <div id="icon-attack" class="icon mx-auto" onclick="selectTopic('icon-attack')">
+          <div id="icon-prologue" class='icon mx-auto' onclick="selectTopic('icon-prologue')">
+            <img src='thumbnails/1_Looming_Crisis.jpeg' width="100%"></img>
           </div>
         </div>
         <div class='col'>
-          <div id="icon-prologue" class='icon mx-auto' onclick="selectTopic('icon-prologue')">
+          <div id="icon-attack" class="icon mx-auto" onclick="selectTopic('icon-attack')">
+            <img src='thumbnails/2_Attack.jpeg' width="100%"></img>
           </div>
         </div>
         <div class='col'>
           <center>
             <div id="icon-response" class="icon mx-auto" onclick="selectTopic('icon-response')">
+              <img src='thumbnails/3_Rescue.jpeg' width="100%"></img>
             </div>
           </center>
         </div>
         <div class='col'>
           <div id="icon-terror" class="icon mx-auto" onclick="selectTopic('icon-terror')">
+            <img src='thumbnails/4_Military_Response.jpeg' width="100%"></img>
           </div>
         </div>
         <div class='col'>
           <div id="icon-legacy" class="icon mx-auto" onclick="selectTopic('icon-legacy')">
+            <img src='thumbnails/5_Legacy.jpeg' width="100%"></img>
           </div>
         </div>
       </div>
@@ -106,7 +113,7 @@
 
     function gotoPage() {
 
-      $("#mainContainer").fadeOut(400, function(){window.location.href = 'timeline_test.html' });
+      $("#mainContainer").fadeOut(400, function(){window.location.href = '2_attack/timeline_test.html' });
       //window.location.href = 'timeline_test.html';
     }
 
@@ -115,7 +122,11 @@
       // Called when an icon is clicked
       $(".icon").animate({width: "10vw", height: "10vh"}, {duration:150, queue:false})
       $("#"+id).animate({width: "25vw", height: "25vh"}, {duration:150, queue:false})
-      $("#top-panel").css({backgroundColor: $("#"+id).css("backgroundColor")})
+
+      $('.hero-image').not("#heroImage-"+id.split("-")[1]).animate({opacity:0, queue:false});
+      $("#heroImage-"+id.split("-")[1]).animate({opacity: 1, queue:false})
+
+
     }
 
   </script>
