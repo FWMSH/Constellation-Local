@@ -194,14 +194,7 @@
       if (newSize < 20) {
         newSize = 20;
       }
-      $("#description-text").animate({fontSize: newSize}, 100);
-
-      newSize = parseInt($("#learn-more").css("fontSize").slice(0,-2)) - 3;
-      if (newSize < 20) {
-        newSize = 20;
-      }
-      $("#learn-more").animate({fontSize: newSize}, 100);
-
+      fontSizeSet(newSize);
     }
 
     function fontSizeIncrease() {
@@ -210,20 +203,27 @@
       if (newSize > 50) {
         newSize = 50;
       }
-      $("#description-text").animate({fontSize: newSize}, 100);
-
-      newSize = parseInt($("#learn-more").css("fontSize").slice(0,-2)) + 3;
-      if (newSize > 50) {
-        newSize = 50;
-      }
-      $("#learn-more").animate({fontSize: newSize}, 100);
+      fontSizeSet(newSize);
 
     }
 
     function fontSizeReset() {
 
-      $("#description-text").animate({fontSize: 20, queue: false})
+      fontSizeSet(20);
       $("#description-text").animate({scrollTop: 0, queue: false});
+    }
+
+    function fontSizeSet(size, animate=true) {
+
+      var duration;
+      if (animate) {
+        duration = 100;
+      } else {
+        duration = 0;
+      }
+
+      $("#learn-more").animate({fontSize: size, queue: false}, duration);
+      $("#description-text").animate({fontSize: size, queue: false}, duration);
 
     }
 
@@ -281,6 +281,10 @@
       // Reset the attractor count if a click occurs
       currentIdleTime = 0;
     });
+    document.addEventListener('touchstart', function(event) {
+      // Reset the attractor count if a click occurs
+      currentIdleTime = 0;
+    }
 
     attractorIntervalReference = setInterval(attractor, attractorIntervalTime*1000);
 
