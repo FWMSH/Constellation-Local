@@ -15,6 +15,7 @@
       body, html {
         margin: 0px;
         padding: 0px;
+        background: #456990;
       }
       .icon {
         height: 10vh;
@@ -44,6 +45,11 @@
       #icon-terror {
         background-color: yellow;
       }
+      #learn-more {
+        position: absolute;
+        top: 50vh;
+        left: 45vw;
+      }
       #top-panel {
         width: 100vw;
         height: 70vh;
@@ -54,9 +60,12 @@
 
 
   <body>
-    <main role="main" class="container-fluid px-0">
+    <main id='mainContainer' role="main" class="container-fluid px-0">
 
       <div id="top-panel">
+
+        <button id='learn-more' class='btn btn-secondary' onclick="gotoPage()">Learn More</button>
+
       </div>
 
       <div id='icon-row' class='row mt-5 align-items-end'>
@@ -92,6 +101,11 @@
 
   <script>
 
+    function gotoPage() {
+
+      $("#mainContainer").fadeOut(400, function(){window.location.href = 'timeline_test.html' });
+      //window.location.href = 'timeline_test.html';
+    }
 
     function selectTopic(id) {
 

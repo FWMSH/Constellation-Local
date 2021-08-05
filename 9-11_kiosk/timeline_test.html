@@ -16,18 +16,14 @@
         margin: 0px;
         padding: 0px;
       }
+      .timeline {
+        opacity: 0;
+      }
     </style>
   </head>
 
 
   <body>
-
-    <section class="intro">
-      <div class="container">
-        <h1>Swipe to Explore Events During the Attacks &darr;</h1>
-      </div>
-    </section>
-
     <section class="timeline">
       <ul>
         <li>
@@ -204,6 +200,8 @@
         for (var i = 0; i < items.length; i++) {
           if (isElementInViewport(items[i])) {
             items[i].classList.add("in-view");
+          } else {
+            items[i].classList.remove("in-view");
           }
         }
       }
@@ -213,7 +211,8 @@
       window.addEventListener("resize", callbackFunc);
       window.addEventListener("scroll", callbackFunc);
     })();
-
+    window.addEventListener("load", function(){$(".timeline").animate({opacity: 1})
+;})
 
   </script>
 </html>
