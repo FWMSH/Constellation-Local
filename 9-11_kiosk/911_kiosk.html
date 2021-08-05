@@ -54,6 +54,11 @@
         left: 10vw;
         background-color: rgba(0,0,0, 0.5);
       }
+      #description-text {
+        height: 17vh;
+        overflow: scroll;
+        font-size: 20px;
+      }
       #fadeOutZone {
         opacity: 0;
       }
@@ -119,9 +124,8 @@
 
 
           <div id="content-pane" class="row mx-0 px-0">
-            <div class="text-white col-12 mt-3 px-3">
+            <div id="description-text" class="text-white col-12 mt-3 px-3">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
             </div>
             <div class='col-12 text-center mt-1'>
               <button id='learn-more' class='btn btn-lg btn-secondary' onclick="gotoPage()">Learn More</button>
@@ -168,10 +172,10 @@
             <button class='btn btn-primary w-100 h-100'>Espanol</button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100'><font size="3rem">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="3rem">A</font></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100'><font size="5rem">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="5rem">A</font></button>
           </div>
         </div>
       </footer>
@@ -182,6 +186,33 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
   <script>
+
+
+    function fontSizeDecrease() {
+
+      var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) - 3;
+      if (newSize < 20) {
+        newSize = 20;
+      }
+      $("#description-text").css({fontSize: newSize});
+
+    }
+
+    function fontSizeIncrease() {
+
+      var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) + 3;
+      if (newSize > 50) {
+        newSize = 50;
+      }
+      $("#description-text").css({fontSize: newSize});
+
+    }
+
+    function fontSizeReset() {
+
+      $("#description-text").css({fontSize: 20})
+
+    }
 
     function gotoPage() {
 
@@ -198,7 +229,7 @@
         firstStarted = false;
       }
       if (currentIdleTime > idleTimeLimit) {
-        console.log("here")
+        fontSizeReset();
         selectTopic(attractorSequence[attractorPosition]);
         attractorPosition += 1;
         if (attractorPosition > 4) {
@@ -226,11 +257,11 @@
     var attractorIntervalTime = 3; // Seconds between switches
     var idleTimeLimit = 30; // Seconds from last interaction until we show the attractor
     var currentIdleTime = 0;
-    var firstStarted = true
+    var firstStarted = false
 
 
     $(document).ready(function(){
-      selectTopic("icon-prlogue");
+      selectTopic("icon-prologue");
       $("#fadeOutZone").animate({opacity: 1, queue: false}, 400)
     });
     $(document).click(function(event){
