@@ -15,6 +15,15 @@
 
     <style>
 
+      @font-face {
+        font-family: Gotham-Bold;
+        src: url(Gotham-Bold.otf);
+      }
+      @font-face {
+        font-family: Gotham-Book;
+        src: url(Gotham-Book.otf);
+      }
+
       body, html {
         margin: 0px;
         padding: 0px;
@@ -55,7 +64,8 @@
         justify-content: center;
       }
       #header-text {
-        font-size: 55px;
+        font-size: 50px;
+        font-family: Gotham-Bold;
       }
       #icon-attack {
       }
@@ -71,20 +81,21 @@
         height: 25vh;
         width: 100vw;
       }
-      #icon-terror {
+      #icon-military {
       }
       #learn-more {
       }
       #toolbar {
         height:5vh;
+        font-family: Gotham-Book;
       }
       #top-panel {
         width: 100vw;
         height: 70vh;
+        font-family: Gotham-Book;
       }
     </style>
   </head>
-
 
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
@@ -103,7 +114,7 @@
           <img id="heroImage-prologue" class="hero-image" src="media/1_Looming_Crisis.jpeg" width="100%"></img>
           <img id="heroImage-attack" class="hero-image" src="media/2_Attack.jpeg" width="100%"></img>
           <img id="heroImage-response" class="hero-image" src="media/3_Rescue.jpeg" width="100%"></img>
-          <img id="heroImage-terror" class="hero-image" src="media/4_Military_Response.jpeg" width="100%"></img>
+          <img id="heroImage-military" class="hero-image" src="media/4_Military_Response.jpeg" width="100%"></img>
           <img id="heroImage-legacy" class="hero-image" src="media/5_Legacy.jpeg" width="100%"></img>
 
 
@@ -140,7 +151,7 @@
             </center>
           </div>
           <div class='col px-0'>
-            <div id="icon-terror" class="icon mx-auto" onclick="selectTopic('icon-terror')">
+            <div id="icon-military" class="icon mx-auto" onclick="selectTopic('icon-military')">
               <img src='thumbnails/4_Military_Response.jpeg' width="100%"></img>
             </div>
           </div>
@@ -178,6 +189,26 @@
       //window.location.href = 'timeline_test.html';
     }
 
+    function attractor() {
+
+      // firstStarted == true when the page is first loaded; we start the
+      // attractor right away
+      if (firstStarted) {
+        currentIdleTime = idleTimeLimit + 1;
+        firstStarted = false;
+      }
+      if (currentIdleTime > idleTimeLimit) {
+        console.log("here")
+        selectTopic(attractorSequence[attractorPosition]);
+        attractorPosition += 1;
+        if (attractorPosition > 4) {
+          attractorPosition = 0;
+        }
+      } else {
+        currentIdleTime += attractorIntervalTime;
+      }
+    }
+
     function selectTopic(id) {
 
       // Called when an icon is clicked
@@ -188,11 +219,26 @@
       $("#heroImage-"+id.split("-")[1]).animate({opacity: 1, queue:false})
     }
 
+    // Attractor variables
+    var attractorSequence = ["icon-prologue", "icon-attack", "icon-response", "icon-military", "icon-legacy"];
+    var attractorPosition =2; // Index of where we are in the sequence
+    var attractorIntervalReference = null; // Will hold a reference to the setInterval instance
+    var attractorIntervalTime = 3; // Seconds between switches
+    var idleTimeLimit = 30; // Seconds from last interaction until we show the attractor
+    var currentIdleTime = 0;
+    var firstStarted = true
+
+
     $(document).ready(function(){
       selectTopic("icon-attack");
       $("#fadeOutZone").animate({opacity: 1, queue: false}, 400)
     });
-    //window.addEventListener("DOMContentLoaded", function(){});
+    $(document).click(function(event){
+      // Reset the attractor count if a click occurs
+      currentIdleTime = 0;
+    });
+
+    attractorIntervalReference = setInterval(attractor, attractorIntervalTime*1000);
 
   </script>
 
