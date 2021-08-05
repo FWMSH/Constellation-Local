@@ -43,6 +43,9 @@
         left: 20vw;
         background-color: rgba(1,1,1, 0.5);
       }
+      #fadeOutZone {
+        opacity: 0;
+      }
       #icon-attack {
       }
       #icon-legacy {
@@ -75,58 +78,60 @@
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
 
-      <div id="top-panel">
-        <img id="heroImage-prologue" class="hero-image" src="media/1_Looming_Crisis.jpeg" width="100%"></img>
-        <img id="heroImage-attack" class="hero-image" src="media/2_Attack.jpeg" width="100%"></img>
-        <img id="heroImage-response" class="hero-image" src="media/3_Rescue.jpeg" width="100%"></img>
-        <img id="heroImage-terror" class="hero-image" src="media/4_Military_Response.jpeg" width="100%"></img>
-        <img id="heroImage-legacy" class="hero-image" src="media/5_Legacy.jpeg" width="100%"></img>
+      <div id="fadeOutZone">
+
+        <div id="top-panel">
+          <img id="heroImage-prologue" class="hero-image" src="media/1_Looming_Crisis.jpeg" width="100%"></img>
+          <img id="heroImage-attack" class="hero-image" src="media/2_Attack.jpeg" width="100%"></img>
+          <img id="heroImage-response" class="hero-image" src="media/3_Rescue.jpeg" width="100%"></img>
+          <img id="heroImage-terror" class="hero-image" src="media/4_Military_Response.jpeg" width="100%"></img>
+          <img id="heroImage-legacy" class="hero-image" src="media/5_Legacy.jpeg" width="100%"></img>
 
 
-        <div id="content-pane" class="row">
-          <div class="text-white col-12 mt-3 mx-3">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <div id="content-pane" class="row">
+            <div class="text-white col-12 mt-3 mx-3">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-          </div>
-          <div class='col-12 text-center mt-1'>
-            <button id='learn-more' class='btn btn-lg btn-secondary' onclick="gotoPage()">Learn More</button>
-          </div>
-        </div>
-
-
-
-      </div>
-
-      <div id='icon-row' class='row mt-5 mx-0 align-items-end'>
-        <div class='col px-0'>
-          <div id="icon-prologue" class='icon mx-auto' onclick="selectTopic('icon-prologue')">
-            <img src='thumbnails/1_Looming_Crisis.jpeg' width="100%"></img>
-          </div>
-        </div>
-        <div class='col px-0'>
-          <div id="icon-attack" class="icon mx-auto" onclick="selectTopic('icon-attack')">
-            <img src='thumbnails/2_Attack.jpeg' width="100%"></img>
-          </div>
-        </div>
-        <div class='col px-0'>
-          <center>
-            <div id="icon-response" class="icon mx-auto" onclick="selectTopic('icon-response')">
-              <img src='thumbnails/3_Rescue.jpeg' width="100%"></img>
             </div>
-          </center>
-        </div>
-        <div class='col px-0'>
-          <div id="icon-terror" class="icon mx-auto" onclick="selectTopic('icon-terror')">
-            <img src='thumbnails/4_Military_Response.jpeg' width="100%"></img>
+            <div class='col-12 text-center mt-1'>
+              <button id='learn-more' class='btn btn-lg btn-secondary' onclick="gotoPage()">Learn More</button>
+            </div>
           </div>
+
+
+
         </div>
-        <div class='col px-0'>
-          <div id="icon-legacy" class="icon mx-auto" onclick="selectTopic('icon-legacy')">
-            <img src='thumbnails/5_Legacy.jpeg' width="100%"></img>
+
+        <div id='icon-row' class='row mt-5 mx-0 align-items-end'>
+          <div class='col px-0'>
+            <div id="icon-prologue" class='icon mx-auto' onclick="selectTopic('icon-prologue')">
+              <img src='thumbnails/1_Looming_Crisis.jpeg' width="100%"></img>
+            </div>
+          </div>
+          <div class='col px-0'>
+            <div id="icon-attack" class="icon mx-auto" onclick="selectTopic('icon-attack')">
+              <img src='thumbnails/2_Attack.jpeg' width="100%"></img>
+            </div>
+          </div>
+          <div class='col px-0'>
+            <center>
+              <div id="icon-response" class="icon mx-auto" onclick="selectTopic('icon-response')">
+                <img src='thumbnails/3_Rescue.jpeg' width="100%"></img>
+              </div>
+            </center>
+          </div>
+          <div class='col px-0'>
+            <div id="icon-terror" class="icon mx-auto" onclick="selectTopic('icon-terror')">
+              <img src='thumbnails/4_Military_Response.jpeg' width="100%"></img>
+            </div>
+          </div>
+          <div class='col px-0'>
+            <div id="icon-legacy" class="icon mx-auto" onclick="selectTopic('icon-legacy')">
+              <img src='thumbnails/5_Legacy.jpeg' width="100%"></img>
+            </div>
           </div>
         </div>
       </div>
-
       <footer id='toolbar' class='bg-secondary fixed-bottom'>
         <div class='row h-100 gx-1'>
           <div class='col-2'>
@@ -150,7 +155,7 @@
 
     function gotoPage() {
 
-      $("#mainContainer").fadeOut(400, function(){window.location.href = '2_attack/timeline_test.html'});
+      $("#fadeOutZone").fadeOut(400, function(){window.location.href = '2_attack/timeline_test.html'});
       //window.location.href = 'timeline_test.html';
     }
 
@@ -162,9 +167,9 @@
 
       $('.hero-image').not("#heroImage-"+id.split("-")[1]).animate({opacity:0, queue:false});
       $("#heroImage-"+id.split("-")[1]).animate({opacity: 1, queue:false})
-
-
     }
+    selectTopic("icon-attack");
+    window.addEventListener("load", function(){$("#fadeOutZone").animate({opacity: 1})});
 
   </script>
 
