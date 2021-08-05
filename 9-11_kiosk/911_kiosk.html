@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <meta name="description" content="">
     <meta name="author" content="Morgan Rehnberg">
 
@@ -26,9 +29,19 @@
         opacity: 0;
       }
       .icon {
-        height: 100%;
+        width: 17vw;
         align-items: flex-end;
         display: flex;
+        border-style: solid;
+        border-color: #456990;
+      }
+      #content-pane {
+        position: absolute;
+        width: 60vw;
+        height: 25vh;
+        top: 30vh;
+        left: 20vw;
+        background-color: rgba(1,1,1, 0.5);
       }
       #icon-attack {
       }
@@ -47,9 +60,6 @@
       #icon-terror {
       }
       #learn-more {
-        position: absolute;
-        top: 50vh;
-        left: 45vw;
       }
       #top-panel {
         width: 100vw;
@@ -69,34 +79,45 @@
         <img id="heroImage-terror" class="hero-image" src="media/4_Military_Response.jpeg" width="100%"></img>
         <img id="heroImage-legacy" class="hero-image" src="media/5_Legacy.jpeg" width="100%"></img>
 
-        <button id='learn-more' class='btn btn-secondary' onclick="gotoPage()">Learn More</button>
+
+        <div id="content-pane" class="row">
+          <div class="text-white col-12 mt-3 mx-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+          </div>
+          <div class='col-12 text-center mt-1'>
+            <button id='learn-more' class='btn btn-lg btn-secondary' onclick="gotoPage()">Learn More</button>
+          </div>
+        </div>
+
+
 
       </div>
 
-      <div id='icon-row' class='row mt-5 align-items-end'>
-        <div class='col'>
+      <div id='icon-row' class='row mt-5 mx-0 align-items-end'>
+        <div class='col px-0'>
           <div id="icon-prologue" class='icon mx-auto' onclick="selectTopic('icon-prologue')">
             <img src='thumbnails/1_Looming_Crisis.jpeg' width="100%"></img>
           </div>
         </div>
-        <div class='col'>
+        <div class='col px-0'>
           <div id="icon-attack" class="icon mx-auto" onclick="selectTopic('icon-attack')">
             <img src='thumbnails/2_Attack.jpeg' width="100%"></img>
           </div>
         </div>
-        <div class='col'>
+        <div class='col px-0'>
           <center>
             <div id="icon-response" class="icon mx-auto" onclick="selectTopic('icon-response')">
               <img src='thumbnails/3_Rescue.jpeg' width="100%"></img>
             </div>
           </center>
         </div>
-        <div class='col'>
+        <div class='col px-0'>
           <div id="icon-terror" class="icon mx-auto" onclick="selectTopic('icon-terror')">
             <img src='thumbnails/4_Military_Response.jpeg' width="100%"></img>
           </div>
         </div>
-        <div class='col'>
+        <div class='col px-0'>
           <div id="icon-legacy" class="icon mx-auto" onclick="selectTopic('icon-legacy')">
             <img src='thumbnails/5_Legacy.jpeg' width="100%"></img>
           </div>
@@ -120,8 +141,8 @@
     function selectTopic(id) {
 
       // Called when an icon is clicked
-      $(".icon").animate({width: "10vw", height: "10vh"}, {duration:150, queue:false})
-      $("#"+id).animate({width: "25vw", height: "25vh"}, {duration:150, queue:false})
+      $(".icon").animate({width: "17vw"}, {duration:150, queue:false})
+      $("#"+id).animate({width: "23vw"}, {duration:150, queue:false})
 
       $('.hero-image').not("#heroImage-"+id.split("-")[1]).animate({opacity:0, queue:false});
       $("#heroImage-"+id.split("-")[1]).animate({opacity: 1, queue:false})
