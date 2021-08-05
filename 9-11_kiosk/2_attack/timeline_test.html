@@ -183,12 +183,22 @@
       </section>
 
       <footer id='toolbar' class='bg-secondary fixed-bottom'>
+        <div class='row h-100'>
+          <div class='col-4 offset-4'>
+            <button class='btn btn-lg w-100 h-100 btn-success' onclick="goHome()">Go Home</button>
+          </div>
+        </div>
       </footer>
     </main>
   </body>
 
   <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
   <script>
+
+    function goHome() {
+
+      $("#mainContainer").fadeOut(400, function(){window.location.href = '../911_kiosk.html'});
+    }
 
     // Start timeline
     (function () {
