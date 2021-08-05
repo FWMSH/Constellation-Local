@@ -221,7 +221,7 @@
 
     // Attractor variables
     var attractorSequence = ["icon-prologue", "icon-attack", "icon-response", "icon-military", "icon-legacy"];
-    var attractorPosition =2; // Index of where we are in the sequence
+    var attractorPosition = 1; // Index of where we are in the sequence
     var attractorIntervalReference = null; // Will hold a reference to the setInterval instance
     var attractorIntervalTime = 3; // Seconds between switches
     var idleTimeLimit = 30; // Seconds from last interaction until we show the attractor
@@ -230,7 +230,7 @@
 
 
     $(document).ready(function(){
-      selectTopic("icon-attack");
+      selectTopic("icon-prlogue");
       $("#fadeOutZone").animate({opacity: 1, queue: false}, 400)
     });
     $(document).click(function(event){
