@@ -194,7 +194,13 @@
       if (newSize < 20) {
         newSize = 20;
       }
-      $("#description-text").css({fontSize: newSize});
+      $("#description-text").animate({fontSize: newSize}, 100);
+
+      newSize = parseInt($("#learn-more").css("fontSize").slice(0,-2)) - 3;
+      if (newSize < 20) {
+        newSize = 20;
+      }
+      $("#learn-more").animate({fontSize: newSize}, 100);
 
     }
 
@@ -204,13 +210,20 @@
       if (newSize > 50) {
         newSize = 50;
       }
-      $("#description-text").css({fontSize: newSize});
+      $("#description-text").animate({fontSize: newSize}, 100);
+
+      newSize = parseInt($("#learn-more").css("fontSize").slice(0,-2)) + 3;
+      if (newSize > 50) {
+        newSize = 50;
+      }
+      $("#learn-more").animate({fontSize: newSize}, 100);
 
     }
 
     function fontSizeReset() {
 
-      $("#description-text").css({fontSize: 20})
+      $("#description-text").animate({fontSize: 20, queue: false})
+      $("#description-text").animate({scrollTop: 0, queue: false});
 
     }
 
