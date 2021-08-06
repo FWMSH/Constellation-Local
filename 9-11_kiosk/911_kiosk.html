@@ -52,7 +52,7 @@
         height: 25vh;
         top: 45vh;
         left: 10vw;
-        background-color: rgba(0,0,0, 0.5);
+        background-color: rgba(0,0,0, 0.6);
       }
       #description-text {
         height: 17vh;
@@ -169,7 +169,7 @@
       <footer id='toolbar' class='bg-secondary fixed-bottom'>
         <div class='row h-100 gx-1'>
           <div class='col-2'>
-            <button class='btn btn-primary w-100 h-100'>Espanol</button>
+            <button class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
           </div>
           <div class='col-1'>
             <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="3rem">A</font></button>
@@ -185,14 +185,45 @@
   <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
+  <script type="text/javascript" src="content.js"></script>
+
   <script>
 
+    function attractor() {
+
+      // firstStarted == true when the page is first loaded; we start the
+      // attractor right away
+      if (firstStarted) {
+        currentIdleTime = idleTimeLimit + 1;
+        firstStarted = false;
+      }
+      if (currentIdleTime > idleTimeLimit) {
+        fontSizeReset();
+        setLang("en");
+        currentPosition += 1;
+        if (currentPosition > 4) {
+          currentPosition = 0;
+        }
+        selectTopic(attractorSequence[currentPosition]);
+      } else {
+        currentIdleTime += attractorIntervalTime;
+      }
+    }
 
     function fontSizeDecrease() {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) - 3;
       if (newSize < 20) {
         newSize = 20;
+      } else {
+        // Also change the size of the content pane
+        newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) - 30;
+        newTop = parseInt($("#content-pane").css("top").slice(0,-2)) + 30;
+        newLeft = parseInt($("#content-pane").css("left").slice(0,-2)) + 5;
+        newWidth = parseInt($("#content-pane").css("width").slice(0,-2)) - 10;
+        newDescHeight = parseInt($("#description-text").css("height").slice(0,-2)) - 25;
+        $("#content-pane").css({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth});
+        $("#description-text").css({"height": newDescHeight})
       }
       fontSizeSet(newSize);
     }
@@ -202,8 +233,18 @@
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) + 3;
       if (newSize > 50) {
         newSize = 50;
+      } else {
+        // Also change the size of the content pane
+        newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) + 30;
+        newWidth = parseInt($("#content-pane").css("width").slice(0,-2)) + 10;
+        newTop = parseInt($("#content-pane").css("top").slice(0,-2)) - 30;
+        newLeft = parseInt($("#content-pane").css("left").slice(0,-2)) - 5;
+        newDescHeight = parseInt($("#description-text").css("height").slice(0,-2)) + 25;
+        $("#content-pane").css({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth});
+        $("#description-text").css({"height": newDescHeight})
       }
       fontSizeSet(newSize);
+
 
     }
 
@@ -233,45 +274,92 @@
       //window.location.href = 'timeline_test.html';
     }
 
-    function attractor() {
+    function localize() {
 
-      // firstStarted == true when the page is first loaded; we start the
-      // attractor right away
-      if (firstStarted) {
-        currentIdleTime = idleTimeLimit + 1;
-        firstStarted = false;
-      }
-      if (currentIdleTime > idleTimeLimit) {
-        fontSizeReset();
-        selectTopic(attractorSequence[attractorPosition]);
-        attractorPosition += 1;
-        if (attractorPosition > 4) {
-          attractorPosition = 0;
-        }
-      } else {
-        currentIdleTime += attractorIntervalTime;
-      }
+      // Make sure every content field has content for the appropriate language
+
+      $("#header-text").html(title_text[currentLang]);
+      $("#learn-more").html(learn_more_button_text[currentLang]);
+      setDescription(currentTopic);
     }
 
     function selectTopic(id) {
 
       // Called when an icon is clicked
+
+      var topic = id.split("-")[1]
       $(".icon").animate({width: "17vw"}, {duration:150, queue:false})
       $("#"+id).animate({width: "23vw"}, {duration:150, queue:false})
 
-      $('.hero-image').not("#heroImage-"+id.split("-")[1]).animate({opacity:0, queue:false});
-      $("#heroImage-"+id.split("-")[1]).animate({opacity: 1, queue:false})
+      $('.hero-image').not("#heroImage-"+topic).animate({opacity:0, queue:false});
+      $("#heroImage-"+topic).animate({opacity: 1, queue:false})
+      setDescription(topic);
+    }
+
+    function setDescription(topic) {
+
+        // Change the text in the description box
+        currentTopic = topic;
+
+        var textToSet = "";
+        switch (topic) {
+          case "prologue":
+            textToSet = prologue_description[currentLang];
+            currentPosition = 0;
+            break;
+          case "attack":
+            textToSet = attack_description[currentLang];
+            currentPosition = 1;
+            break;
+          case "response":
+            textToSet = response_description[currentLang];
+              currentPosition = 2;
+            break;
+          case "military":
+            textToSet = military_description[currentLang];
+            currentPosition = 3;
+            currentTopic = topic;
+            break;
+          case "legacy":
+            textToSet = legacy_description[currentLang];
+            currentPosition = 4;
+            currentTopic = topic;
+            break;
+          default:
+            console.log("Error, unknown topic:", topic)
+            return;
+        }
+      $("#description-text").html(textToSet);
+    }
+
+    function setLang(lang) {
+
+      currentLang = lang;
+      localize();
+    }
+
+    function toggleLang() {
+
+      // Switch between English and Spanish, updating visible content.
+      if (currentLang == "en") {
+        currentLang = "es";
+      } else {
+        currentLang = "en";
+      }
+      localize();
     }
 
     // Attractor variables
     var attractorSequence = ["icon-prologue", "icon-attack", "icon-response", "icon-military", "icon-legacy"];
-    var attractorPosition = 1; // Index of where we are in the sequence
+    var currentPosition = 0; // Index of where we are in the sequence
     var attractorIntervalReference = null; // Will hold a reference to the setInterval instance
     var attractorIntervalTime = 3; // Seconds between switches
     var idleTimeLimit = 30; // Seconds from last interaction until we show the attractor
     var currentIdleTime = 0;
-    var firstStarted = false
+    var firstStarted = false;
 
+    var currentLang = "en";
+    var currentTopic = "prologue";
 
     $(document).ready(function(){
       selectTopic("icon-prologue");
