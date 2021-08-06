@@ -169,7 +169,7 @@
       <footer id='toolbar' class='bg-secondary fixed-bottom'>
         <div class='row h-100 gx-1'>
           <div class='col-2'>
-            <button class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
+            <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
           </div>
           <div class='col-1'>
             <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="3rem">A</font></button>
@@ -282,6 +282,7 @@
 
       $("#header-text").html(title_text[currentLang]);
       $("#learn-more").html(learn_more_button_text[currentLang]);
+      $("#langToggleButton").html(lang_toggle_text[currentLang]);
       setDescription(currentTopic);
     }
 
