@@ -43,6 +43,13 @@
       .timeline {
         margin-bottom: 100px;
       }
+      #body-col {
+        height: 85vh;
+        overflow-y: scroll;
+      }
+      content-pane {
+        height: 85vh;
+      }
       #fadeOutZone {
         opacity: 0;
       }
@@ -55,6 +62,10 @@
       #header-text {
         font-size: 85px;
         font-family: Gotham-Bold;
+      }
+      #timeline-col {
+        height: 85vh;
+        overflow-y: scroll;
       }
       #toolbar {
         height:5vh;
@@ -75,9 +86,9 @@
       </header>
 
       <div id='fadeOutZone'>
-        <div class='row'>
+        <div id='content-pane' class='row'>
           <!-- Left side: Timeline -->
-          <div class="col-6">
+          <div id="timeline-col" class="col-6">
             <section class="timeline">
               <ul>
                 <li>
@@ -227,7 +238,7 @@
             </section>
           </div>
           <!-- Right side: Story -->
-          <div class="col-6">
+          <div id='body-col' class="col-6">
             <div class="body-text">
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus arcu felis bibendum ut tristique et egestas quis. Tempus imperdiet nulla malesuada pellentesque elit. Tempor orci dapibus ultrices in iaculis nunc sed augue. Cursus vitae congue mauris rhoncus. Id ornare arcu odio ut sem. Neque sodales ut etiam sit amet nisl purus. Diam sit amet nisl suscipit adipiscing bibendum. Et malesuada fames ac turpis egestas sed tempus. At quis risus sed vulputate odio ut enim blandit volutpat. Convallis convallis tellus id interdum. Nam at lectus urna duis convallis convallis tellus.
