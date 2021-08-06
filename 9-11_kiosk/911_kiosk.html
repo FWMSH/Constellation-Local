@@ -252,6 +252,8 @@
 
       fontSizeSet(20);
       $("#description-text").animate({scrollTop: 0, queue: false});
+      $("#content-pane").css({"height": 320, "left": 72, "top": 576, "width": 576});
+      $("#description-text").css({"height": 217})
     }
 
     function fontSizeSet(size, animate=true) {
