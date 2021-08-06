@@ -222,8 +222,8 @@
         newLeft = parseInt($("#content-pane").css("left").slice(0,-2)) + 5;
         newWidth = parseInt($("#content-pane").css("width").slice(0,-2)) - 10;
         newDescHeight = parseInt($("#description-text").css("height").slice(0,-2)) - 25;
-        $("#content-pane").css({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth});
-        $("#description-text").css({"height": newDescHeight})
+        $("#content-pane").animate({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth, queue: false}, 100);
+        $("#description-text").animate({"height": newDescHeight, queue: false}, 100);
       }
       fontSizeSet(newSize);
     }
@@ -240,8 +240,8 @@
         newTop = parseInt($("#content-pane").css("top").slice(0,-2)) - 30;
         newLeft = parseInt($("#content-pane").css("left").slice(0,-2)) - 5;
         newDescHeight = parseInt($("#description-text").css("height").slice(0,-2)) + 25;
-        $("#content-pane").css({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth});
-        $("#description-text").css({"height": newDescHeight})
+        $("#content-pane").animate({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth, queue: false}, 100);
+        $("#description-text").animate({"height": newDescHeight, queue: false}, 100);
       }
       fontSizeSet(newSize);
 
@@ -252,8 +252,8 @@
 
       fontSizeSet(20);
       $("#description-text").animate({scrollTop: 0, queue: false});
-      $("#content-pane").css({"height": 320, "left": 72, "top": 576, "width": 576});
-      $("#description-text").css({"height": 217})
+      $("#content-pane").animate({"height": 320, "left": 72, "top": 576, "width": 576, queue: false}, 100);
+      $("#description-text").animate({"height": 217, queue: false}, 100)
     }
 
     function fontSizeSet(size, animate=true) {
