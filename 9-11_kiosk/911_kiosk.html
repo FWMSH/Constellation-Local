@@ -65,7 +65,7 @@
       #description-text {
         height: 17vh;
         overflow: scroll;
-        font-size: 40px;
+        font-size: 50px;
       }
       #fadeOutZone {
         opacity: 0;
@@ -100,7 +100,7 @@
         font-size: 60px;
       }
       #learn-more {
-        font-size: 40px;
+        font-size: 50px;
         font-family: Gotham-Medium;
       }
       #toolbar {
@@ -185,10 +185,10 @@
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="50px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="55px">A</font></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="80px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="90px">A</font></button>
           </div>
         </div>
       </footer>
@@ -226,8 +226,8 @@
     function fontSizeDecrease() {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) - 3;
-      if (newSize < 40) {
-        newSize = 40;
+      if (newSize < 50) {
+        newSize = 50;
       } else {
         // Also change the size of the content pane
         newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) - 30;
@@ -244,8 +244,8 @@
     function fontSizeIncrease() {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) + 3;
-      if (newSize > 70) {
-        newSize = 70;
+      if (newSize > 80) {
+        newSize = 80;
       } else {
         // Also change the size of the content pane
         newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) + 30;
