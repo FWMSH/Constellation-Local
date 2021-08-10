@@ -57,7 +57,7 @@
       #description-text {
         height: 17vh;
         overflow: scroll;
-        font-size: 20px;
+        font-size: 40px;
       }
       #fadeOutZone {
         opacity: 0;
@@ -69,7 +69,7 @@
         justify-content: center;
       }
       #header-text {
-        font-size: 50px;
+        font-size: 150px;
         font-family: Gotham-Bold;
       }
       #icon-attack {
@@ -213,8 +213,8 @@
     function fontSizeDecrease() {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) - 3;
-      if (newSize < 20) {
-        newSize = 20;
+      if (newSize < 40) {
+        newSize = 40;
       } else {
         // Also change the size of the content pane
         newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) - 30;
@@ -231,8 +231,8 @@
     function fontSizeIncrease() {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) + 3;
-      if (newSize > 50) {
-        newSize = 50;
+      if (newSize > 70) {
+        newSize = 70;
       } else {
         // Also change the size of the content pane
         newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) + 30;
@@ -252,8 +252,15 @@
 
       fontSizeSet(20);
       $("#description-text").animate({scrollTop: 0, queue: false});
-      $("#content-pane").animate({"height": 320, "left": 72, "top": 576, "width": 576, queue: false}, 100);
-      $("#description-text").animate({"height": 217, queue: false}, 100)
+      $("#content-pane").animate({"height": contentPaneHeightDefault,
+                                  "left": contentPaneLeftDefault,
+                                  "top": contentPaneTopDefault,
+                                  "width": contentPaneWidthDefault,
+                                  queue: false}
+                                  , 100);
+      $("#description-text").animate({"height": descriptionHeightDefault,
+                                     queue: false},
+                                     100)
     }
 
     function fontSizeSet(size, animate=true) {
@@ -360,12 +367,25 @@
     var currentIdleTime = 0;
     var firstStarted = false;
 
+    // Layout defautls. Set to null now, will be filled when document loads
+    contentPaneHeightDefault = null;
+    contentPaneWidthDefault = null;
+    contentPaneLeftDefault = null;
+    contentPaneTopDefault = null;
+    descriptionHeightDefault = null;
+
     var currentLang = "en";
     var currentTopic = "prologue";
 
     $(document).ready(function(){
       selectTopic("icon-prologue");
       $("#fadeOutZone").animate({opacity: 1, queue: false}, 400)
+
+      contentPaneHeightDefault = parseInt($("#content-pane").css("height").slice(0,-2));
+      contentPaneWidthDefault = parseInt($("#content-pane").css("width").slice(0,-2));
+      contentPaneTopDefault = parseInt($("#content-pane").css("top").slice(0,-2));
+      contentPaneLeftDefault = parseInt($("#content-pane").css("left").slice(0,-2));
+      descriptionHeightDefault = parseInt($("#content-pane").css("height").slice(0,-2));
     });
     $(document).click(function(event){
       // Reset the attractor count if a click occurs
