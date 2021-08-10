@@ -84,7 +84,7 @@ h1 {
 }
 
 .timeline ul li:nth-child(odd) div {
-  left: 95px;
+  left: 45px;
 }
 
 .timeline ul li:nth-child(odd) div::before {
@@ -94,7 +94,7 @@ h1 {
 }
 
 .timeline ul li:nth-child(even) div {
-  left: -439px;
+  left: -539px;
 }
 
 .timeline ul li:nth-child(even) div::before {
