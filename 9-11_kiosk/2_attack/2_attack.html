@@ -342,7 +342,7 @@
     }
 
     // Start timeline
-    
+
     // define variables
     var items = document.querySelectorAll(".timeline li");
 
@@ -359,7 +359,7 @@
       );
     }
 
-    function callbackFunc() {
+    function checkTimelineElementsInView() {
       for (var i = 0; i < items.length; i++) {
         if (isElementInViewport(items[i])) {
           items[i].classList.add("in-view");
@@ -370,10 +370,12 @@
     }
 
     // listen for events
-    window.addEventListener("load", callbackFunc);
-    window.addEventListener("resize", callbackFunc);
-    window.addEventListener("touchmove", callbackFunc);
-    window.addEventListener("scroll", callbackFunc);
+    window.addEventListener("load", checkTimelineElementsInView);
+    window.addEventListener("resize", checkTimelineElementsInView);
+    window.addEventListener("touchmove", checkTimelineElementsInView);
+    window.addEventListener("scroll", checkTimelineElementsInView);
+
+    setInterval(checkTimelineElementsInView, 50);
 
     window.addEventListener("load", function(){$("#fadeOutZone").animate({opacity: 1})})
 
