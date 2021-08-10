@@ -188,7 +188,7 @@
             <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="55px">A</font></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="90px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="110px">A</font></button>
           </div>
         </div>
       </footer>
@@ -264,7 +264,6 @@
     function fontSizeReset() {
 
       fontSizeSet(50);
-      $("#description-text").animate({scrollTop: 0, queue: false});
       $("#content-pane").animate({"height": contentPaneHeightDefault,
                                   "left": contentPaneLeftDefault,
                                   "top": contentPaneTopDefault,
@@ -274,6 +273,8 @@
       $("#description-text").animate({"height": descriptionHeightDefault,
                                      queue: false},
                                      100)
+      $("#description-text").animate({scrollTop: 0, queue: false});
+
     }
 
     function fontSizeSet(size, animate=true) {
