@@ -69,7 +69,7 @@ h1 {
 .timeline ul li div {
   position: relative;
   bottom: 0;
-  width: 500px;
+  width: 450px;
   padding: 15px;
   background: #f45b69;
 }
@@ -94,7 +94,7 @@ h1 {
 }
 
 .timeline ul li:nth-child(even) div {
-  left: -539px;
+  left: -489px;
 }
 
 .timeline ul li:nth-child(even) div::before {
@@ -204,7 +204,7 @@ time {
     margin-left: 20px;
   }
   .timeline ul li div {
-    width: calc(50vw - 191px);
+    width: calc(50vw - 91px);
   }
   .timeline ul li:nth-child(even) div {
     left: 45px;
