@@ -204,7 +204,7 @@ time {
     margin-left: 20px;
   }
   .timeline ul li div {
-    width: calc(50vw - 91px);
+    width: calc(50vw - 191px);
   }
   .timeline ul li:nth-child(even) div {
     left: 45px;
