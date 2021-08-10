@@ -23,6 +23,14 @@
         font-family: Gotham-Book;
         src: url(Gotham-Book.otf);
       }
+      @font-face {
+        font-family: Gotham-Medium;
+        src: url(Gotham-Medium.otf);
+      }
+      @font-face {
+        font-family: Gotham-Light;
+        src: url(Gotham-Light.otf);
+      }
 
       body, html {
         margin: 0px;
@@ -88,11 +96,16 @@
       }
       #icon-military {
       }
+      #langToggleButton {
+        font-size: 40px;
+      }
       #learn-more {
+        font-size: 40px;
+        font-family: Gotahm-Medium;
       }
       #toolbar {
-        height:5vh;
-        font-family: Gotham-Book;
+        height: 5vh;
+        font-family: Gotham-Medium;
       }
       #top-panel {
         width: 100vw;
@@ -172,10 +185,10 @@
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="3rem">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecrease()"><font size="40px">A</font></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="5rem">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncrease()"><font size="70px">A</font></button>
           </div>
         </div>
       </footer>
@@ -250,7 +263,7 @@
 
     function fontSizeReset() {
 
-      fontSizeSet(20);
+      fontSizeSet(40);
       $("#description-text").animate({scrollTop: 0, queue: false});
       $("#content-pane").animate({"height": contentPaneHeightDefault,
                                   "left": contentPaneLeftDefault,
