@@ -40,6 +40,14 @@
       ::-webkit-scrollbar {
         width: 0;
       }
+      .quote-body {
+        font-family: Gotham-Medium;
+        font-size: 100px;
+      }
+      .quote-name {
+        font-family: Gotham-Light;
+        font-size: 50px;
+      }
       .timeline {
         margin-bottom: 100px;
       }
@@ -246,12 +254,12 @@
               </p>
               <div class="card me-3 mt-2 mb-2 bg-secondary" style="width: 50%; float: left;">
                 <div class="card-body">
-                  <p class="card-text fs-3 fst-italic">
+                  <p class="quote-body card-text fst-italic">
                     Oh, my goodness. There's another one!
                   </p>
                 </div>
                 <div class="card-footer">
-                  <p class="card-text fs-6">
+                  <p class="quote-name card-text fs-6">
                     WNYW reporter Jim Ryan, upon seeing the impact on the South Tower.
                   </p>
                 </div>
@@ -326,6 +334,7 @@
       window.addEventListener("load", callbackFunc);
       window.addEventListener("resize", callbackFunc);
       window.addEventListener("touchmove", callbackFunc);
+      window.addEventListener("scroll", callbackFunc);
     })();
     window.addEventListener("load", function(){$("#fadeOutZone").animate({opacity: 1})
 ;})
