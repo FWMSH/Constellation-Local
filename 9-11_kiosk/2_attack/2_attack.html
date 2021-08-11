@@ -386,18 +386,22 @@
 
   <script>
 
+
+  function checkTimelineElementsInView() {
+
+    var items = document.querySelectorAll(".timeline li");
+    for (var i = 0; i < items.length; i++) {
+      if (isElementInViewport(items[i])) {
+        items[i].classList.add("in-view");
+      } else {
+        items[i].classList.remove("in-view");
+      }
+    }
+  }
+
   function createTimeline() {
 
     // Read the timelineContentList and create a timeline element for each item
-
-    // <li>
-    //   <div>
-    //     <time class='time-4'>9:55 AM</time>
-    //     <p class="size-4">President Bush boards Air Force One</p>
-    //     <p class="timeline-body">Air Force One lifts off in Florida to ensure the President's safety. They do not have a plan about where to go.</p>
-    //     <img width=100%; src="thumbnails/President_George_W._Bush_aboard_Air_Force_One_Public_Domain.jpg"></img>
-    //   </div>
-    // </li>
 
     timelineContentList.forEach((item, i) => {
 
@@ -451,6 +455,19 @@
       $("#imageLightbox").animate({opacity: 0, queue: false}, {complete: temp, duration: 100});
     }
 
+    // check if an element is in viewport
+    // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+    function isElementInViewport(el) {
+      var rect = el.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+
     function showImageInLightBox(image, caption="", credit="") {
 
       // Set the img source to the provided image, set the caption, and reveal
@@ -467,36 +484,10 @@
       $("#imageLightbox").css("display", "flex").animate({opacity: 1, queue: false}, 100);
     }
 
-    // Start timeline
-
-    // check if an element is in viewport
-    // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
-    function isElementInViewport(el) {
-      var rect = el.getBoundingClientRect();
-      return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <=
-          (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-      );
-    }
-
-    function checkTimelineElementsInView() {
-
-      var items = document.querySelectorAll(".timeline li");
-      for (var i = 0; i < items.length; i++) {
-        if (isElementInViewport(items[i])) {
-          items[i].classList.add("in-view");
-        } else {
-          items[i].classList.remove("in-view");
-        }
-      }
-    }
-
     var currentLang = "en";
 
-
+    // Populate timeline
+    createTimeline();
     setInterval(checkTimelineElementsInView, 100);
 
     // When the page loads, fade in the content
