@@ -98,7 +98,7 @@
         font-size: 50px;
         background-color: rgba(0, 0, 0, 0.9);
       }
-      #imageLightboxCaption {
+      #imageLightboxCredit {
         font-size: 35px;
         background-color: rgba(0, 0, 0, 0.9);
       }
@@ -399,7 +399,7 @@
       document.getElementById("imageLightboxImage").src = "media/" + image;
       document.getElementById("imageLightboxCaption").innerHTML = caption;
       if (credit != "") {
-        document.getElementById("imageLightboxCredit").innerHTML = "Image credit: " + caption;
+        document.getElementById("imageLightboxCredit").innerHTML = "Image credit: " + credit;
       } else {
         document.getElementById("imageLightboxCredit").innerHTML = "";
       }
