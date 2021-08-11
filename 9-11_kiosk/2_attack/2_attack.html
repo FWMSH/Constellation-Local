@@ -57,7 +57,7 @@
       }
       .quote-name {
         font-family: Gotham-Light;
-        font-size: 50px;
+        font-size: 35px;
       }
       .timeline {
         margin-bottom: 100px;
@@ -166,8 +166,8 @@
           <!-- Left side: Timeline -->
           <div id="timeline-col" class="col-6 border-end border-white">
             <section class="timeline">
-              <ul>
-                <li>
+              <ul id="timeline-content">
+                <!-- <li>
                   <div>
                     <time class='time-3'>7:59 AM</time>
                     <p class='size-3'>AA11 departs Boston, headed for Los Angeles</p>
@@ -309,7 +309,7 @@
                     <p class='size-3'>7 WTC falls</p>
                     <img width=100%; src="thumbnails/Wtc7onfire_Public_Domain.jpg"></img>
                   </div>
-                </li>
+                </li> -->
               </ul>
             </section>
           </div>
@@ -382,7 +382,61 @@
   </body>
 
   <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="content.js"></script>
+
   <script>
+
+  function createTimeline() {
+
+    // Read the timelineContentList and create a timeline element for each item
+
+    // <li>
+    //   <div>
+    //     <time class='time-4'>9:55 AM</time>
+    //     <p class="size-4">President Bush boards Air Force One</p>
+    //     <p class="timeline-body">Air Force One lifts off in Florida to ensure the President's safety. They do not have a plan about where to go.</p>
+    //     <img width=100%; src="thumbnails/President_George_W._Bush_aboard_Air_Force_One_Public_Domain.jpg"></img>
+    //   </div>
+    // </li>
+
+    timelineContentList.forEach((item, i) => {
+
+      var newItem = document.createElement("li");
+      var div = document.createElement("div");
+
+      var time = document.createElement("time");
+      time.className = `time-${item.rank}`;
+      time.innerHTML = item["time_" + currentLang];
+      div.appendChild(time);
+
+      var title = document.createElement("p");
+      title.className = `size-${item.rank}`;
+      title.innerHTML = item["title_" + currentLang];
+      div.appendChild(title);
+
+      var body = document.createElement("p");
+      body.className = "timeline-body";
+      body.innerHTML = item["body_" + currentLang];
+      div.append(body);
+
+      if ("image" in item && item["image"] != "") {
+        var img = document.createElement("img");
+        img.src = "thumbnails/" + item["image"];
+        img.style.width = "100%";
+        img.addEventListener("click", function() {
+          showImageInLightBox(item["image"],
+                              item["caption_" + currentLang],
+                              item["credit_" + currentLang]);
+        })
+
+        div.appendChild(img);
+      }
+
+      newItem.appendChild(div);
+      document.getElementById("timeline-content").appendChild(newItem);
+      console.log(newItem);
+    });
+  }
 
     function goHome() {
 
@@ -404,7 +458,7 @@
 
       document.getElementById("imageLightboxImage").src = "media/" + image;
       document.getElementById("imageLightboxCaption").innerHTML = caption;
-      if (credit != "") {
+      if (credit != "" && credit != null) {
         document.getElementById("imageLightboxCredit").innerHTML = "Image credit: " + credit;
       } else {
         document.getElementById("imageLightboxCredit").innerHTML = "";
@@ -414,9 +468,6 @@
     }
 
     // Start timeline
-
-    // define variables
-    var items = document.querySelectorAll(".timeline li");
 
     // check if an element is in viewport
     // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
@@ -432,6 +483,8 @@
     }
 
     function checkTimelineElementsInView() {
+
+      var items = document.querySelectorAll(".timeline li");
       for (var i = 0; i < items.length; i++) {
         if (isElementInViewport(items[i])) {
           items[i].classList.add("in-view");
@@ -441,14 +494,12 @@
       }
     }
 
-    // listen for events
-    // window.addEventListener("load", checkTimelineElementsInView);
-    // window.addEventListener("resize", checkTimelineElementsInView);
-    // window.addEventListener("touchmove", checkTimelineElementsInView);
-    // window.addEventListener("scroll", checkTimelineElementsInView);
+    var currentLang = "en";
+
 
     setInterval(checkTimelineElementsInView, 100);
 
+    // When the page loads, fade in the content
     window.addEventListener("load", function(){$("#fadeOutZone").animate({opacity: 1})})
 
   </script>
