@@ -328,7 +328,7 @@
       if (currentIdleTime > idleTimeLimit) {
         link = '../911_kiosk.html?attractor'
       } else {
-        link = `../911_kiosk.html?lang=${currentLang}`
+        link = `../911_kiosk.html?lang=${currentLang}&size=${fontTicks}`
       }
       $("#fadeOutZone").animate({opacity: 0, queue: false}, 400, function(){window.location.href = link;});
     }
@@ -418,6 +418,9 @@
       if (searchParams.has("lang")) {
         setLang(searchParams.get("lang"));
       }
+      if (searchParams.has("size")) {
+        fontTicks = parseInt(searchParams.get("size"));
+      }
     }
 
     function populateBody() {
@@ -477,6 +480,7 @@
     var currentLang = "en";
     var currentIdleTime = 0;
     var idleTimeLimit = 60;
+    var fontTicks = 0;
 
     setInterval(checkIdleTime, 5000); // Every five seconds
 
