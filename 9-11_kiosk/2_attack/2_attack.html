@@ -246,6 +246,16 @@
 
   <script>
 
+  function checkIdleTime() {
+
+    // If the idle time has exceed our limit, return to the attractor page
+
+    currentIdleTime += 5;
+
+    if (currentIdleTime > idleTimeLimit) {
+      goHome();
+    }
+  }
 
   function checkTimelineElementsInView() {
 
@@ -290,7 +300,6 @@
         button.className = "btn btn-outline-primary btn-learn";
         button.innerHTML = "Learn more";
         button.onclick = function() {
-          console.log("here")
           goToParagraph(item["link"]);
         }
         div.append(button);
@@ -448,6 +457,19 @@
     }
 
     var currentLang = "en";
+    var currentIdleTime = 0;
+    var idleTimeLimit = 60;
+
+    setInterval(checkIdleTime, 5000); // Every five seconds
+
+    $(document).click(function(event){
+      // Reset the attractor count if a click occurs
+      currentIdleTime = 0;
+    });
+    document.addEventListener('touchstart', function(event) {
+      // Reset the attractor count if a click occurs
+      currentIdleTime = 0;
+    });
 
     // Populate timeline
     createTimeline();
