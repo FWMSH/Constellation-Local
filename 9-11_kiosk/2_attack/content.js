@@ -24,7 +24,8 @@ var timelineContentList = [
     time_es: "8:14 AM",
     body_en: "Five hijackers gain control of the aircraft, turning the plane south.",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "paragraph2"
   },
   {
     title_en: "AA77 departs Washington, headed for Los Angeles",
