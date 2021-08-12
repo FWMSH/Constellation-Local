@@ -41,11 +41,14 @@
         font-family: Gotham-Medium;
         font-size: 75px;
       }
+      p {
+        outline-width: 5px;
+        outline-style: dotted;
+        outline-color: rgba(0,0,0,0);
+        transition: all 2s;
+      }
       ::-webkit-scrollbar {
         width: 0;
-      }
-      .body-text {
-        font-size: 50px;
       }
       .caption-text {
         font-family: Gotham-Light;
@@ -65,6 +68,9 @@
       #body-col {
         height: 85vh;
         overflow-y: scroll;
+      }
+      #body-text {
+        font-size: 50px;
       }
       content-pane {
         height: 85vh;
@@ -171,9 +177,9 @@
           </div>
           <!-- Right side: Story -->
           <div id='body-col' class="col-6 pe-4 pt-4 border-start border-white">
-            <div class="body-text">
+            <div id="body-text">
               <H1>Just another day</H1>
-              <p>
+              <p id="paragraph1">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus arcu felis bibendum ut tristique et egestas quis. Tempus imperdiet nulla malesuada pellentesque elit. Tempor orci dapibus ultrices in iaculis nunc sed augue. Cursus vitae congue mauris rhoncus. Id ornare arcu odio ut sem. Neque sodales ut etiam sit amet nisl purus. Diam sit amet nisl suscipit adipiscing bibendum. Et malesuada fames ac turpis egestas sed tempus. At quis risus sed vulputate odio ut enim blandit volutpat. Convallis convallis tellus id interdum. Nam at lectus urna duis convallis convallis tellus.
               </p>
               <div class="card me-3 mt-2 mb-2 bg-secondary" style="width: 100%; float: left;">
@@ -189,7 +195,7 @@
                 </div>
               </div>
               <H1>One plane goes silent. And then another one.</H1>
-              <p>
+              <p id="paragraph2">
                 Elementum tempus egestas sed sed risus pretium. Posuere sollicitudin aliquam ultrices sagittis. Senectus et netus et malesuada fames ac turpis. Sit amet tellus cras adipiscing enim eu turpis egestas. Amet venenatis urna cursus eget nunc scelerisque viverra mauris. Ultrices neque ornare aenean euismod elementum. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Nunc non blandit massa enim nec dui nunc mattis enim. Sit amet consectetur adipiscing elit ut aliquam purus sit amet.
               </p>
               <div class="card me-3 mt-2 mb-2 bg-transparent" style="width: 50%; float: right;">
@@ -203,7 +209,7 @@
                 </div>
               </div>
               <H1>No ordinary hijackings</H1>
-              <p>
+              <p id="paragraph3">
                 Amet purus gravida quis blandit turpis cursus in. Non tellus orci ac auctor augue mauris. Enim praesent elementum facilisis leo vel fringilla est ullamcorper. Sit amet mauris commodo quis imperdiet massa tincidunt nunc. Turpis egestas maecenas pharetra convallis posuere morbi leo urna. Pellentesque elit eget gravida cum sociis natoque. Nec dui nunc mattis enim. Turpis nunc eget lorem dolor. Vel quam elementum pulvinar etiam.
               </p>
             </div>
@@ -279,6 +285,17 @@
       body.innerHTML = item["body_" + currentLang];
       div.append(body);
 
+      if ("link" in item && item["link"] != "") {
+        var button = document.createElement("button");
+        button.className = "btn btn-outline-primary btn-learn";
+        button.innerHTML = "Learn more";
+        button.onclick = function() {
+          console.log("here")
+          goToParagraph(item["link"]);
+        }
+        div.append(button);
+      }
+
       if ("image" in item && item["image"] != "") {
         var img = document.createElement("img");
         img.src = "thumbnails/" + item["image"];
@@ -294,13 +311,36 @@
 
       newItem.appendChild(div);
       document.getElementById("timeline-content").appendChild(newItem);
-      console.log(newItem);
     });
   }
 
     function goHome() {
 
       $("#fadeOutZone").animate({opacity: 0, queue: false}, 400, function(){window.location.href = '../911_kiosk.html';});
+    }
+
+    function goToParagraph(id) {
+
+      // Scroll the text column to the given paragraph and outline it for
+      // several seconds
+
+      var para = $("#" + id);
+      var col = $("#body-col");
+
+      var fadeOutBorder = function() {
+        para.css({"outline-color": ("rgba(0,0,0,0)")});
+      };
+
+      var fadeInBorder = function() {
+        para.css({"outline-color": "yellow"});
+        setTimeout(fadeOutBorder, 2000);
+      };
+
+
+      var scrollDuration = Math.abs(para.offset().top - col.offset().top - 100) + 500 // ms
+      col.animate({scrollTop: para.offset().top - col.offset().top + col.scrollTop() - 100}, {complete: fadeInBorder, duration: scrollDuration});
+
+
     }
 
     function hideImageLightBox() {

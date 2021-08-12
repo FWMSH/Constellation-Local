@@ -104,7 +104,8 @@ var timelineContentList = [
     time_es: "9:24 AM",
     body_en: "The pilots do not understand the warning and ask for clarification.",
     body_es: "Spanish body",
-    rank: 4
+    rank: 4,
+    link: "paragraph3"
   },
   {
     title_en: "UA93 is hijacked",
