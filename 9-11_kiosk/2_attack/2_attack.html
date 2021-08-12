@@ -165,9 +165,7 @@
 
       <header id='header' class='bg-secondary sticky-top'>
         <div class="row">
-          <div id='header-text' class="col-12 text-center text-white">
-            Attack
-          </div>
+          <div id='header-text' class="col-12 text-center text-white"></div>
         </div>
       </header>
 
@@ -218,7 +216,7 @@
       <footer id='toolbar' class='bg-secondary fixed-bottom'>
         <div class='row gx-1 h-100'>
           <div class='col-2'>
-            <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
+            <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();"></button>
           </div>
           <div class='col-1'>
             <button class='btn btn-primary w-100 h-100'><font size="55px">A</font></button>
@@ -227,7 +225,7 @@
             <button class='btn btn-primary w-100 h-100'><font size="110px">A</font></button>
           </div>
           <div class='col-4'>
-            <button id='goHomeButton' class='btn btn-lg w-100 h-100 btn-success' onclick="goHome()">Go Home</button>
+            <button id='goHomeButton' class='btn btn-lg w-100 h-100 btn-success' onclick="goHome()"></button>
           </div>
           <div id="sponsorDiv" class='col-4 pe-2 h-100'>
             <div>
@@ -325,7 +323,14 @@
 
     function goHome() {
 
-      $("#fadeOutZone").animate({opacity: 0, queue: false}, 400, function(){window.location.href = '../911_kiosk.html';});
+      // Add user parameters to link
+      var link;
+      if (currentIdleTime > idleTimeLimit) {
+        link = '../911_kiosk.html?attractor'
+      } else {
+        link = `../911_kiosk.html?lang=${currentLang}`
+      }
+      $("#fadeOutZone").animate({opacity: 0, queue: false}, 400, function(){window.location.href = link;});
     }
 
     function goToParagraph(id) {
@@ -402,6 +407,19 @@
       }
     }
 
+    function parseQueryString() {
+
+      // Read the query string to determine what options to set
+
+      var queryString = decodeURIComponent(window.location.search);
+
+      var searchParams = new URLSearchParams(queryString);
+
+      if (searchParams.has("lang")) {
+        setLang(searchParams.get("lang"));
+      }
+    }
+
     function populateBody() {
 
       // Parse the bodyContentList and fill in the appropriate content where
@@ -471,7 +489,8 @@
       currentIdleTime = 0;
     });
 
-    // Populate timeline
+    // Build the page
+    parseQueryString();
     createTimeline();
     populateBody();
     setInterval(checkTimelineElementsInView, 100);

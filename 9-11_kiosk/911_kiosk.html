@@ -238,56 +238,48 @@
       }
     }
 
-    function fontSizeDecrease() {
+    function fontSizeDecrease(animate=true) {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) - 3;
       if (newSize < 50) {
         newSize = 50;
       } else {
-        // Also change the size of the content pane
-        newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) - 30;
-        newTop = parseInt($("#content-pane").css("top").slice(0,-2)) + 30;
-        newLeft = parseInt($("#content-pane").css("left").slice(0,-2)) + 5;
-        newWidth = parseInt($("#content-pane").css("width").slice(0,-2)) - 10;
-        newDescHeight = parseInt($("#description-text").css("height").slice(0,-2)) - 25;
-        $("#content-pane").animate({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth, queue: false}, 100);
-        $("#description-text").animate({"height": newDescHeight, queue: false}, 100);
+        fontTicks -= 1;
       }
+
+      var duration;
+      if (animate == true) {
+        duration = 100;
+      } else {
+        duration = 0;
+      }
+
       fontSizeSet(newSize);
     }
 
-    function fontSizeIncrease() {
+    function fontSizeIncrease(animate=true) {
 
       var newSize = parseInt($("#description-text").css("fontSize").slice(0,-2)) + 3;
       if (newSize > 80) {
         newSize = 80;
       } else {
-        // Also change the size of the content pane
-        newHeight = parseInt($("#content-pane").css("height").slice(0,-2)) + 30;
-        newWidth = parseInt($("#content-pane").css("width").slice(0,-2)) + 10;
-        newTop = parseInt($("#content-pane").css("top").slice(0,-2)) - 30;
-        newLeft = parseInt($("#content-pane").css("left").slice(0,-2)) - 5;
-        newDescHeight = parseInt($("#description-text").css("height").slice(0,-2)) + 25;
-        $("#content-pane").animate({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth, queue: false}, 100);
-        $("#description-text").animate({"height": newDescHeight, queue: false}, 100);
+        fontTicks += 1;
       }
+
+      var duration;
+      if (animate == true) {
+        duration = 100;
+      } else {
+        duration = 0;
+      }
+
       fontSizeSet(newSize);
-
-
     }
 
     function fontSizeReset() {
 
+      fontTicks = 0;
       fontSizeSet(50);
-      $("#content-pane").animate({"height": contentPaneHeightDefault,
-                                  "left": contentPaneLeftDefault,
-                                  "top": contentPaneTopDefault,
-                                  "width": contentPaneWidthDefault,
-                                  queue: false}
-                                  , 100);
-      $("#description-text").animate({"height": descriptionHeightDefault,
-                                     queue: false},
-                                     100)
       $("#description-text").animate({scrollTop: 0, queue: false});
 
     }
@@ -301,14 +293,29 @@
         duration = 0;
       }
 
+      newHeight = contentPaneHeightDefault  + 30*fontTicks;
+      newTop = contentPaneTopDefault - 30*fontTicks;
+      newLeft = contentPaneLeftDefault -  5*fontTicks;
+      newWidth = contentPaneWidthDefault +  10*fontTicks;
+      newDescHeight = descriptionHeightDefault +  25*fontTicks;
+      // newHeight = contentPaneHeightDefault + parseInt($("#content-pane").css("height").slice(0,-2)) + 30*fontTicks;
+      // newTop = contentPaneTopDefault + parseInt($("#content-pane").css("top").slice(0,-2)) + 30*fontTicks;
+      // newLeft = contentPaneLeftDefault + parseInt($("#content-pane").css("left").slice(0,-2)) + 5*fontTicks;
+      // newWidth = contentPaneWidthDefault + parseInt($("#content-pane").css("width").slice(0,-2)) + 10*fontTicks;
+      // newDescHeight = descriptionHeightDefault + parseInt($("#description-text").css("height").slice(0,-2)) + 25*fontTicks;
+
       $("#learn-more").animate({fontSize: size, queue: false}, duration);
       $("#description-text").animate({fontSize: size, queue: false}, duration);
+      $("#content-pane").animate({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth, queue: false}, duration);
+      $("#description-text").animate({"height": newDescHeight, queue: false}, duration);
+
 
     }
 
     function gotoPage() {
 
-      $("#fadeOutZone").fadeOut(400, function(){window.location.href = '2_attack/2_attack.html'});
+      var link = `2_attack/2_attack.html?lang=${currentLang}`
+      $("#fadeOutZone").fadeOut(400, function(){window.location.href = link});
     }
 
     function localize() {
@@ -319,6 +326,28 @@
       $("#learn-more").html(learn_more_button_text[currentLang]);
       $("#langToggleButton").html(lang_toggle_text[currentLang]);
       setDescription(currentTopic);
+    }
+
+    function parseQueryString() {
+
+      // Read the query string to determine what options to set
+
+      var queryString = decodeURIComponent(window.location.search);
+
+      var searchParams = new URLSearchParams(queryString);
+
+      if (searchParams.has("attractor")) {
+        firstStarted = true;
+      } else {
+        if (searchParams.has("lang")) {
+          setLang(searchParams.get("lang"));
+        }
+        if (searchParams.has("size")) {
+          var size = parseInt(searchParams.get("size"));
+          fontTicks = size;
+          fontSizeSet(50 + 3*size, false);
+        }
+      }
     }
 
     function selectTopic(id) {
@@ -405,16 +434,20 @@
 
     var currentLang = "en";
     var currentTopic = "prologue";
+    var fontTicks = 0; // 0 = default +1 for each increase, -1 for each decrease
 
     $(document).ready(function(){
-      selectTopic("icon-prologue");
-      $("#fadeOutZone").animate({opacity: 1, queue: false}, 400)
 
       contentPaneHeightDefault = parseInt($("#content-pane").css("height").slice(0,-2));
       contentPaneWidthDefault = parseInt($("#content-pane").css("width").slice(0,-2));
       contentPaneTopDefault = parseInt($("#content-pane").css("top").slice(0,-2));
       contentPaneLeftDefault = parseInt($("#content-pane").css("left").slice(0,-2));
       descriptionHeightDefault = parseInt($("#description-text").css("height").slice(0,-2));
+      parseQueryString();
+      selectTopic("icon-prologue");
+      $("#fadeOutZone").animate({opacity: 1, queue: false}, 400)
+
+
     });
     $(document).click(function(event){
       // Reset the attractor count if a click occurs
