@@ -41,12 +41,6 @@
         font-family: Gotham-Medium;
         font-size: 75px;
       }
-      p {
-        outline-width: 5px;
-        outline-style: dotted;
-        outline-color: rgba(0,0,0,0);
-        transition: all 1.5s;
-      }
       ::-webkit-scrollbar {
         width: 0;
       }
@@ -57,6 +51,12 @@
       .caption-text {
         font-family: Gotham-Light;
         font-size: 35px;
+      }
+      .paragraph {
+        outline-width: 5px;
+        outline-style: dotted;
+        outline-color: rgba(0,0,0,0);
+        transition: all 1.5s;
       }
       .quote-body {
         font-family: Gotham-Medium;
@@ -182,10 +182,8 @@
           <!-- Right side: Story -->
           <div id='body-col' class="col-6 pe-4 pt-4 border-start border-white">
             <div id="body-text">
-              <H1>Just another day</H1>
-              <p id="paragraph1">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus arcu felis bibendum ut tristique et egestas quis. Tempus imperdiet nulla malesuada pellentesque elit. Tempor orci dapibus ultrices in iaculis nunc sed augue. Cursus vitae congue mauris rhoncus. Id ornare arcu odio ut sem. Neque sodales ut etiam sit amet nisl purus. Diam sit amet nisl suscipit adipiscing bibendum. Et malesuada fames ac turpis egestas sed tempus. At quis risus sed vulputate odio ut enim blandit volutpat. Convallis convallis tellus id interdum. Nam at lectus urna duis convallis convallis tellus.
-              </p>
+              <div id="paragraph1" class='paragraph'>
+              </div>
               <div class="card me-3 mt-2 mb-2 bg-secondary" style="width: 100%; float: left;">
                 <div class="card-body">
                   <p class="quote-body card-text fst-italic">
@@ -198,10 +196,8 @@
                   </p>
                 </div>
               </div>
-              <H1>One plane goes silent. And then another one.</H1>
-              <p id="paragraph2">
-                Elementum tempus egestas sed sed risus pretium. Posuere sollicitudin aliquam ultrices sagittis. Senectus et netus et malesuada fames ac turpis. Sit amet tellus cras adipiscing enim eu turpis egestas. Amet venenatis urna cursus eget nunc scelerisque viverra mauris. Ultrices neque ornare aenean euismod elementum. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Nunc non blandit massa enim nec dui nunc mattis enim. Sit amet consectetur adipiscing elit ut aliquam purus sit amet.
-              </p>
+              <div id="paragraph2" class='paragraph'>
+              </div>
               <div class="card me-3 mt-2 mb-2 bg-transparent" style="width: 50%; float: right;">
                 <div class="card-body">
                   <img src="thumbnails/WTC_collapse_CC_BY_Wally_Gobetz.jpg" width="100%" onclick="showImageInLightBox('WTC_collapse_CC_BY_Wally_Gobetz.jpg', 'A view of the World Trade Center complex shortly after the collapse of the North Tower.', 'Wally Gobetz')"></src>
@@ -212,10 +208,8 @@
                   </p>
                 </div>
               </div>
-              <H1>No ordinary hijackings</H1>
-              <p id="paragraph3">
-                Amet purus gravida quis blandit turpis cursus in. Non tellus orci ac auctor augue mauris. Enim praesent elementum facilisis leo vel fringilla est ullamcorper. Sit amet mauris commodo quis imperdiet massa tincidunt nunc. Turpis egestas maecenas pharetra convallis posuere morbi leo urna. Pellentesque elit eget gravida cum sociis natoque. Nec dui nunc mattis enim. Turpis nunc eget lorem dolor. Vel quam elementum pulvinar etiam.
-              </p>
+              <div id="paragraph3" class='paragraph'>
+              </div>
             </div>
           </div>
         </div>
@@ -224,7 +218,7 @@
       <footer id='toolbar' class='bg-secondary fixed-bottom'>
         <div class='row gx-1 h-100'>
           <div class='col-2'>
-            <button id="langToggleButton" class='btn btn-primary w-100 h-100'>Espanol</button>
+            <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
           </div>
           <div class='col-1'>
             <button class='btn btn-primary w-100 h-100'><font size="55px">A</font></button>
@@ -267,7 +261,9 @@
 
   function createTimeline() {
 
-    // Read the timelineContentList and create a timeline element for each item
+    // Read the timelineContentList and create a timeline element for each item\\
+
+    $("#timeline-content").empty();
 
     timelineContentList.forEach((item, i) => {
 
@@ -368,6 +364,62 @@
       );
     }
 
+    function localize(fade=true) {
+
+      // Repopulate everything with content matching the given language
+
+      var repopulate = function() {
+        createTimeline();
+        populateBody();
+        if (currentLang == "en") {
+          document.getElementById("header-text").innerHTML = "Attack";
+          document.getElementById("langToggleButton").innerHTML = "Español";
+          document.getElementById("goHomeButton").innerHTML = "Go Home";
+        } else {
+          document.getElementById("header-text").innerHTML = "El Ataque";
+          document.getElementById("langToggleButton").innerHTML = "English";
+          document.getElementById("goHomeButton").innerHTML = "Regresa";
+        }
+      }
+
+      if (fade == true) {
+        $("#fadeOutZone").animate({opacity: 0}, {complete: repopulate});
+      } else {
+        repopulate();
+      }
+
+      if (fade == true) {
+        $("#fadeOutZone").animate({opacity: 1});
+      }
+    }
+
+    function populateBody() {
+
+      // Parse the bodyContentList and fill in the appropriate content where
+      // indicated in the HTML
+
+      bodyContentList.forEach((item, i) => {
+        var div = $("#"+item['id']);
+        div.empty();
+
+        if ("header_en" in item && "header_es" in item) {
+          var title = document.createElement("H1");
+          title.innerHTML = item["header_" + currentLang];
+          div.append(title);
+        }
+
+        var body = document.createElement("p");
+        body.innerHTML = item["body_" + currentLang];
+        div.append(body);
+      });
+    }
+
+    function setLang(lang) {
+
+      currentLang = lang;
+      localize();
+    }
+
     function showImageInLightBox(image, caption="", credit="") {
 
       // Set the img source to the provided image, set the caption, and reveal
@@ -384,10 +436,22 @@
       $("#imageLightbox").css("display", "flex").animate({opacity: 1, queue: false}, 100);
     }
 
+    function toggleLang() {
+
+      // Switch between English and Spanish, updating visible content.
+      if (currentLang == "en") {
+        currentLang = "es";
+      } else {
+        currentLang = "en";
+      }
+      localize();
+    }
+
     var currentLang = "en";
 
     // Populate timeline
     createTimeline();
+    populateBody();
     setInterval(checkTimelineElementsInView, 100);
 
     // When the page loads, fade in the content
