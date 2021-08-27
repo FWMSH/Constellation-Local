@@ -1,5 +1,10 @@
+var superTitle_text = {
+  "en": "Explore the Events of",
+  "es": "Spanish Super Title"
+}
+
 var title_text = {
-  "en": "Explore the Events of 9/11",
+  "en": "September 11th, 2001",
   "es": "Spanish Title"
 }
 
