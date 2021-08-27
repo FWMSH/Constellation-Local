@@ -72,7 +72,7 @@ h1 {
   width: 450px;
   padding: 15px;
   background: #002f65;
-  box-shadow: 7px 5px 15px gray;
+  box-shadow: 7px 5px 15px #1e1e1e;
 }
 
 .timeline ul li div::before {
