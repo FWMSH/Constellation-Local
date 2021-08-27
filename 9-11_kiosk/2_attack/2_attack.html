@@ -72,6 +72,7 @@
       #body-col {
         height: 85vh;
         overflow-y: scroll;
+        background-color: #456990;
       }
       #body-text {
         font-size: 50px;
@@ -91,6 +92,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #c45f23;
       }
       #header-text {
         font-size: 140px;
@@ -140,6 +142,7 @@
       #toolbar {
         height:5vh;
         font-family: Gotham-Medium;
+        background-color: #002f65;
       }
     </style>
   </head>
@@ -163,7 +166,7 @@
         </div>
       </div>
 
-      <header id='header' class='bg-secondary sticky-top'>
+      <header id='header' class='sticky-top'>
         <div class="row">
           <div id='header-text' class="col-12 text-center text-white"></div>
         </div>
@@ -263,7 +266,7 @@
         </div>
 
       </div>
-      <footer id='toolbar' class='bg-secondary fixed-bottom'>
+      <footer id='toolbar' class='fixed-bottom'>
         <div class='row gx-1 h-100'>
           <div class='col-2'>
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();"></button>
