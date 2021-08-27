@@ -291,6 +291,7 @@
 
   <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="content.js"></script>
+  <script type="text/javascript" src="../config.js"></script>
 
   <script>
 
@@ -492,6 +493,38 @@
         body.innerHTML = item["body_" + currentLang];
         div.append(body);
       });
+    }
+
+    function sendPing() {
+
+      // Contact the control server and ask for any updates
+
+      if (serverAddress != "") {
+
+        var requestDict = {"class": "exhibitComponent",
+                           "id": id,
+                           "type": type,
+                           "currentInteraction": "true"};
+        var requestString = JSON.stringify(requestDict);
+
+        var xhr = new XMLHttpRequest();
+        xhr.timeout = 1000;
+        xhr.open("POST", serverAddress, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onerror = function() {
+        }
+        xhr.onreadystatechange = function () {
+
+          if (this.readyState != 4) return;
+
+          if (this.status == 200) {
+            if (this.responseText != "") {
+              // readUpdate(this.responseText);
+            }
+          }
+      };
+        xhr.send(requestString);
+      }
     }
 
     function setLang(lang) {

@@ -35,7 +35,7 @@
       body, html {
         margin: 0px;
         padding: 0px;
-        background: #456990;
+        background: #719abf;
         /* cursor: none; */
       }
       ::-webkit-scrollbar {
@@ -51,7 +51,7 @@
         align-items: flex-end;
         display: flex;
         border-style: solid;
-        border-color: #456990;
+        border-color: #719abf;
         border-width: 20px;
       }
       #content-pane {
@@ -75,11 +75,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #719abf;
+        background-color: #456990;
       }
       #header-text {
         font-size: 180px;
-        color: #002f65;
+        color: white;
         width: 100vw;
         position: absolute;
         left: 0px;
@@ -120,7 +120,7 @@
       }
       #super-header-text {
         font-size: 80px;
-        color: #002f65;
+        color: white;
         width: 100vw;
         position: absolute;
         left: 0px;
@@ -131,7 +131,7 @@
       #toolbar {
         height: 5vh;
         font-family: Gotham-Medium;
-        background-color: #719abf;
+        background-color: #002f65;
       }
       #top-panel {
         width: 100vw;
@@ -239,6 +239,7 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
   <script type="text/javascript" src="content.js"></script>
+  <script type="text/javascript" src="config.js"></script>
 
   <script>
 
@@ -406,6 +407,38 @@
       setDescription(topic);
     }
 
+    function sendPing() {
+
+      // Contact the control server and ask for any updates
+
+      if (serverAddress != "") {
+
+        var requestDict = {"class": "exhibitComponent",
+                           "id": id,
+                           "type": type,
+                           "currentInteraction": "false"};
+        var requestString = JSON.stringify(requestDict);
+
+        var xhr = new XMLHttpRequest();
+        xhr.timeout = 1000;
+        xhr.open("POST", serverAddress, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onerror = function() {
+        }
+        xhr.onreadystatechange = function () {
+
+          if (this.readyState != 4) return;
+
+          if (this.status == 200) {
+            if (this.responseText != "") {
+              // readUpdate(this.responseText);
+            }
+          }
+      };
+        xhr.send(requestString);
+      }
+    }
+
     function setDescription(topic) {
 
         // Change the text in the description box
@@ -502,6 +535,7 @@
     });
 
     attractorIntervalReference = setInterval(attractor, attractorIntervalTime*1000);
+    setInterval(sendPing, 5000);
 
   </script>
 
