@@ -205,24 +205,97 @@ var timelineContentList = [
 
 var bodyContentList = [
   {
-    id: "paragraph1",
-    header_en: "Just another day",
+    id: "Flights_para_1",
+    header_en: "Four Fated Flights",
     header_es: "Spanish header",
-    body_en: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus arcu felis bibendum ut tristique et egestas quis. Tempus imperdiet nulla malesuada pellentesque elit. Tempor orci dapibus ultrices in iaculis nunc sed augue. Cursus vitae congue mauris rhoncus. Id ornare arcu odio ut sem. Neque sodales ut etiam sit amet nisl purus. Diam sit amet nisl suscipit adipiscing bibendum. Et malesuada fames ac turpis egestas sed tempus. At quis risus sed vulputate odio ut enim blandit volutpat. Convallis convallis tellus id interdum. Nam at lectus urna duis convallis convallis tellus.",
+    body_en: "At 7:59 AM, a Boeing 767 jetliner lifts off from Boston, headed to Los Angeles. Within the next 45 minutes, three more planes—another 767 and two Boeing 757s—would also depart from airports on the East Coast to destinations on the West. In total, nineteen hijackers were on board the four aircraft. Al-Qaeda had not chosen these planes at random—the 757 and 767 were the only commercial aircraft to share a cockpit layout, ensuring each hijacker could be trained in the same way. The planes were also large aircraft typically used for international travel; their West Coast destinations ensured that they were carrying a full load of fuel. ",
     body_es: "Spanish body"
   },
   {
-    id: "paragraph2",
-    header_en: "One plane goes silent. And then another one.",
+    id: "Hijacking_para_1",
+    header_en: "No Ordinary Hijacking",
     header_es: "Spanish header",
-    body_en: "Elementum tempus egestas sed sed risus pretium. Posuere sollicitudin aliquam ultrices sagittis. Senectus et netus et malesuada fames ac turpis. Sit amet tellus cras adipiscing enim eu turpis egestas. Amet venenatis urna cursus eget nunc scelerisque viverra mauris. Ultrices neque ornare aenean euismod elementum. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Nunc non blandit massa enim nec dui nunc mattis enim. Sit amet consectetur adipiscing elit ut aliquam purus sit amet.",
+    body_en: "Hijackings were commonplace in the 20th century. In just the five years leading up to 2001, 76 planes were seized in flight around the world. The vast majority of these incidents played out as hostage situations, and most victims weren’t physically harmed. In many cases, the attackers used the plane as transportation to an unlawful destination, such as Cuba. In others, the passengers were ransomed back to their government for money or the release of prisoners. For passengers, the rules were simple: don’t fight back and things would usually turn out okay.",
     body_es: "Spanish body"
   },
   {
-    id: "paragraph3",
-    header_en: "No ordinary hijackings",
+    id: "Hijacking_para_2",
+    body_en: "As hijackers seize American Airlines Flight 11 at 8:14 AM, the situation seems to be playing out exactly as it had for decades. The hijackers attack two flight attendants and one passenger who rise to confront them, but most sit quietly as the crew treat the wounded. Two more flight attendants use crew telephones to contact managers on the ground and relay information. One reports being shown a bomb. It is a very bad morning, but nothing the airline hadn’t faced before.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Hijacking_para_3",
+    body_en: "Then, at 8:46 AM, everything changes. The telephone connection with AA11 goes dead. Moments later, American Airlines receives news: an aircraft has just collided with the World Trade Center. ",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Confusion_para_1",
+    header_en: "A World of Confusion",
     header_es: "Spanish header",
-    body_en: "Amet purus gravida quis blandit turpis cursus in. Non tellus orci ac auctor augue mauris. Enim praesent elementum facilisis leo vel fringilla est ullamcorper. Sit amet mauris commodo quis imperdiet massa tincidunt nunc. Turpis egestas maecenas pharetra convallis posuere morbi leo urna. Pellentesque elit eget gravida cum sociis natoque. Nec dui nunc mattis enim. Turpis nunc eget lorem dolor. Vel quam elementum pulvinar etiam.",
+    body_en: "The events of 9/11 were unparalleled in their complexity. Four aircraft left three airports headed for two destinations before being diverted towards three targets—all in the same airspace, all within a two-hour window. With a top speed of around 600 mph (965 kph), a Boeing 757 could travel from Boston to New York City in less than half an hour. ",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Confusion_para_2",
+    body_en: "A vast array of oversight complicated and slowed the nation’s response to the unfolding disaster. Various pieces of critical information lay in the hands of the airlines, civilian air traffic controllers, military aerospace defense coordinators, and elected decisionmakers. Time and again on September 11, vital information passed from one organization to the next too slowly to be useful. At the same time, the terrorists’ careful planning and coordination ensured that the windows in which lifesaving decisions could be made were impossibly small.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Confusion_para_3",
+    body_en: "Around 8:46 AM, two F-15 fighters take off to intercept AA11. It crashes into the World Trade Center eight seconds before they are airborne.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "More_hijacking_para_1",
+    header_en: "A Second Hijacking, and Then a Third",
+    header_es: "Spanish header",
+    body_en: "At 8:43 AM—three minutes before AA11 would strike the North Tower—five hijackers seize United Airlines Flight 175. Seven minutes later, five others gain control of American Flight 77. It’s not until after the third plane is hijacked that President Bush learns of even the first event. He’s at an elementary school in Florida, preparing to spend the day promoting his education agenda.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "More_hijacking_para_2",
+    body_en: "It takes only 20 minutes for the terrorists to steer UA175 into the South Tower of the World Trade Center. The plane strikes just minutes after television networks switch to live coverage of AA11’s crash. Millions of viewers see the impact live on TV.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "More_hijacking_para_3",
+    body_en: "By 9:33 AM, air traffic controllers in Washington, D.C. are warning the Secret Service that AA77 appears headed for the White House. Then, it abruptly changes direction. Five minutes later, it strikes the Pentagon. In a rare stroke of luck, the plane hits a part of the massive building that is under renovation. Of tens of thousands of employees, just 125 are killed.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Fighting_chance_para_1",
+    header_en: "A Fighting Chance",
+    header_es: "Spanish header",
+    body_en: `Of all the hijacked aircraft, only United Airlines Flight 93 had any chance to react. At 9:24 AM, the flight receives a brief message from United headquarters: "Beware any cockpit intrusion—Two [aircraft] hit World Trade Center." But, without context, the pilots don’t understand the warning. They respond, asking for clarification. Four minutes later, four attackers storm the cockpit and seize control of the plane.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Fighting_chance_para_2",
+    body_en: "The pilots aren’t the only ones to receive a warning. Like on other hijacked flights, passengers make phone calls to the ground after the hijacking. But, by the time of the UA93 hijacking, the events at the World Trade Center are already global news. Within minutes, the first passengers learn that their plane, too, is likely on a suicide mission. Their only chance is to act.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Struggle_para_1",
+    header_en: `"Let's roll"`,
+    header_es: "Spanish header",
+    body_en: `Huddled at the back of the plane, UA93’s passengers take a vote on whether to charge the cockpit. One flight attendant boils a pot of water to use as a weapon. Others may have readied the food service cart, or looked for other makeshift tools. At 9:57 AM, they’re ready. Moments later, a struggle erupts outside the cockpit, as passengers fight to get in. The hijacker piloting the plane beings to tilt it violently, trying to knock the fighting passengers off their feet. When it’s clear that the passengers will soon be successful, the hijackers elect to fly the plane straight into the ground.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Struggle_para_2",
+    body_en: "The plane crashes six minutes after the struggle begins, landing in a field in Somerset County, Pennsylvania. Interrogations in the years following 9/11 revealed that UA93’s intended target was most likely the U.S. Capitol building in Washington, D.C. At the speed of a Boeing 757, the flight would have reached Washington only fifteen minutes later.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Collapse_para_1",
+    header_en: `Collapse`,
+    header_es: "Spanish header",
+    body_en: `The crash of UA93 marked the end of the hijackings. But, in New York City, the scale of the disaster was only starting to come into focus. After burning for nearly an hour, the impact zone on the South Tower of the World Trade Center gives way. Structural elements within the building were designed to support one another; As fire weakens the beams not destroyed on impact, they begin to bend, fatally compromising the tower’s strength.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Collapse_para_2",
+    body_en: "Half an hour later, the North Tower collapses as well. Debris from the falling towers damages or destroys nearby buildings, including others in the World Trade Center complex. Still, the buildings performed admirably in the face of events they were never designed to withstand. The vast majority of those who perished on 9/11 were trapped above the impact zone on each building; the towers remained standing long enough to enable the evacuation of nearly everyone located below where the planes struck.",
     body_es: "Spanish body"
   },
 ]
