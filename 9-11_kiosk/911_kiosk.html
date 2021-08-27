@@ -298,11 +298,6 @@
       newLeft = contentPaneLeftDefault -  5*fontTicks;
       newWidth = contentPaneWidthDefault +  10*fontTicks;
       newDescHeight = descriptionHeightDefault +  25*fontTicks;
-      // newHeight = contentPaneHeightDefault + parseInt($("#content-pane").css("height").slice(0,-2)) + 30*fontTicks;
-      // newTop = contentPaneTopDefault + parseInt($("#content-pane").css("top").slice(0,-2)) + 30*fontTicks;
-      // newLeft = contentPaneLeftDefault + parseInt($("#content-pane").css("left").slice(0,-2)) + 5*fontTicks;
-      // newWidth = contentPaneWidthDefault + parseInt($("#content-pane").css("width").slice(0,-2)) + 10*fontTicks;
-      // newDescHeight = descriptionHeightDefault + parseInt($("#description-text").css("height").slice(0,-2)) + 25*fontTicks;
 
       $("#learn-more").animate({fontSize: size, queue: false}, duration);
       $("#description-text").animate({fontSize: size, queue: false}, duration);
@@ -314,7 +309,29 @@
 
     function gotoPage() {
 
-      var link = `2_attack/2_attack.html?lang=${currentLang}&size=${fontTicks}`
+      var page = "";
+
+      switch (currentTopic) {
+        // case 'prologue':
+        //
+        //   break;
+        case 'attack':
+          page = "2_attack/2_attack.html";
+          break;
+        // case 'response':
+        //
+        //   break;
+        // case 'military':
+        //
+        //   break;
+        // case 'legacy':
+        //
+        //   break;
+        default:
+          page = "2_attack/2_attack.html";
+      }
+
+      var link = page + `?lang=${currentLang}&size=${fontTicks}`
       $("#fadeOutZone").fadeOut(400, function(){window.location.href = link});
     }
 
