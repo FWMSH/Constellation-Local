@@ -78,6 +78,12 @@
       }
       #header-text {
         font-size: 180px;
+        color: white;
+        width: 100vw;
+        position: absolute;
+        left: 0px;
+        top: 110px;
+        text-align: center;
         font-family: Gotham-Bold;
       }
       #icon-attack {
@@ -113,7 +119,13 @@
       }
       #super-header-text {
         font-size: 80px;
-        font-family: Gotham-Bold;
+        color: white;
+        width: 100vw;
+        position: absolute;
+        left: 0px;
+        top: 35px;
+        text-align: center;
+        font-family: Gotham-Light;
       }
       #toolbar {
         height: 5vh;
@@ -131,12 +143,16 @@
     <main id='mainContainer' role="main" class="container-fluid px-0">
 
       <header id='header' class='bg-secondary sticky-top'>
-        <div class="row">
+        <div id='super-header-text'>
+        </div>
+        <div id="header-text">
+        </div>
+        <!-- <div class="row">
           <div id='super-header-text' class="col-12 text-center text-white pt-5 mb-n5 pb-n5">
           </div>
           <div id='header-text' class="col-12 text-center text-white mt-n5 pt-n5">
           </div>
-        </div>
+        </div> -->
       </header>
 
       <div id="fadeOutZone">
