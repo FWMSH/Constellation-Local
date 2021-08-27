@@ -25,7 +25,6 @@ var timelineContentList = [
     body_en: "Five hijackers gain control of the aircraft, turning the plane south.",
     body_es: "Spanish body",
     rank: 2,
-    link: "paragraph2"
   },
   {
     title_en: "AA77 departs Washington, headed for Los Angeles",
@@ -106,7 +105,7 @@ var timelineContentList = [
     body_en: "The pilots do not understand the warning and ask for clarification.",
     body_es: "Spanish body",
     rank: 4,
-    link: "paragraph3"
+    link: "Fighting_chance_para_1"
   },
   {
     title_en: "UA93 is hijacked",
@@ -157,7 +156,8 @@ var timelineContentList = [
     time_es: "9:57 AM",
     body_en: "After voting on whether to act, passengers rush from the rear of the plane towards the front. The hijackers begin tipping the plane forwards and backwards in defense, as passengers begin trying to break into the cockpit. It remains unclear if they succeeded.",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "Struggle_para_1"
   },
   {
     title_en: "South Tower falls",
@@ -166,7 +166,8 @@ var timelineContentList = [
     time_es: "9:59 AM",
     body_en: "",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "Collapse_para_1"
   },
   {
     title_en: "UA93 crashes",
