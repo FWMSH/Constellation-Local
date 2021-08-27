@@ -40,6 +40,7 @@
       H1 {
         font-family: Gotham-Medium;
         font-size: 75px;
+        color: #002f65;
       }
       ::-webkit-scrollbar {
         width: 0;
@@ -52,11 +53,17 @@
         font-family: Gotham-Light;
         font-size: 35px;
       }
+      .inset-image {
+        background-color: #719abf;
+      }
       .paragraph {
         outline-width: 5px;
         outline-style: dotted;
         outline-color: rgba(0,0,0,0);
         transition: all 1.5s;
+      }
+      .quote {
+        background-color: #c45f23;
       }
       .quote-body {
         font-family: Gotham-Medium;
@@ -185,7 +192,7 @@
             <div id="body-text">
               <div id="Flights_para_1" class='paragraph'>
               </div>
-              <div class="card me-3 mt-2 mb-2 bg-transparent" style="width: 50%; float: right;">
+              <div class="card me-3 mt-2 mb-2 inset-image" style="width: 50%; float: right;">
                 <div class="card-body">
                   <img src="thumbnails/AA77_Public_Domain.jpg" width="100%" onclick="showImageInLightBox('AA77_Public_Domain.jpg', 'Americfan Airlines plane N644AA, the Boeing 757 that served as AA77 on 9/11.', 'Sunil Gupta')"></src>
                 </div>
@@ -221,7 +228,7 @@
               </div>
               <div id="More_hijacking_para_2" class='paragraph'>
               </div>
-              <div class="card me-3 mt-2 mb-2 bg-secondary" style="width: 100%; float: left;">
+              <div class="card me-3 mt-2 mb-2 quote" style="width: 100%; float: left;">
                 <div class="card-body">
                   <p class="quote-body card-text fst-italic">
                     Oh, my goodness. There's another one!
