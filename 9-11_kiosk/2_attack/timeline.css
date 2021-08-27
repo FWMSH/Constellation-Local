@@ -83,27 +83,34 @@ h1 {
   border-style: solid;
 }
 
+/* Right boxes */
 .timeline ul li:nth-child(odd) div {
   left: 45px;
   box-shadow: 6px 4px 12px #1e1e1e;
 }
 
+/* Right triangles */
 .timeline ul li:nth-child(odd) div::before {
   left: -15px;
   border-width: 8px 16px 8px 0;
   border-color: transparent #002f65 transparent transparent;
+  box-shadow: 0px 4px 12px #1e1e1e;
 }
 
+/* Left boxes */
 .timeline ul li:nth-child(even) div {
   left: -489px;
   box-shadow: -6px 4px 12px #1e1e1e;
 
 }
 
+/* Left triangles */
 .timeline ul li:nth-child(even) div::before {
   right: -15px;
   border-width: 8px 0 8px 16px;
   border-color: transparent transparent transparent #002f65;
+  box-shadow: 0px 4px 12px #1e1e1e;
+
 }
 
 time {
