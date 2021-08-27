@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+    #overlay {
+      position: fixed;
+      display: true;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2;
+      cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+
+  <div id="overlay" onclick="hideAttractor()">
+    <video id='attractor' src='attractor.m4v' height=100% width=100% autoplay loop muted>
+  </div>
+
+<script>
+
+  // Analytics variables
+    var id = "NOBLE_PLNETS"
+    var project = "noble_gallery"
+    var page = "attractor"
+    var analytics_server = "http://10.8.0.168:8080"
+    var heartbeat_server = "http://10.8.0.168:8081"
+
+  function showAttractor(){
+
+        // Function to show the attractor video and restore the default state
+
+        document.getElementById("attractor").play()
+        document.getElementById("overlay").style.display = "block";
+        setDefaults();
+  }
+
+  function hideAttractor() {
+
+    // Send action to analytics servers
+    sendAnalytics('attractor', 'hide');
+    window.location.href = 'zoo.html';
+  }
+
+  function getNowDateTime() {
+
+      // Function to return a string with the current date and time
+      // Format: 2019-11-25 15:12:15
+
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      var time = padZeros(today.getHours(), 2) + ":" + padZeros(today.getMinutes(), 2) + ":" + padZeros(today.getSeconds(), 2);
+      var now = date+' '+time;
+
+      return now;
+    }
+
+  function padZeros(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+
+  function sendAnalytics(target, action) {
+
+    // Function to send a bunch of analytics data to the remote server.
+    // Sends the current action given by the input variable, plus a bunch of data collected from the current state.
+
+    // Let the heartbeat server know we're sending an analytics packet
+    sendHeartbeat(type=2)
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", self.analytics_server, true);
+    xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
+    xhr.send("date=" + getNowDateTime() + "&project=" + self.project + "&id=" + self.id + "&target=" + target + "&action=" + action);
+  }
+
+  function sendHeartbeat(type=1) {
+
+    // Function to send a ping to the analytics server to report that we're online
+    // Type 1 heartbeat is sent every ten getSeconds
+    // Type 2 heartbeat is sent every time something is interacted with
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", self.heartbeat_server, true);
+    xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
+    xhr.send("date=" + getNowDateTime() + "&project=" + self.project + "&id=" + self.id + "&action=heartbeat-"+type);
+  }
+
+  function heartbeatTimer (){
+
+    // Function to send a heartbeat every ten seconds
+
+    sendHeartbeat()
+    setTimeout(heartbeatTimer, 10000); // 1000 milliseconds = 1 second
+  }
+    // Start the heartbeat timer
+    heartbeatTimer();
+</script>
+
+</body>
+
+</html>

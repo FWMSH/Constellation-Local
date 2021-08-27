@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" content="chrome=1, IE=edge" http-equiv="X-UA-Compatible" />
+
+      <title>Planet Petting Zoo</title>
+      <link rel="stylesheet" href="style.css">
+
+      <script src="http://www.worldwidetelescope.org/scripts/wwtsdk.aspx"></script>
+
+  </head>
+
+<body onload="initialize()">
+
+  <div id="masthead">
+  Venus
+  </div>
+
+
+  <div id="WWTCanvas" style="width: 1080px; height: 1080px; border-style: none; border-width: 0px; padding: 0px">
+  </div>
+
+  <div id='buttonPane'>
+    <input id='merucry' class='icon' type='image' src="icons/Slide1.JPG" onclick="gotoPlanet('mercury')">
+    <input id='venus' class='icon' type='image' src="icons/Slide2.JPG" onclick="gotoPlanet('venus')">
+    <input id='earth' class='icon' type='image' src="icons/Slide3.JPG" onclick="gotoPlanet('bing')">
+    <input id='nightEarth' class='icon' type='image' src="icons/Slide4.JPG" onclick="gotoPlanet('earth')">
+    <input id='moon' class='icon' type='image' src="icons/Slide5.JPG" onclick="gotoPlanet('moon')">
+    <input id='mars' class='icon' type='image' src="icons/Slide6.JPG" onclick="gotoPlanet('Visible Imagery')">
+    <input id='europa' class='icon' type='image' src="icons/Slide7.JPG" onclick="gotoPlanet('europa')">
+    <input id='pluto' class='icon' type='image' src="icons/Slide8.JPG" onclick="gotoPlanet('New Horizons')">
+  </div>
+  <div id='contentPane'>
+    <div id="textArea"></div>
+    <div id="factArea">
+      <center style="font-family: Gotham-Bold; padding-bottom:10px;">Fast Facts</center>
+      <table border=1 frame=void rules=rows >
+        <tr>
+          <td>Diameter: </td>
+          <td><div id='FF_diameter'></div></td>
+        </tr>
+        <tr>
+          <td>Mass: </td>
+          <td><div id='FF_mass'></div></td>
+        </tr>
+        <tr>
+          <td>Rotation period: </td>
+          <td><div id='FF_rotation'></div></td>
+        </tr>
+        <tr>
+          <td>Distance from Sun: </td>
+          <td><div id='FF_dist'></div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="toolBar">
+      <!-- <button onclick="switchLang()"> Language </button> -->
+      <button class="sizeButton sizeSmall" onclick="textSizeDown()">A</button><button class="sizeButton sizeLarge" onclick="textSizeUp()">A</button>
+  </div>
+
+<script type="text/javascript" src="content.js"></script>
+<script>
+
+    // Create the WorldWide telescope object variable
+    var wwt;
+
+    // Analytics variables
+    var id = "NOBLE_PLNETS"
+    var project = "noble_gallery"
+    var page = "zoo"
+    var analytics_server = "http://10.8.0.168:8080"
+    var heartbeat_server = "http://10.8.0.168:8081"
+
+
+  var textSize = 30; // Must also change in CSS
+
+    // This function initializes the wwt object and registers the wwtReady event
+    // once the initialization is done the wwtReady event will be fired
+    function initialize() {
+      wwt = wwtlib.WWTControl.initControl("WWTCanvas");
+      wwt.add_ready(wwtReady);
+
+      // Start the timer checking for idle (60 s)
+      inactivityTimer();
+      // Start sending back a heartbeat every 10 s
+      heartbeatTimer();
+    }
+    // The wwtReady function is called by the WWT Web Control software
+    // This function sets up the initial defaults
+
+    function wwtReady() {
+        wwt.settings.set_showCrosshairs(false);
+        wwt.hideUI(true);
+
+        wwt.setBackgroundImageByName("moon");
+        gotoPlanet('moon');
+    }
+
+    function gotoPlanet(location) {
+
+        wwt.setBackgroundImageByName(location);
+        wwt.gotoRaDecZoom(RADict[location], 0, 15, true);
+
+        // Update the name and content
+        document.getElementById("masthead").innerHTML = nameDict[location];
+        document.getElementById("FF_diameter").innerHTML = diameter_dict[location];
+        document.getElementById("FF_mass").innerHTML = mass_dict[location];
+        document.getElementById("FF_rotation").innerHTML = rotation_dict[location];
+        document.getElementById("FF_dist").innerHTML = dist_dict[location];
+        document.getElementById("textArea").innerHTML = text_dict[location];
+    }
+
+    function setTextSize(val){
+
+      /* Adjust the text size */
+
+        textSize = val;
+        if (textSize < 30) {
+          textSize = 30;
+        }
+
+        document.getElementById('contentPane').style.fontSize = val + 'px';
+
+    }
+
+    function textSizeDown(){
+
+        setTextSize(textSize - 4)
+        sendHeartbeat(type=2) // Someone touched the button!
+    }
+
+    function textSizeUp(){
+
+        setTextSize(textSize + 4)
+        sendHeartbeat(type=2) // Someone touched the button!
+    }
+
+    function showAttractor() {
+
+      // Send action to analytics servers
+      sendAnalytics('attractor', 'show');
+      window.location.href = 'attractor.html';
+    }
+
+    function getNowDateTime() {
+
+      // Function to return a string with the current date and time
+      // Format: 2019-11-25 15:12:15
+
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      var time = padZeros(today.getHours(), 2) + ":" + padZeros(today.getMinutes(), 2) + ":" + padZeros(today.getSeconds(), 2);
+      var now = date+' '+time;
+
+      return now;
+    }
+
+    function padZeros(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+    function sendAnalytics(target, action) {
+
+      // Function to send a bunch of analytics data to the remote server.
+      // Sends the current action given by the input variable, plus a bunch of data collected from the current state.
+
+      // Let the heartbeat server know we're sending an analytics packet
+      sendHeartbeat(type=2)
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", self.analytics_server, true);
+      xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
+      xhr.send("date=" + getNowDateTime() + "&project=" + self.project + "&id=" + self.id + "&target=" + target + "&action=" + action);
+    }
+
+    function sendHeartbeat(type=1) {
+
+      // Function to send a ping to the analytics server to report that we're online
+      // Type 1 heartbeat is sent every ten getSeconds
+      // Type 2 heartbeat is sent every time something is interacted with
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", self.heartbeat_server, true);
+      xhr.setRequestHeader('Content-Type', "text/plain;charset=UTF-8");
+      xhr.send("date=" + getNowDateTime() + "&project=project_planet" + "&id=" + self.id + "&action=heartbeat-"+type);
+    }
+
+    function heartbeatTimer (){
+
+      // Function to send a heartbeat every ten seconds
+
+      sendHeartbeat()
+      setTimeout(heartbeatTimer, 10000); // 1000 milliseconds = 1 second
+    }
+
+    var inactivityTimer = function (){
+
+      // Function to check for the idle state and start the process of showing the attractor video
+
+      var time;
+      window.onload = resetTimer;
+      // DOM Events
+      videos = document.getElementsByClassName("bodyVideo")
+      for (i = 0; i < videos.length; i++) {
+        videos[i].onended = resetTimer;
+      }
+      document.onmousemove = resetTimer;
+      document.onkeypress = resetTimer;
+      function resetTimer() {
+        clearTimeout(time);
+        time = setTimeout(showAttractor, 60000); // 1000 milliseconds = 1 second
+      }
+    }
+
+    </script>
+</body>
+</html>
