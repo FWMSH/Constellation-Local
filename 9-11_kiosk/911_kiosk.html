@@ -35,7 +35,7 @@
       body, html {
         margin: 0px;
         padding: 0px;
-        background: #456990;
+        background: #719abf;
         /* cursor: none; */
       }
       ::-webkit-scrollbar {
@@ -51,7 +51,7 @@
         align-items: flex-end;
         display: flex;
         border-style: solid;
-        border-color: #456990;
+        border-color: #719abf;
         border-width: 20px;
       }
       #content-pane {
@@ -75,6 +75,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #456990;
       }
       #header-text {
         font-size: 180px;
@@ -130,6 +131,7 @@
       #toolbar {
         height: 5vh;
         font-family: Gotham-Medium;
+        background-color: #456990;
       }
       #top-panel {
         width: 100vw;
@@ -142,7 +144,7 @@
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
 
-      <header id='header' class='bg-secondary sticky-top'>
+      <header id='header' class='sticky-top'>
         <div id='super-header-text'>
         </div>
         <div id="header-text">
@@ -208,7 +210,7 @@
           </div>
         </div>
       </div>
-      <footer id='toolbar' class='bg-secondary fixed-bottom'>
+      <footer id='toolbar' class='fixed-bottom'>
         <div class='row h-100 gx-1'>
           <div class='col-2'>
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();">Espanol</button>
