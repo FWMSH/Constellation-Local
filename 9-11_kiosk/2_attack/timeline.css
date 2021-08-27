@@ -71,7 +71,7 @@ h1 {
   bottom: 0;
   width: 450px;
   padding: 15px;
-  background: #c45f23;
+  background: #002f65;
 }
 
 .timeline ul li div::before {
@@ -161,8 +161,9 @@ time {
   transition: background 0.5s ease-in-out;
 }
 
+/* This controls the dot */
 .timeline ul li.in-view::after {
-  background: #f45b69;
+  background: #c45f23;
 }
 
 .timeline ul li div {
