@@ -314,7 +314,7 @@
 
       var duration;
       if (animate) {
-        duration = 100;
+        duration = 50;
       } else {
         duration = 0;
       }
@@ -329,8 +329,6 @@
       $("#description-text").animate({fontSize: size, queue: false}, duration);
       $("#content-pane").animate({"height": newHeight, "left": newLeft, "top": newTop, "width": newWidth, queue: false}, duration);
       $("#description-text").animate({"height": newDescHeight, queue: false}, duration);
-
-
     }
 
     function gotoPage() {

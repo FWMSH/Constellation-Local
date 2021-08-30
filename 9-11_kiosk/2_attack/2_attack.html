@@ -67,7 +67,7 @@
         outline-width: 5px;
         outline-style: dotted;
         outline-color: rgba(0,0,0,0);
-        transition: all 1.5s;
+        transition: outline-color 1.5s;
         padding-bottom: 20px;
       }
       .quote {
@@ -292,10 +292,10 @@
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();"></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100'><font size="55px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecreaseButtonPressed()"><font size="55px">A</font></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100'><font size="110px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncreaseButtonPressed()"><font size="110px">A</font></button>
           </div>
           <div class='col-4'>
             <button id='goHomeButton' class='btn btn-lg w-100 h-100 btn-success' onclick="goHome()"></button>
@@ -318,82 +318,137 @@
 
   <script>
 
-  function checkIdleTime() {
+    function checkIdleTime() {
 
-    // If the idle time has exceed our limit, return to the attractor page
+      // If the idle time has exceed our limit, return to the attractor page
 
-    currentIdleTime += 5;
+      currentIdleTime += 5;
 
-    if (currentIdleTime > idleTimeLimit) {
-      goHome();
-    }
-  }
-
-  function checkTimelineElementsInView() {
-
-    var items = document.querySelectorAll(".timeline li");
-    for (var i = 0; i < items.length; i++) {
-      if (isElementInViewport(items[i])) {
-        items[i].classList.add("in-view");
-      } else {
-        items[i].classList.remove("in-view");
+      if (currentIdleTime > idleTimeLimit) {
+        goHome();
       }
     }
-  }
 
-  function createTimeline() {
+    function checkTimelineElementsInView() {
 
-    // Read the timelineContentList and create a timeline element for each item\\
-
-    $("#timeline-content").empty();
-
-    timelineContentList.forEach((item, i) => {
-
-      var newItem = document.createElement("li");
-      var div = document.createElement("div");
-
-      var time = document.createElement("time");
-      time.className = `time-${item.rank}`;
-      time.innerHTML = item["time_" + currentLang];
-      div.appendChild(time);
-
-      var title = document.createElement("p");
-      title.className = `size-${item.rank}`;
-      title.innerHTML = item["title_" + currentLang];
-      div.appendChild(title);
-
-      var body = document.createElement("p");
-      body.className = "timeline-body";
-      body.innerHTML = item["body_" + currentLang];
-      div.append(body);
-
-      if ("link" in item && item["link"] != "") {
-        var button = document.createElement("button");
-        button.className = "btn btn-outline-primary btn-learn";
-        button.innerHTML = "Learn more";
-        button.onclick = function() {
-          goToParagraph(item["link"]);
+      var items = document.querySelectorAll(".timeline li");
+      for (var i = 0; i < items.length; i++) {
+        if (isElementInViewport(items[i])) {
+          items[i].classList.add("in-view");
+        } else {
+          items[i].classList.remove("in-view");
         }
-        div.append(button);
+      }
+    }
+
+    function createTimeline() {
+
+      // Read the timelineContentList and create a timeline element for each item\\
+
+      $("#timeline-content").empty();
+
+      timelineContentList.forEach((item, i) => {
+
+        var newItem = document.createElement("li");
+        var div = document.createElement("div");
+
+        var time = document.createElement("time");
+        time.className = `time-${item.rank}`;
+        time.innerHTML = item["time_" + currentLang];
+        div.appendChild(time);
+
+        var title = document.createElement("p");
+        title.className = `size-${item.rank}`;
+        title.innerHTML = item["title_" + currentLang];
+        div.appendChild(title);
+
+        var body = document.createElement("p");
+        body.className = "timeline-body";
+        body.innerHTML = item["body_" + currentLang];
+        div.append(body);
+
+        if ("link" in item && item["link"] != "") {
+          var button = document.createElement("button");
+          button.className = "btn btn-outline-primary btn-learn";
+          button.innerHTML = "Learn more";
+          button.onclick = function() {
+            goToParagraph(item["link"]);
+          }
+          div.append(button);
+        }
+
+        if ("image" in item && item["image"] != "") {
+          var img = document.createElement("img");
+          img.src = "thumbnails/" + item["image"];
+          img.style.width = "100%";
+          img.addEventListener("click", function() {
+            showImageInLightBox(item["image"],
+                                item["caption_" + currentLang],
+                                item["credit"]);
+          })
+
+          div.appendChild(img);
+        }
+
+        newItem.appendChild(div);
+        document.getElementById("timeline-content").appendChild(newItem);
+      });
+    }
+
+    function fontSizeDecrease(animate=false) {
+
+      // Take the given number of font ticks and convert it into the proper
+      // font size for each kind of elements
+
+      var duration = 0;
+      console.log(animate)
+      if (animate) {
+        duration = 50;
       }
 
-      if ("image" in item && item["image"] != "") {
-        var img = document.createElement("img");
-        img.src = "thumbnails/" + item["image"];
-        img.style.width = "100%";
-        img.addEventListener("click", function() {
-          showImageInLightBox(item["image"],
-                              item["caption_" + currentLang],
-                              item["credit"]);
-        })
+      $("#body-text, h1, .size-1, .size-2, .size-3, .size-4, .time-1, .time-2, .time-3, .time-4, .timeline-body").animate({fontSize: "-=3", queue: false}, duration)
+    }
 
-        div.appendChild(img);
+    function fontSizeDecreaseButtonPressed() {
+
+      if (fontTicks > 0) {
+        fontTicks -= 1;
+        fontSizeDecrease(true);
+      }
+    }
+
+    function fontSizeIncrease(animate=false) {
+
+      // Take the given number of font ticks and convert it into the proper
+      // font size for each kind of elements
+
+      var duration = 0;
+      console.log(animate)
+      if (animate) {
+        duration = 50;
       }
 
-      newItem.appendChild(div);
-      document.getElementById("timeline-content").appendChild(newItem);
-    });
-  }
+      $("#body-text, h1, .size-1, .size-2, .size-3, .size-4, .time-1, .time-2, .time-3, .time-4, .timeline-body").animate({fontSize: "+=3", queue: false}, duration)
+    }
+
+    function fontSizeIncreaseButtonPressed() {
+
+      if (fontTicks < 10) {
+        fontTicks += 1;
+        fontSizeIncrease(true);
+      }
+    }
+
+    function fontSizeUpdate() {
+
+      // Called after the page loads, but before the content is visible.
+      // Take the value of fontTicks passed from previous page and use it
+      // to properly size the text.
+
+      for (var i=0; i<fontTicks; i++) {
+        fontSizeIncrease();
+      }
+    }
 
     function goHome() {
 
@@ -550,10 +605,10 @@
       }
     }
 
-    function setLang(lang) {
+    function setLang(lang, fade=false) {
 
       currentLang = lang;
-      localize();
+      localize(fade=fade);
     }
 
     function showImageInLightBox(image, caption="", credit="") {
@@ -603,6 +658,7 @@
     parseQueryString();
     createTimeline();
     populateBody();
+    fontSizeUpdate();
     setInterval(checkTimelineElementsInView, 100);
 
     // When the page loads, fade in the content

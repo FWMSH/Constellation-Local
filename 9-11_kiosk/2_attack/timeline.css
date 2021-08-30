@@ -120,43 +120,43 @@ time {
 /* Timeline text sizes
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .size-1 {
-  font-size: 4.5rem;
+  font-size: 72px;
   font-weight: bold;
   font-family: Gotham-Bold;
 }
 .time-1 {
-  font-size: 3.1rem;
+  font-size: 50px;
   font-family: Gotham-Light;
 }
 .size-2 {
-  font-size: 3.5rem;
+  font-size: 56px;
   font-weight: bold;
   font-family: Gotham-Bold;
 }
 .time-2 {
-  font-size: 2.5rem;
+  font-size: 40px;
   font-family: Gotham-Light;
 }
 .size-3 {
-  font-size: 2.9rem;
+  font-size: 46px;
   font-weight: bold;
   font-family: Gotham-Bold;
 }
 .time-3 {
-  font-size: 1.9rem;
+  font-size: 30px;
   font-family: Gotham-Light;
 }
 .size-4 {
-  font-size: 2.4rem;
+  font-size: 38px;
   font-weight: bold;
   font-family: Gotham-Bold;
 }
 .time-4 {
-  font-size: 1.7rem;
+  font-size: 27px;
   font-family: Gotham-Light;
 }
 .timeline-body {
-  font-size: 1.7rem;
+  font-size: 27px;
   font-family: Gotham-Book;
 }
 
