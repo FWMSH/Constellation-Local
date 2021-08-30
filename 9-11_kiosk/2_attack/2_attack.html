@@ -67,8 +67,12 @@
         outline-width: 5px;
         outline-style: dotted;
         outline-color: rgba(0,0,0,0);
-        transition: outline-color 1.5s;
-        padding-bottom: 20px;
+        padding: 25px;
+        transition: background 1.5s;
+      }
+      .paragraph.highlighted {
+        background-color: rgba(255, 255,255, 0.2);
+        transition: background 1.5s;
       }
       .quote {
         background-color: rgba(0,47,101,.85);
@@ -207,7 +211,7 @@
             </section>
           </div>
           <!-- Right side: Story -->
-          <div id='body-col' class="col-6 ps-5 pe-5 pt-5">
+          <div id='body-col' class="col-6 ps-3 pe-3 pt-5">
             <div id="body-text">
               <div id="Flights_para_1" class='paragraph'>
               </div>
@@ -473,18 +477,18 @@
       var para = $("#" + id);
       var col = $("#body-col");
 
-      var fadeOutBorder = function() {
-        para.css({"outline-color": ("rgba(0,0,0,0)")});
+      var fadeOutBackground = function() {
+        para.removeClass("highlighted");
       };
 
-      var fadeInBorder = function() {
-        para.css({"outline-color": "yellow"});
-        setTimeout(fadeOutBorder, 2000);
+      var fadeInBackground = function() {
+        para.addClass("highlighted");
+        setTimeout(fadeOutBackground, 5000);
       };
 
 
       var scrollDuration = Math.abs(para.offset().top - col.offset().top - 100) + 500 // ms
-      col.animate({scrollTop: para.offset().top - col.offset().top + col.scrollTop() - 100}, {complete: fadeInBorder, duration: scrollDuration});
+      col.animate({scrollTop: para.offset().top - col.offset().top + col.scrollTop() - 100}, {complete: fadeInBackground, duration: scrollDuration});
 
 
     }
