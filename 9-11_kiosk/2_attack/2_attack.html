@@ -109,6 +109,8 @@
       #goHomeButton {
         font-size: 80px;
         font-family: Gotham-Bold;
+        background-color: #5ab52a;
+        color: white;
       }
       #header {
         height: 10vh;
@@ -199,7 +201,7 @@
 
         <div id='content-pane' class='row'>
           <!-- Left side: Timeline -->
-          <div id="timeline-col" class="col-6 border-end border-white">
+          <div id="timeline-col" class="col-6 border-white">
             <section class="timeline">
               <ul id="timeline-content"></ul>
             </section>
@@ -287,7 +289,7 @@
         </div>
 
       </div>
-      <footer id='toolbar' class='fixed-bottom'>
+      <footer id='toolbar' class='fixed-bottom row align-items-end'>
         <div class='row gx-1 h-100'>
           <div class='col-2'>
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();"></button>
@@ -299,9 +301,9 @@
             <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncreaseButtonPressed()"><font size="110px">A</font></button>
           </div>
           <div class='col-4'>
-            <button id='goHomeButton' class='btn btn-lg w-100 h-100 btn-success' onclick="goHome()"></button>
+            <button id='goHomeButton' class='btn w-100 h-100 mx-4' onclick="goHome()"></button>
           </div>
-          <div id="sponsorDiv" class='col-4 pe-2 h-100'>
+          <div id="sponsorDiv" class='col-4 px-5 pb-4 h-100'>
             <div>
               Generously sponsored by
               <br>
