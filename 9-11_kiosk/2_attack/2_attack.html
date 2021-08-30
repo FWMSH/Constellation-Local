@@ -493,7 +493,7 @@
       };
 
 
-      var scrollDuration = Math.min(Math.abs(para.offset().top - col.offset().top - 100) + 500, 5000) // ms
+      var scrollDuration = Math.min(Math.abs(para.offset().top - col.offset().top - 100) + 500, 2000) // ms
       col.animate({scrollTop: para.offset().top - col.offset().top + col.scrollTop() - 100}, {complete: fadeInBackground, duration: scrollDuration});
 
 
