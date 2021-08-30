@@ -305,10 +305,10 @@
             <button id="langToggleButton" class='btn btn-primary w-100 h-100' onclick="toggleLang();"></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecreaseButtonPressed()"><font size="55px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeDecreaseButtonPressed()"><img src='../media/text_size_down.png' width=100%></img></button>
           </div>
           <div class='col-1'>
-            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncreaseButtonPressed()"><font size="110px">A</font></button>
+            <button class='btn btn-primary w-100 h-100' onclick="fontSizeIncreaseButtonPressed()"><img src='../media/text_size_up.png' width=100%></img></button>
           </div>
           <div class='col-4'>
             <button id='goHomeButton' class='btn w-100 h-100 mx-4' onclick="goHome()"></button>
@@ -493,7 +493,7 @@
       };
 
 
-      var scrollDuration = Math.abs(para.offset().top - col.offset().top - 100) + 500 // ms
+      var scrollDuration = Math.min(Math.abs(para.offset().top - col.offset().top - 100) + 500, 5000) // ms
       col.animate({scrollTop: para.offset().top - col.offset().top + col.scrollTop() - 100}, {complete: fadeInBackground, duration: scrollDuration});
 
 
@@ -525,6 +525,10 @@
       // Repopulate everything with content matching the given language
 
       var repopulate = function() {
+        // Shrink all the text to default
+        for (var i=0; i<fontTicks; i++) {
+          fontSizeDecrease(false);
+        }
         createTimeline();
         populateBody();
         if (currentLang == "en") {
@@ -535,6 +539,9 @@
           document.getElementById("header-text").innerHTML = "El Ataque";
           document.getElementById("langToggleButton").innerHTML = "English";
           document.getElementById("goHomeButton").innerHTML = "Regresa";
+        }
+        for (var i=0; i<fontTicks; i++) {
+          fontSizeIncrease(false);
         }
       }
 
