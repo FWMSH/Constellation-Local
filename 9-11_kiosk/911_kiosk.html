@@ -144,20 +144,14 @@
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
 
-      <header id='header' class='sticky-top'>
-        <div id='super-header-text'>
-        </div>
-        <div id="header-text">
-        </div>
-        <!-- <div class="row">
-          <div id='super-header-text' class="col-12 text-center text-white pt-5 mb-n5 pb-n5">
-          </div>
-          <div id='header-text' class="col-12 text-center text-white mt-n5 pt-n5">
-          </div>
-        </div> -->
-      </header>
-
       <div id="fadeOutZone">
+        <header id='header' class='sticky-top'>
+          <div id='super-header-text'>
+          </div>
+          <div id="header-text">
+          </div>
+        </header>
+
 
         <div id="top-panel">
           <img id="heroImage-prologue" class="hero-image" src="media/1_Looming_Crisis.jpeg" width="100%"></img>
@@ -273,14 +267,7 @@
         fontTicks -= 1;
       }
 
-      var duration;
-      if (animate == true) {
-        duration = 100;
-      } else {
-        duration = 0;
-      }
-
-      fontSizeSet(newSize);
+      fontSizeSet(newSize, animate);
     }
 
     function fontSizeIncrease(animate=true) {
@@ -292,14 +279,7 @@
         fontTicks += 1;
       }
 
-      var duration;
-      if (animate == true) {
-        duration = 100;
-      } else {
-        duration = 0;
-      }
-
-      fontSizeSet(newSize);
+      fontSizeSet(newSize, animate);
     }
 
     function fontSizeReset() {

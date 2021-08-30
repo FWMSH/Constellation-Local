@@ -189,13 +189,14 @@
         </div>
       </div>
 
-      <header id='header' class='sticky-top'>
-        <div class="row">
-          <div id='header-text' class="col-12 text-center text-white"></div>
-        </div>
-      </header>
-
       <div id='fadeOutZone'>
+
+        <header id='header' class='sticky-top'>
+          <div class="row">
+            <div id='header-text' class="col-12 text-center text-white"></div>
+          </div>
+        </header>
+
         <div id='content-pane' class='row'>
           <!-- Left side: Timeline -->
           <div id="timeline-col" class="col-6 border-end border-white">
@@ -245,7 +246,7 @@
               <div id="More_hijacking_para_2" class='paragraph'>
               </div>
               <div class="me-3 mt-2 mb-2 quote" style="width: 100%; float: left;">
-                <p class="quote-body  fst-italic">
+                <p class="quote-body fst-italic">
                   Oh, my goodness. There's another one!
                 </p>
                   <hr class='quote-bar'>
@@ -406,7 +407,7 @@
         duration = 50;
       }
 
-      $("#body-text, h1, .size-1, .size-2, .size-3, .size-4, .time-1, .time-2, .time-3, .time-4, .timeline-body").animate({fontSize: "-=3", queue: false}, duration)
+      $("#body-text, h1, .size-1, .size-2, .size-3, .size-4, .time-1, .time-2, .time-3, .time-4, .timeline-body, .caption-text, .quote-body, .quote-name, #imageLightboxCaption, #imageLightboxCredit, #goHomeButton").animate({fontSize: "-=3", queue: false}, duration)
     }
 
     function fontSizeDecreaseButtonPressed() {
@@ -428,7 +429,7 @@
         duration = 50;
       }
 
-      $("#body-text, h1, .size-1, .size-2, .size-3, .size-4, .time-1, .time-2, .time-3, .time-4, .timeline-body").animate({fontSize: "+=3", queue: false}, duration)
+      $("#body-text, h1, .size-1, .size-2, .size-3, .size-4, .time-1, .time-2, .time-3, .time-4, .timeline-body, .caption-text, .quote-body, .quote-name, #imageLightboxCaption, #imageLightboxCredit, #goHomeButton").animate({fontSize: "+=3", queue: false}, duration)
     }
 
     function fontSizeIncreaseButtonPressed() {
