@@ -35,7 +35,7 @@ var response_description = {
 }
 
 var military_description = {
-  "en": "English military description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "en": "The American military response to 9/11 was almost immediate. What began as an effort to capture those responsible for the attacks transformed into a conflict to combat the elusive “axis of evil.” Twenty years later, over 7,000 U.S. troops, 177,000 coalition partners, and 335,000 civilians have been killed in the War on Terror. Today, terrorism remains a potent threat. As the Taliban retakes Afghanistan, the legacy of U.S. military intervention in the Middle East remains uncertain.",
   "es": "Spanish military description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 }
 

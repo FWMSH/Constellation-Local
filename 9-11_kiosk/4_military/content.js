@@ -206,97 +206,151 @@ var timelineContentList = [
 
 var bodyContentList = [
   {
-    id: "Flights_para_1",
-    header_en: "Four Fated Flights",
+    id: "Swift_response",
+    header_en: "A Swift Response",
     header_es: "Spanish header",
-    body_en: "At 7:59 AM, a Boeing 767 jetliner lifts off from Boston, headed to Los Angeles. Within the next 45 minutes, three more planes—another 767 and two Boeing 757s—would also depart from airports on the East Coast to destinations on the West. In total, nineteen hijackers were on board the four aircraft. Al-Qaeda had not chosen these planes at random—the 757 and 767 were the only commercial aircraft to share a cockpit layout, ensuring each hijacker could be trained in the same way. The planes were also large aircraft typically used for international travel; their West Coast destinations ensured that they were carrying a full load of fuel. ",
+    body_en: "In the immediate aftermath of September 11, Congress passed the Authorization for Use of Military Force of 2001 (420-1 in the House and 98-0 in the Senate), formally launching the War on Terror and Operation Enduring Freedom. President Bush signed the resolution into law on September 18, 2001. He quickly dispatched U.S. troops to Afghanistan after Taliban leaders refused to turn over Osama bin Laden and other terrorist leaders. On October 7, 2001, American and British warplanes began targeting Taliban forces and al-Qaeda. A combination of anti-Taliban leaders and U.S. military special forces temporarily toppled the Taliban regime in December of 2001 at the Battle of Tora Bora and installed a pro-American government in June of 2002 led by Hamid Karzai. Although the Taliban regime was temporarily defeated, Osama bin Laden escaped to northern Pakistan.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_1",
-    header_en: "No Ordinary Hijacking",
+    id: "Axis_of_evil_1",
+    header_en: `An "Axis of Evil"`,
     header_es: "Spanish header",
-    body_en: "Hijackings were commonplace in the 20th century. In just the five years leading up to 2001, 76 planes were seized in flight around the world. The vast majority of these incidents played out as hostage situations, and most victims weren’t physically harmed. In many cases, the attackers used the plane as transportation to an unlawful destination, such as Cuba. In others, the passengers were ransomed back to their government for money or the release of prisoners. For passengers, the rules were simple: don’t fight back and things would usually turn out okay.",
+    body_en: "President Bush and his advisors did not believe the collapse of the Taliban government had ended the War on Terror. Rather, the military conflict in Afghanistan transformed into a larger plan to reshape the Middle East along pro-American lines. This signaled the advent of the Bush Doctrine. The Bush Doctrine is a strategy that proposes undertaking a preemptive war against governments believed to be a threat to U.S. national security, even if the danger was not directly imminent.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_2",
-    body_en: "As hijackers seize American Airlines Flight 11 at 8:14 AM, the situation seems to be playing out exactly as it had for decades. The hijackers attack two flight attendants and one passenger who rise to confront them, but most sit quietly as the crew treat the wounded. Two more flight attendants use crew telephones to contact managers on the ground and relay information. One reports being shown a bomb. It is a very bad morning, but nothing the airline hadn’t faced before.",
+    id: "Axis_of_evil_2",
+    body_en: "In line with this doctrine, President Bush declared that Iraq belonged to an “axis of evil” alongside the likes of North Korea and Iran. Over the next several years, Bush convinced Congress and the American public that Iraq presented an immediate threat to the security of the United States. He did so by falsely connecting Saddam Hussein, the president of Iraq, to the 9/11 attacks, and accused Iraqi leadership of stockpiling “Weapons of Mass Destruction.” These allegations were first presented by Secretary of State Colin Powell on February 6, 2003, despite U.N. evidence to the contrary.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_3",
-    body_en: "Then, at 8:46 AM, everything changes. The telephone connection with AA11 goes dead. Moments later, American Airlines receives news: an aircraft has just collided with the World Trade Center. ",
-    body_es: "Spanish body"
-  },
-  {
-    id: "Confusion_para_1",
-    header_en: "A World of Confusion",
+    id: "Iraq_war_1",
+    header_en: `The Iraq War`,
     header_es: "Spanish header",
-    body_en: "The events of 9/11 were unparalleled in their complexity. Four aircraft left three airports headed for two destinations before being diverted towards three targets—all in the same airspace, all within a two-hour window. With a top speed of around 600 mph (965 kph), a Boeing 757 could travel from Boston to New York City in less than half an hour. ",
+    body_en: "Anti-war critics responded swiftly by organizing mass demonstrations in major cities throughout the United States. Yet, the majority of the American public agreed, at the very least, that Saddam Hussein was evil and therefore should be removed, regardless of whether he was involved in the 9/11 attacks. In March 2003, after receiving congressional approval through the Authorization for Use of Military Force Against Iraq Resolution (296-133 in the House and 77-23 in the Senate), the U.S. Military unleashed a massive bombing campaign over Baghdad, the Iraqi capital. This strategy was referred to as “Shock and Awe,” and it formally began the Iraq War, or “Operation Iraqi Freedom.” Within several weeks, Baghdad fell and Saddam Hussein went into hiding, prompting President Bush to declare that major combat operations had ended in Iraq.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_2",
-    body_en: "A vast array of oversight complicated and slowed the nation’s response to the unfolding disaster. Various pieces of critical information lay in the hands of the airlines, civilian air traffic controllers, military aerospace defense coordinators, and elected decisionmakers. Time and again on September 11, vital information passed from one organization to the next too slowly to be useful. At the same time, the terrorists’ careful planning and coordination ensured that the windows in which lifesaving decisions could be made were impossibly small.",
+    id: "Iraq_war_2",
+    body_en: "Saddam Hussein was captured several months later and executed by the Iraqi government in 2006, but the war raged on. Weapons of mass destruction were never found, and combat operations continued. More American soldiers died after Bush proclaimed victory than had died during the invasion itself.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_3",
-    body_en: "Around 8:46 AM, two F-15 fighters take off to intercept AA11. It crashes into the World Trade Center eight seconds before they are airborne.",
-    body_es: "Spanish body"
-  },
-  {
-    id: "More_hijacking_para_1",
-    header_en: "A Second Hijacking, and Then a Third",
+    id: "Deteriorating_situation_1",
+    header_en: `A Deteriorating Situation`,
     header_es: "Spanish header",
-    body_en: "At 8:43 AM—three minutes before AA11 would strike the North Tower—five hijackers seize United Airlines Flight 175. Seven minutes later, five others gain control of American Flight 77. It’s not until after the third plane is hijacked that President Bush learns of even the first event. He’s at an elementary school in Florida, preparing to spend the day promoting his education agenda.",
+    body_en: "U.S. occupation and efforts at nation building also caused major problems in Iraq. The U.S. presence had a destabilizing effect, ultimately leading to a civil war between the nation’s Shi’ite Muslim majority and the Sunni minority. This civil war also pulled in the Kurdish people, a minority Muslim group to the north, as well as Al-Qaeda, who had been previously absent from the country. During July 2006 alone, nearly 3,500 Iraqis were killed. More than half of the deaths occurred in the Baghdad area. In response, the U.S. increased troop deployments on an emergency basis.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_2",
-    body_en: "It takes only 20 minutes for the terrorists to steer UA175 into the South Tower of the World Trade Center. The plane strikes just minutes after television networks switch to live coverage of AA11’s crash. Millions of viewers see the impact live on TV.",
+    id: "Deteriorating_situation_2",
+    body_en: "Without a military draft, the United States struggled to provide a sufficient number of active-duty troops in Iraq. In 2004, the military began relying on National Guard units to meet troop requirements. To make up for staffing shortages, the U.S. outsourced jobs to private companies. These companies profited by supplying troops with housing, meals, and transportation, completing construction jobs, and providing military and diplomatic personnel. The Defense Department would later be criticized for accepting these contracts without competitive bidding and awarding them to companies such as Halliburton, which had close ties to Vice President Dick Cheney.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_3",
-    body_en: "By 9:33 AM, air traffic controllers in Washington, D.C. are warning the Secret Service that AA77 appears headed for the White House. Then, it abruptly changes direction. Five minutes later, it strikes the Pentagon. In a rare stroke of luck, the plane hits a part of the massive building that is under renovation. Of tens of thousands of employees, just 125 are killed.",
+    id: "Deteriorating_situation_3",
+    body_en: "Amid the prolonged war in Iraq, Bush won reelection in 2004 by vowing to finish the war, asserting that to do anything less would encourage terrorists, subvert democracy in the Middle East, and dishonor troops who had already been killed. Although the war effort still had some staunch supporters, the American public’s patience had begun to wane during Bush’s second term. In 2008, polls showed that 54% of Americans considered the invasion of Iraq a mistake and 49% wanted American troops returned home.",
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_1",
-    header_en: "A Fighting Chance",
+    id: "Deteriorating_situation_3",
+    body_en: "Meanwhile, the situation in Afghanistan continued to deteriorate. In 2006, the Taliban reemerged, as the Afghan government proved both frequently corrupt and incapable of providing social services or security for its citizens.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Torture_1",
+    header_en: `Terrorism and Torture`,
     header_es: "Spanish header",
-    body_en: `Of all the hijacked aircraft, only United Airlines Flight 93 had any chance to react. At 9:24 AM, the flight receives a brief message from United headquarters: "Beware any cockpit intrusion—Two [aircraft] hit World Trade Center." But, without context, the pilots don’t understand the warning. They respond, asking for clarification. Four minutes later, four attackers storm the cockpit and seize control of the plane.`,
+    body_en: "The American handling of prisoners of war and suspected terrorists divided the American public. In 2004, American soldiers were photographed torturing prisoners in Abu Ghraib, a prison located twenty miles west of Baghdad. These instances of torture (or “enhanced interrogation techniques,” as they were sometimes called) were authorized by the U.S. Department of Justice. This was done under the assertion that the Geneva Conventions, which explicitly forbid torture or cruelty in any form, did not apply to American interrogators overseas. These torture techniques included sleep deprivation, subjection to deafening noise, and deprivation of food and drink, among other disturbing methods.",
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_2",
-    body_en: "The pilots aren’t the only ones to receive a warning. Like on other hijacked flights, passengers make phone calls to the ground after the hijacking. But, by the time of the UA93 hijacking, the events at the World Trade Center are already global news. Within minutes, the first passengers learn that their plane, too, is likely on a suicide mission. Their only chance is to act.",
+    id: "Torture_2",
+    body_en: "Waterboarding, in particular, proved to be a point of contention. Waterboarding is a form of torture in which water is poured over a cloth covering the face, causing the person to experience the sensation of drowning.",
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_1",
-    header_en: `"Let's roll"`,
+    id: "Torture_3",
+    body_en: "Not only was the process of waterboarding inhumane, but it also produced unreliable information. Prisoners falsely confessed to crimes they did not commit to give the interrogators whatever they wanted to hear. Khalid Shaykh Muhammad fabricated stories to make the torture stop. The same was true for the "confessions" elicited by the technique on Riduan Isamuddin.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Torture_4",
+    body_en: "The publicization of these instances of torture drove a wedge in public support, as Americans were asked to consider the ethics of using torture on suspected terrorists. In a Pew poll published in July 2004, 43% of Americans said that torture of suspected terrorists to gain important information is often or sometimes justified.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Gitmo_1",
+    header_en: `Human Rights Violations at Guantanamo Bay`,
     header_es: "Spanish header",
-    body_en: `Huddled at the back of the plane, UA93’s passengers take a vote on whether to charge the cockpit. One flight attendant boils a pot of water to use as a weapon. Others may have readied the food service cart, or looked for other makeshift tools. At 9:57 AM, they’re ready. Moments later, a struggle erupts outside the cockpit, as passengers fight to get in. The hijacker piloting the plane beings to tilt it violently, trying to knock the fighting passengers off their feet. When it’s clear that the passengers will soon be successful, the hijackers elect to fly the plane straight into the ground.`,
+    body_en: "The question of human rights violations arose again surrounding the Guantanamo Bay Detention Camp, a prison located within the Guantanamo Bay Naval Base in Cuba. The prison was established by George W. Bush in 2002. The facility housed more than 600 men classified as enemy combatants, who were subjected to extreme interrogation and deprived of legal counsel. Amnesty International declared that conditions at Guantanamo Bay constituted a major breach of human rights, and the Center for Constitutional Rights declared that practices violated the Due Process Clause of the Fifth and Fourteenth amendments of the U.S. Constitution.",
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_2",
-    body_en: "The plane crashes six minutes after the struggle begins, landing in a field in Somerset County, Pennsylvania. Interrogations in the years following 9/11 revealed that UA93’s intended target was most likely the U.S. Capitol building in Washington, D.C. At the speed of a Boeing 757, the flight would have reached Washington only fifteen minutes later.",
+    id: "Gitmo_2",
+    body_en: "In the 2006 Supreme Court case, <i>Hamdan v. Rumsfeld</i>, the Court ruled that military tribunals established by the president to prosecute Guantanamo prisoners were unconstitutional, and Congress passed legislation providing a small measure of protection for the four hundred prisoners who remained in Guantanamo.",
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_1",
-    header_en: `Collapse`,
+    id: "Unfinished_1",
+    header_en: `An Unfinished Agenda`,
     header_es: "Spanish header",
-    body_en: `The crash of UA93 marked the end of the hijackings. But, in New York City, the scale of the disaster was only starting to come into focus. After burning for nearly an hour, the impact zone on the South Tower of the World Trade Center gives way. Structural elements within the building were designed to support one another; As fire weakens the beams not destroyed on impact, they begin to bend, fatally compromising the tower’s strength.`,
+    body_en: "In 2008, Barack Obama, a senator from Illinois, defeated John McCain from Arizona for the presidency. Obama, who famously critiqued the wars in the Middle East in 2002, appealed to voters who were tired of the so-called “Forever War.”",
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_2",
-    body_en: "Half an hour later, the North Tower collapses as well. Debris from the falling towers damages or destroys nearby buildings, including others in the World Trade Center complex. Still, the buildings performed admirably in the face of events they were never designed to withstand. The vast majority of those who perished on 9/11 were trapped above the impact zone on each building; the towers remained standing long enough to enable the evacuation of nearly everyone located below where the planes struck.",
+    id: "Unfinished_2",
+    body_en: "Following the election of President Obama, the U.S. Military increased combat troop withdrawals from Iraq and slowly turned over control to the newly elected Iraqi government. U.S. combat forces withdrew from Iraq on December 18, 2011, per the U.S.–Iraq Status of Forces Agreement, though violence and instability continued to rock the country.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Unfinished_3",
+    body_en: "Meanwhile, in 2009, the Obama administration deployed 17,000 additional troops to Afghanistan. As part of a counterinsurgency campaign, U.S. Special Forces and CIA drones targeted al-Qaeda and Taliban leaders. Obama would later receive criticism for his use of drone warfare. In the name of counterterrorism, many drone strikes occurred in Pakistan, Yemen, and Somalia, countries not at war with the United States. Drone strikes also frequently resulted in civilian casualties, including those attending a wedding in Aqabat Za’j, Yemen. The Obama administration would also receive extensive criticism for an accidental attack on Kunduz Hospital in Afghanistan.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Unfinished_4",
+    body_en: "In May 2011, U.S. Navy SEALs conducted a raid deep into Pakistan that led to the killing of Osama bin Laden. Following the killing of bin Laden, the United States and NATO began a phased withdrawal from Afghanistan, with the aim of removing all combat troops by 2014. Although weak militarily, the Taliban remained politically influential in Afghanistan.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Unfinished_5",
+    body_en: "On December 28, 2014, President Obama announced the end of Operation Enduring Freedom in Afghanistan. In its place, his administration announces the advent of Operation Freedom's Sentinel. Operation Freedom’s Sentinel began January 1, 2015. It signaled a shift away from major combat operations and towards NATO-led training and counterterrorism.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Taliban_1",
+    header_en: `The Taliban Resurgence`,
+    header_es: "Spanish header",
+    body_en: "On November 8, 2016, Donald Trump defeated Secretary of State Hillary Clinton for the presidency. During his campaign, Trump vowed to bring American troops home from Afghanistan during his presidency. In August 2017, Trump announced that American withdrawal would be open-ended and that conditions on the ground would dictate withdrawal rather than a set timeline.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Taliban_2",
+    body_en: "In the summer of 2018, President Trump announced his intention to enter into negotiations with the Taliban to begin the process of withdrawals. On February 29, 2020, the Trump administration entered a peace deal with the Taliban known as the Doha Agreement. The Doha Agreement committed to the withdrawal of US and allied troops from Afghanistan by May 1, 2021, if the Taliban negotiated a peace agreement with the Afghan government. The deal also required that the Taliban take steps to prevent groups including al-Qaeda from threatening national security.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Taliban_3",
+    body_en: "While the Trump administration argues that the Doha Agreement led to “unusual stability” in Afghanistan, others disagree. Although no American troops had been killed following the US deal with the Taliban, large numbers of Afghan troops and civilians continued to be killed or injured. The Department of Defense reported an uncharacteristic rise in civilian casualties from October 2020- December 2020.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Taliban_4",
+    body_en: "On January 20, 2021, President Joe Biden was inaugurated after a tumultuous election and chaotic transfer of power. The newly-elected President did not reverse the Doha Agreement, but he did push back the date of the pull-out of troops to September in the hopes of a more stable transition of power. In May 2021, the Taliban began rapidly capturing districts of Afghanistan, and their control continued to spread between May and August as American and allied troops began withdrawing from the country.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Legacy_1",
+    header_en: `America's Uncertain Legacy`,
+    header_es: "Spanish header",
+    body_en: "On August 15, 2021, nearly twenty years after the attacks on the World Trade Center and Pentagon, the Taliban retook Kabul after President Ashraf Ghani fled the country. More than 300,000 Afghan civilians currently risk Taliban retaliation because they worked for the US government, and as of August 17, 2021, there are nearly 11,000 American citizens stranded in Afghanistan. With the death toll mounting, evacuation efforts remain a matter of life and death for Afghan civilians and Americans currently residing in Afghanistan.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Legacy_2",
+    body_en: "The blame game over who lost Afghanistan has only just begun. The future of Afghanistan and the legacy of American military involvement in the Middle East remains uncertain.",
     body_es: "Spanish body"
   },
 ]
