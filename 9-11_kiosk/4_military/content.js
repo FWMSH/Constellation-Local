@@ -6,7 +6,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "The AUMF authorized the President to use the U.S. armed forces against those responsible for the 9/11 attacks.",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "Swift_response",
   },
   {
     title_en: "Operation Enduring Freedom begins",
@@ -19,7 +20,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "Operation_Enduring_Freedom_Public_Domain.jpg",
     credit: "",
-    rank: 1
+    rank: 1,
+    link: "Swift_response",
   },
   {
     title_en: "U.N. Security Council Resolution 1378",
@@ -50,7 +52,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "Strikes_on_Tora_Bora_Public_Domain.png",
     credit: "",
-    rank: 2
+    rank: 2,
+    link: "Swift_response",
   },
   {
     title_en: `The "Torture Memos"`,
@@ -63,7 +66,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "Yoo_memo_Public_Domain.png",
     credit: "",
-    rank: 2
+    rank: 2,
+    link: "Torture_1"
   },
   {
     title_en: `Bush describes the "Axis of Evil"`,
@@ -76,7 +80,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "President_Bush_at_State_of_the_Union_Public_Domain.jpg",
     credit: "",
-    rank: 1
+    rank: 1,
+    link: "Axis_of_evil_2"
   },
   {
     title_en: "Operation Anaconda",
@@ -102,7 +107,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "Hamid_Karzai_Piublic_Domain.jpg",
     credit: "",
-    rank: 2
+    rank: 2,
+    link: "Swift_response",
   },
   {
     title_en: "Authorization for Use of Military Force Against Iraq Resolution of 2002",
@@ -112,7 +118,8 @@ var timelineContentList = [
     body_en: "",
     body_es: "Spanish body",
     rank: 2,
-    link: ""
+    link: "",
+    link: "Swift_response",
   },
   {
     title_en: `U.S. claims Iraq possesses “Weapons of Mass Destruction”`,
@@ -125,7 +132,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "Colin_Powell_UN_Public_Domain.jpg",
     credit: "",
-    rank: 2
+    rank: 2,
+    link: "Axis_of_evil_2"
   },
   {
     title_en: "Operation Iraqi Freedom begins",
@@ -137,7 +145,8 @@ var timelineContentList = [
     caption_en: `President George W. Bush addresses the nation from the Oval Office to announce the beginning of “Operation Iraqi Freedom.”`,
     caption_es: "Spanish caption",
     image: "Bush_announces_Operation_Iraqi_Freedom_2003_Public_Domain.jpg",
-    rank: 1
+    rank: 1,
+    link: "Iraq_war_1"
   },
   {
     title_en: "The fall of Baghdad",
@@ -149,7 +158,8 @@ var timelineContentList = [
     caption_en: "Statue of Saddam Hussein being toppled by Iraqi citizens celebrating Hussein’s deposal on April 9, 2003.",
     caption_es: "Spanish caption",
     image: "SaddamStatue_Public_Domain.jpg",
-    rank: 3
+    rank: 3,
+    link: "Iraq_war_1"
   },
   {
     title_en: `“Mission Accomplished” speech `,
@@ -162,7 +172,7 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "Mission_Accomplished_Banner_Public_Domain.jpg",
     rank: 3,
-    link: ""
+    link: "Iraq_war_1"
   },
   {
     title_en: "Capture of Saddam Hussein",
@@ -175,7 +185,7 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "SaddamSpiderHole_Public_Domain.jpg",
     rank: 3,
-    link: ""
+    link: "Iraq_war_2"
   },
   {
     title_en: "Abu Ghraib torture photos revealed",
@@ -184,7 +194,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "60 Minutes revealed photos showing extensive abuse of prisoners. The Bush administration claimed the horrors at Abu Ghraib were isolated incidents and not indicative of standard protocol.",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "Torture_1"
   },
   {
     title_en: "President Bush wins reelection",
@@ -193,7 +204,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "During President Bush’s campaign, he vowed to finish the war, asserting that to do anything less would encourage terrorists, subvert democracy, and dishonor troops. ",
     body_es: "Spanish body",
-    rank: 4
+    rank: 4,
+    link: "Deteriorating_situation_3"
   },
   {
     title_en: "Iraqi Civil War Begins",
@@ -202,7 +214,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "The Iraqi Civil War was fought between the American-backed Iraqi government and various sectarian groups. It resulted in a temporary victory for the government, but also led to the resurgence of Al-Qaeda in Iraq.",
     body_es: "Spanish body",
-    rank: 1
+    rank: 1,
+    link: "Deteriorating_situation_1"
   },
   {
     title_en: "U.S. prisoner detainment found unconstitutional",
@@ -211,7 +224,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "In <i>Hamdan v. Rumsfeld</i>, the Supreme Court found that the military commission used to hold and interrogate prisoners suspected of terrorism was unconstitutional.",
     body_es: "Spanish body",
-    rank: 4
+    rank: 4,
+    link: "Gitmo_2"
   },
   {
     title_en: "Saddam Hussein Executed",
@@ -220,7 +234,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "Saddam Hussein was found guilty of crimes against humanity and executed by hanging at Camp Justice, an Iraqi army base.",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "Iraq_war_2"
   },
   {
     title_en: `President Bush announces “The Surge”`,
@@ -247,7 +262,7 @@ var timelineContentList = [
     image: "Iraq_War_protest_CC_BY_SA_Vic_Reinhart.JPG",
     credit: "Vic Reinhart",
     rank: 4,
-    link: ""
+    link: "Deteriorating_situation_3"
   },
   {
     title_en: `Barack Obama wins the 2008 Presidential election`,
@@ -261,7 +276,7 @@ var timelineContentList = [
     image: "Barack_Obama_Iraq_2006_Public_Domain.jpg",
     credit: "",
     rank: 4,
-    link: ""
+    link: "Unfinished_1"
   },
   {
     title_en: `U.S.–Iraq Status of Forces Agreement`,
@@ -271,7 +286,7 @@ var timelineContentList = [
     body_en: `The agreement establishes that U.S. combat forces would withdraw from Iraqi cities by June 30, 2009, and from Iraq entirely by December 31, 2011.`,
     body_es: "Spanish body",
     rank: 3,
-    link: ""
+    link: "Unfinished_2"
   },
   {
     title_en: `U.S. kills Osama bin Laden`,
@@ -285,7 +300,7 @@ var timelineContentList = [
     image: "Obama_and_Biden_await_updates_on_bin_Laden_Public_Domain.jpg",
     credit: "",
     rank: 1,
-    link: ""
+    link: "Unfinished_4"
   },
   {
     title_en: `Combat forces withdraw from Iraq`,
@@ -299,7 +314,7 @@ var timelineContentList = [
     image: "Last_US_convoy_crosses_into_Kuwait_Public_Domain.jpg",
     credit: "",
     rank: 1,
-    link: ""
+    link: "Unfinished_2"
   },
   {
     title_en: `Drone strike at a wedding in Yemen`,
@@ -309,7 +324,7 @@ var timelineContentList = [
     body_en: `A U.S. drone launches four Hellfire missiles on a convoy of 11 cars and pickup trucks in rural Yemen. Witnesses and relatives of the dead said the “convoy” was a wedding procession.`,
     body_es: "Spanish body",
     rank: 3,
-    link: ""
+    link: "Unfinished_3"
   },
   {
     title_en: `Operation Freedom’s Sentinel Begins`,
@@ -319,7 +334,7 @@ var timelineContentList = [
     body_en: `The operation signals a transition away from major military operations in Afghanistan and towards a smaller role of NATO-led training, assistance, and counterterrorism operations.`,
     body_es: "Spanish body",
     rank: 3,
-    link: ""
+    link: "Unfinished_5"
   },
   {
     title_en: `U.S. Air Force fires on Kunduz Hospital`,
@@ -329,7 +344,7 @@ var timelineContentList = [
     body_en: `At least 42 people are killed and over 30 injured by the airstrike. Attacks on medical facilities are forbidden under international humanitarian law. After an investigation, the incident was declared an accident.`,
     body_es: "Spanish body",
     rank: 3,
-    link: ""
+    link: "Unfinished_3"
   },
   {
     title_en: `Donald Trump wins the 2016 election`,
@@ -343,7 +358,7 @@ var timelineContentList = [
     image: "Donald_Trump_and_Mike_Pence_RNC_July_2016_Public_Domain.jpg",
     credit: "",
     rank: 4,
-    link: ""
+    link: "Taliban_1"
   },
   {
     title_en: `Trump signals a prolonged war in Afghanistan`,
@@ -353,7 +368,7 @@ var timelineContentList = [
     body_en: `In an address to troops in Arlington, Virginia, Trump announced his intention to prolong the American military presence in Afghanistan, stating that the decision to leave Afghanistan would be based on “conditions on the ground, not arbitrary timetables.”`,
     body_es: "Spanish body",
     rank: 3,
-    link: ""
+    link: "Taliban_1"
   },
   {
     title_en: `U.S.–Taliban peace agreement signed`,
@@ -367,7 +382,7 @@ var timelineContentList = [
     image: "Doha_Agreement_Public_Domain.jpg",
     credit: "",
     rank: 3,
-    link: ""
+    link: "Taliban_2"
   },
   {
     title_en: `President Joe Biden inaugurated`,
@@ -381,7 +396,7 @@ var timelineContentList = [
     image: "Biden_oath_of_office_Public_Domain.jpg",
     credit: "",
     rank: 4,
-    link: ""
+    link: "Taliban_4"
   },
   {
     title_en: `Biden announces the withdrawal of remaining U.S. troops`,
@@ -391,7 +406,7 @@ var timelineContentList = [
     body_en: `President Biden pledges that all remaining U.S. troops will be out of Afghanistan by September. In so doing, he modifies the conditions of the Doha Agreement that required U.S. troops to leave Afghanistan by May 31, 2021.`,
     body_es: "Spanish body",
     rank: 3,
-    link: ""
+    link: "Taliban_4"
   },
   {
     title_en: `2021 Taliban offensive begins`,
@@ -405,7 +420,7 @@ var timelineContentList = [
     image: "Taliban_Fighters_in_Kabul_Public_Domain.png",
     credit: "",
     rank: 2,
-    link: ""
+    link: "Taliban_4"
   },
   {
     title_en: `U.S. troops leave Bagram Airfield`,
@@ -433,7 +448,7 @@ var timelineContentList = [
     image: "Crowds_in_front_of_Kabul_International_Airport_Public_Domain.jpg",
     credit: "",
     rank: 1,
-    link: ""
+    link: "Legacy_1"
   },
 ];
 
