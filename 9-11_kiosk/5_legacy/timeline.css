@@ -170,7 +170,7 @@ time {
 
 /* This controls the dot */
 .timeline ul li.in-view::after {
-  background: #ede84a;
+  background: #e5cb0e;
 }
 
 .timeline ul li div {
