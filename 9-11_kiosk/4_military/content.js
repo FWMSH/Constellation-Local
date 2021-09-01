@@ -272,7 +272,7 @@ var bodyContentList = [
   },
   {
     id: "Torture_3",
-    body_en: "Not only was the process of waterboarding inhumane, but it also produced unreliable information. Prisoners falsely confessed to crimes they did not commit to give the interrogators whatever they wanted to hear. Khalid Shaykh Muhammad fabricated stories to make the torture stop. The same was true for the "confessions" elicited by the technique on Riduan Isamuddin.",
+    body_en: `Not only was the process of waterboarding inhumane, but it also produced unreliable information. Prisoners falsely confessed to crimes they did not commit to give the interrogators whatever they wanted to hear. Khalid Shaykh Muhammad fabricated stories to make the torture stop. The same was true for the "confessions" elicited by the technique on Riduan Isamuddin.`,
     body_es: "Spanish body"
   },
   {
