@@ -316,23 +316,23 @@
       var page = "";
 
       switch (currentTopic) {
-        // case 'prologue':
-        //
-        //   break;
+        case 'prologue':
+          page = "1_prologue/1_prologue.html";
+          break;
         case 'attack':
           page = "2_attack/2_attack.html";
           break;
-        // case 'response':
-        //
-        //   break;
-        // case 'military':
-        //
-        //   break;
-        // case 'legacy':
-        //
-        //   break;
+        case 'response':
+          page = "3_response/3_response.html";
+          break;
+        case 'military':
+          page = "4_military/4_military.html";
+          break;
+        case 'legacy':
+          page = "5_legacy/5_legacy.html";
+          break;
         default:
-          page = "2_attack/2_attack.html";
+          page = "911_kiosk.html";
       }
 
       var link = page + `?lang=${currentLang}&size=${fontTicks}`
