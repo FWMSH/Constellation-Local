@@ -6,7 +6,7 @@ var timelineContentList = [
     time_es: "",
     body_en: "",
     body_es: "Spanish body",
-    rank: 1
+    rank: 2
   },
   {
     title_en: "Operation Enduring Freedom begins",
