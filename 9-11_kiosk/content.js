@@ -20,7 +20,7 @@ var lang_toggle_text = {
 }
 
 var prologue_description = {
-  "en": "English prologue description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "en": "In the 1970s, the World Trade Center emerged as a global icon of American power and prosperity. At the same time, the nation was facing new threats. Al-Qaeda and its leader, Osama bin Laden, began to target symbols of America around the world. As the country entered a new millennium, hints began to appear that al-Qaeda might strike closer to home than ever before. But could the U.S. put the pieces together in time?",
   "es": "Spanish prologue description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 }
 
@@ -30,7 +30,7 @@ var attack_description = {
 }
 
 var response_description = {
-  "en": "English reaction description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "en": "As the shock of the attacks rippled across the world, the nation reeled in confusion. Buit, within seconds of the first impact, brave men and women banded together to save who and what they could. Some were first responders; others were simply the first on the scene. Journalists tried to make sense what had happened, while countless citizens lined up to donate their blood. In ways big and small, Americans reacted with courage and determination.",
   "es": "Spanish reaction description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 }
 
