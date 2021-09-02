@@ -25,7 +25,7 @@ var prologue_description = {
 }
 
 var attack_description = {
-  "en": "English attack description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "en": "On Tuesday, September 11, 2001, al-Qaeda terrorists seized four passenger jets traveling from the East Coast to the West Coast. Over the following two hours, they piloted three of these planes into targets in New York City and Arlington, Virginia. A fourth, likely headed towards Washington, D.C., crashed in Pennsylvania after a struggle with passengers on board. The coordinated attacks left America shocked and trying to understand what had just happened.",
   "es": "Spanish attack description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 }
 
