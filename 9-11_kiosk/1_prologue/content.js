@@ -50,6 +50,10 @@ var timelineContentList = [
     time_es: "",
     body_en: "Terrorists hope to topple one tower into the other as retribution for U.S. support for Israel. Six people are killed, and more than 1000 injured.",
     body_es: "Spanish body",
+    caption_en: "The underground aftermath of the 1993 World Trade Center bombing.",
+    caption_es: "Spanish caption",
+    image: "WTC_1993_ATF_Public_Domain.jpg",
+    credit: "",
     rank: 2
   },
   {

@@ -1,47 +1,24 @@
 var timelineContentList = [
   {
-    title_en: "AA11 departs Boston, headed for Los Angeles",
-    title_es: "Spanish title",
-    time_en: "7:59 AM",
-    time_es: "7:59 AM",
-    body_en: "On board the Boeing 767 are 81 passengers and 11 crew.",
-    body_es: "Spanish body",
-    rank: 3
-  },
-  {
-    title_en: "UA175 departs Boston, headed for Los Angeles",
-    title_es: "Spanish title",
-    time_en: "8:14 AM",
-    time_es: "8:14 AM",
-    body_en: "On board the Boeing 767 are 56 passengers and 9 crew.",
-    body_es: "Spanish body",
-    rank: 3
-  },
-  {
     title_en: "AA11 is hijacked",
     title_es: "Spanish title",
-    time_en: "8:14 AM",
-    time_es: "8:14 AM",
-    body_en: "Five hijackers gain control of the aircraft, turning the plane south.",
+    time_en: "8:14 AM, Sept 11",
+    time_es: "",
+    body_en: "",
     body_es: "Spanish body",
-    rank: 2,
+    rank: 2
   },
   {
-    title_en: "AA77 departs Washington, headed for Los Angeles",
+    title_en: "Flight controllers alert NORAD of AA11 hijacking",
     title_es: "Spanish title",
-    time_en: "8:20 AM",
-    time_es: "8:20 AM",
-    body_en: "On board the Boeing 757 are 58 passengers and 6 crew.",
+    time_en: "8:37 AM",
+    time_es: "8:37 AM",
+    body_en: "Boston flight controllers notify the North American Aerospace Defense Command of AA11’s situation, and request that the flight be intercepted.",
     body_es: "Spanish body",
-    rank: 3
-  },
-  {
-    title_en: "UA93 departs Newark, headed for San Francisco",
-    title_es: "Spanish title",
-    time_en: "8:42 AM",
-    time_es: "8:42 AM",
-    body_en: "On board the Boeing 757 are 37 passengers and 7 crew.",
-    body_es: "Spanish body",
+    caption_en: "The NORAD Command Center as it appeared around 2005.",
+    caption_es: "Spanish caption",
+    image: "NORADCommandCenter_Public_Domain.jpg",
+    credit: "",
     rank: 3
   },
   {
@@ -49,9 +26,9 @@ var timelineContentList = [
     title_es: "Spanish title",
     time_en: "8:43 AM",
     time_es: "8:43 AM",
-    body_en: "Five hijackers gain control of the aircraft, turning the plane to the northeast.",
+    body_en: "",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
   },
   {
     title_en: "AA11 strikes the North Tower",
@@ -61,6 +38,41 @@ var timelineContentList = [
     body_en: "",
     body_es: "Spanish body",
     rank: 1
+  },
+  {
+    title_en: "First report of AA11 crash",
+    title_es: "Spanish title",
+    time_en: "8:46 AM",
+    time_es: "8:46 AM",
+    body_en: "An FDNY firefighter witnesses the impact and immediately reports it, requesting backup.",
+    body_es: "Spanish body",
+    rank: 2
+  },
+  {
+    title_en: "Air Force jets lift off to intercept UA11",
+    title_es: "Spanish title",
+    time_en: "8:46 AM",
+    time_es: "8:46 AM",
+    body_en: "The two F-15 fighters take off from a base in Massachusetts about eight seconds after AA11 hits the North Tower. It will be three minutes before NORAD becomes aware of the crash.",
+    body_es: "Spanish body",
+    caption_en: "An F-15 Fighting Falcon in flight.",
+    caption_es: "Spanish caption",
+    image: "F-15_Public_Domain.JPG",
+    credit: "",
+    rank: 4
+  },
+  {
+    title_en: "First media report of attack",
+    title_es: "Spanish title",
+    time_en: "8:48 AM",
+    time_es: "8:48 AM",
+    body_en: "WNYW interrupts a commercial break to report the crash of UA11. A nearby camera crew broadcasts the first images of the North Tower on fire.",
+    body_es: "Spanish body",
+    caption_en: "One of the first images of the impact on the North Tower broadcast on WNYW.",
+    caption_es: "Spanish caption",
+    image: "First_WNYW_CoveragE_Fair_Use_WNYW.jpg",
+    credit: "WNYW",
+    rank: 3
   },
   {
     title_en: "AA77 is hijacked",
