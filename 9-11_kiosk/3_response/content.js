@@ -72,7 +72,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "First_WNYW_CoveragE_Fair_Use_WNYW.jpg",
     credit: "WNYW",
-    rank: 3
+    rank: 3,
+    link: "Reports_1",
   },
   {
     title_en: "AA77 is hijacked",
@@ -177,7 +178,8 @@ var timelineContentList = [
     time_es: "9:25 AM",
     body_en: "The so-called “ground stop” is the first such emergency order to halt air traffic nationwide since the invention of flight.",
     body_es: "Spanish body",
-    rank: 1
+    rank: 1,
+    link: "Grounding_2"
   },
   {
     title_en: "UA93 is hijacked",
