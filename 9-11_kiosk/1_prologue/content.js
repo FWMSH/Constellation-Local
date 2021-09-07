@@ -189,97 +189,119 @@ var timelineContentList = [
 
 var bodyContentList = [
   {
-    id: "Flights_para_1",
-    header_en: "Four Fated Flights",
+    id: "Monument_1",
+    header_en: "A Monument to a Monumental City",
     header_es: "Spanish header",
-    body_en: "At 7:59 AM, a Boeing 767 jetliner lifts off from Boston, headed to Los Angeles. Within the next 45 minutes, three more planes—another 767 and two Boeing 757s—would also depart from airports on the East Coast to destinations on the West. In total, nineteen hijackers were on board the four aircraft. Al-Qaeda had not chosen these planes at random—the 757 and 767 were the only commercial aircraft to share a cockpit layout, ensuring each hijacker could be trained in the same way. The planes were also large aircraft typically used for international travel; their West Coast destinations ensured that they were carrying a full load of fuel. ",
+    body_en: "In the aftermath of World War II, New York City became one of the world’s leading cities. Already a center of industry, finance, and trade, the city took on a new importance as the home of the fledgling United Nations. Some began to call it Caput Mundi, Latin for <i>capital of the world.</i>",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_1",
-    header_en: "No Ordinary Hijacking",
+    id: "Monument_2",
+    body_en: "Conceived in the 1940s, designed in the 1960s, and completed in the 1970s, the World Trade Center would come to symbolize not just New York City, but Western capitalism and power more generally. The complex consisted of seven buildings, containing more than 13 million square feet of office space and 825 hotel rooms. 50,000 people worked there on an average day. With 110 floors, at opening they were the tallest buildings in the world.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Cold_war_1",
+    header_en: "The Final Front of the Cold War",
     header_es: "Spanish header",
-    body_en: "Hijackings were commonplace in the 20th century. In just the five years leading up to 2001, 76 planes were seized in flight around the world. The vast majority of these incidents played out as hostage situations, and most victims weren’t physically harmed. In many cases, the attackers used the plane as transportation to an unlawful destination, such as Cuba. In others, the passengers were ransomed back to their government for money or the release of prisoners. For passengers, the rules were simple: don’t fight back and things would usually turn out okay.",
+    body_en: "In the era of nuclear weapons, the United States and the Soviet Union could not directly go to war. Rather, they faced off in a series of so-called proxy wars, in which each superpower backed one side in a smaller conflict. So, when the Soviet Union invaded Afghanistan in 1979, the U.S. provided weapons and support to resistance fighters. Among these was a young Saudi named Osama bin Laden.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_2",
-    body_en: "As hijackers seize American Airlines Flight 11 at 8:14 AM, the situation seems to be playing out exactly as it had for decades. The hijackers attack two flight attendants and one passenger who rise to confront them, but most sit quietly as the crew treat the wounded. Two more flight attendants use crew telephones to contact managers on the ground and relay information. One reports being shown a bomb. It is a very bad morning, but nothing the airline hadn’t faced before.",
+    id: "Cold_war_2",
+    body_en: "The war in Afghanistan was the U.S.S.R.’s Vietnam. Unpopular at home and without a clear mission, the Soviets would spend a decade embroiled in a guerrilla war before finally withdrawing. For the citizens of Afghanistan, it was a catastrophe. More than ten percent of the country’s population may have been killed. Millions more became refugees.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_3",
-    body_en: "Then, at 8:46 AM, everything changes. The telephone connection with AA11 goes dead. Moments later, American Airlines receives news: an aircraft has just collided with the World Trade Center. ",
+    id: "Cold_war_3",
+    body_en: "As the war with the Soviet Union wound down in the late 1980s, bin Laden and other veterans of the conflict wanted to continue fighting on behalf of Islamist efforts elsewhere in the world. They had formed a new organization, al-Qaeda, and were ready to expand its mission beyond supporting the Afghan guerrilla war.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_1",
-    header_en: "A World of Confusion",
+    id: "1993_1",
+    header_en: "The 1993 WTC Bombing",
     header_es: "Spanish header",
-    body_en: "The events of 9/11 were unparalleled in their complexity. Four aircraft left three airports headed for two destinations before being diverted towards three targets—all in the same airspace, all within a two-hour window. With a top speed of around 600 mph (965 kph), a Boeing 757 could travel from Boston to New York City in less than half an hour. ",
+    body_en: "The attractiveness of the World Trade Center as a target of terrorism became clear on February 26, 1993. Just after noon, a truck bomb of more than 1,300 lbs (590 kg) exploded in the public parking garage underneath the North Tower. The attack killed six people, injured more than a thousand, and cut off power and telecommunications for parts of lower Manhattan.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_2",
-    body_en: "A vast array of oversight complicated and slowed the nation’s response to the unfolding disaster. Various pieces of critical information lay in the hands of the airlines, civilian air traffic controllers, military aerospace defense coordinators, and elected decisionmakers. Time and again on September 11, vital information passed from one organization to the next too slowly to be useful. At the same time, the terrorists’ careful planning and coordination ensured that the windows in which lifesaving decisions could be made were impossibly small.",
+    id: "1993_2",
+    body_en: "The attack was carried out by a network of terrorists from the Arab world, including a former member of al-Qaeda. It was supported in part by Khalid Sheikh Mohammed, an Islamist militant who would later become the chief planner of the 9/11 attacks. Their desire was to punish the U.S. for its support of Israel and its interference in the internal affairs of nations in the Middle East.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_3",
-    body_en: "Around 8:46 AM, two F-15 fighters take off to intercept AA11. It crashes into the World Trade Center eight seconds before they are airborne.",
+    id: "1993_3",
+    body_en: "Although the 1993 bombing demonstrated that an attack on the World Trade Center could have an outsized impact on New York City, it fell short of its goal of toppling the Twin Towers. Still, many elements of the incident presaged the larger and more complicated 9/11 attacks. In its aftermath, the WTC complex made improvements to its evacuation plans that may have saved countless lives as the towers collapsed.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_1",
-    header_en: "A Second Hijacking, and Then a Third",
+    id: "Jihad_1",
+    header_en: "A Jihad Against America",
     header_es: "Spanish header",
-    body_en: "At 8:43 AM—three minutes before AA11 would strike the North Tower—five hijackers seize United Airlines Flight 175. Seven minutes later, five others gain control of American Flight 77. It’s not until after the third plane is hijacked that President Bush learns of even the first event. He’s at an elementary school in Florida, preparing to spend the day promoting his education agenda.",
+    body_en: "Al-Qaeda’s rise to prominence began in 1996, when bin Laden called for a jihad, or religious struggle, against the United States and its allies. In addition to America’s continued financial and military support of Israel, he was motivated by the U.S.’s intervention in the first Iraq War and subsequent activities in the Middle East. This declaration put bin Laden and al-Qaeda on the radar of American intelligence agencies.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_2",
-    body_en: "It takes only 20 minutes for the terrorists to steer UA175 into the South Tower of the World Trade Center. The plane strikes just minutes after television networks switch to live coverage of AA11’s crash. Millions of viewers see the impact live on TV.",
+    id: "Jihad_2",
+    body_en: "The first realization of his jihad came two years later. On August 7, 1998, suicide bombers detonated truck bombs outside the U.S. embassies in Dar es Salaam, Tanzania and Nairobi, Kenya. In total, 224 people were killed and more than 4,000 wounded, the vast majority of whom were local citizens. The blasts occurred just ten minutes apart, a level of coordination that was to become one of the hallmarks of al-Qaeda operations and a defining feature of the 9/11 attacks.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_3",
-    body_en: "By 9:33 AM, air traffic controllers in Washington, D.C. are warning the Secret Service that AA77 appears headed for the White House. Then, it abruptly changes direction. Five minutes later, it strikes the Pentagon. In a rare stroke of luck, the plane hits a part of the massive building that is under renovation. Of tens of thousands of employees, just 125 are killed.",
+    id: "Jihad_3",
+    body_en: "Two years later, al-Qaeda directly stuck the U.S. again. On October 12, 2000, a small, explosive-laden boat approached the Navy destroyer, USS Cole, as it refueled in Yemen. Once alongside, it detonated, claiming the lives of 17 American sailors.",
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_1",
-    header_en: "A Fighting Chance",
+    id: "Origins_1",
+    header_en: "Origins of the 9/11 Plot",
     header_es: "Spanish header",
-    body_en: `Of all the hijacked aircraft, only United Airlines Flight 93 had any chance to react. At 9:24 AM, the flight receives a brief message from United headquarters: "Beware any cockpit intrusion—Two [aircraft] hit World Trade Center." But, without context, the pilots don’t understand the warning. They respond, asking for clarification. Four minutes later, four attackers storm the cockpit and seize control of the plane.`,
+    body_en: `After bin Laden declared his jihad in 1996, Khalid Sheikh Mohammed presented him with an ambitious plan to strike the American homeland. He proposed a coordinated hijacking of a dozen U.S. airliners, and then crashing them into landmarks in Washington, D.C., New York City, Boston, Chicago, Los Angeles, San Francisco, and Seattle. Bin Laden judged this idea too complicated to succeed.`,
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_2",
-    body_en: "The pilots aren’t the only ones to receive a warning. Like on other hijacked flights, passengers make phone calls to the ground after the hijacking. But, by the time of the UA93 hijacking, the events at the World Trade Center are already global news. Within minutes, the first passengers learn that their plane, too, is likely on a suicide mission. Their only chance is to act.",
+    id: "Origins_2",
+    body_en: "By 1999, though, bin Laden gave the go-ahead for a scaled back version of the plot. He wanted the targets to include the White House, U.S. Capitol, and the Pentagon, believing that the destruction of these buildings would lead to the collapse of the U.S. government. Mohammed preferred to strike at the World Trade Center. In the aftermath of 9/11, it appears they may have reached a compromise, targeting the WTC, Pentagon, and one of either the Capitol or White House.",
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_1",
-    header_en: `"Let's roll"`,
+    id: "Hamburg_1",
+    header_en: `The Hamburg Cell`,
     header_es: "Spanish header",
-    body_en: `Huddled at the back of the plane, UA93’s passengers take a vote on whether to charge the cockpit. One flight attendant boils a pot of water to use as a weapon. Others may have readied the food service cart, or looked for other makeshift tools. At 9:57 AM, they’re ready. Moments later, a struggle erupts outside the cockpit, as passengers fight to get in. The hijacker piloting the plane beings to tilt it violently, trying to knock the fighting passengers off their feet. When it’s clear that the passengers will soon be successful, the hijackers elect to fly the plane straight into the ground.`,
+    body_en: `Mohammed Atta, the eventual leader of the hijackers, and a number of other hijackers were radicalized in Hamburg, Germany during the 1990s. The group, which became known as the “Hamburg Cell,” intended to join the Islamist fight in Chechnya, Russia. However, before they could follow through on this effort, they were put in contact with members of al-Qaeda planning the 9/11 attacks.`,
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_2",
-    body_en: "The plane crashes six minutes after the struggle begins, landing in a field in Somerset County, Pennsylvania. Interrogations in the years following 9/11 revealed that UA93’s intended target was most likely the U.S. Capitol building in Washington, D.C. At the speed of a Boeing 757, the flight would have reached Washington only fifteen minutes later.",
-    body_es: "Spanish body"
-  },
-  {
-    id: "Collapse_para_1",
-    header_en: `Collapse`,
+    id: "Training_1",
+    header_en: `Flight Training and Final Preparations`,
     header_es: "Spanish header",
-    body_en: `The crash of UA93 marked the end of the hijackings. But, in New York City, the scale of the disaster was only starting to come into focus. After burning for nearly an hour, the impact zone on the South Tower of the World Trade Center gives way. Structural elements within the building were designed to support one another; As fire weakens the beams not destroyed on impact, they begin to bend, fatally compromising the tower’s strength.`,
+    body_en: `In 2000 and 2001, the hijackers began to filter into the United States on tourist and student visas, largely using forged passports. Some were repeatedly rejected by U.S. Customs and eventually replaced by other al-Qaeda members.`,
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_2",
-    body_en: "Half an hour later, the North Tower collapses as well. Debris from the falling towers damages or destroys nearby buildings, including others in the World Trade Center complex. Still, the buildings performed admirably in the face of events they were never designed to withstand. The vast majority of those who perished on 9/11 were trapped above the impact zone on each building; the towers remained standing long enough to enable the evacuation of nearly everyone located below where the planes struck.",
+    id: "Training_2",
+    body_en: "The members selected to pilot the hijacked aircraft received training from flight schools in the U.S. They elected to train for the Boeing 757 and 767 because the two aircraft were the only ones with the same cockpit layout. In total, it may have cost up to half a million dollars to support the future terrorists during their time in America.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Training_3",
+    body_en: "In the late spring and early summer of 2001, the remaining hijackers—those not slated to fly a plane—entered the U.S. The final plan, including the assignment of individual hijackers to specific flights and targets, happened only a few months before the attack.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Intelligence_1",
+    header_en: `What Did We Know?`,
+    header_es: "Spanish header",
+    body_en: `Although central figures in the 9/11 attacks, such as Osama bin Laden, are now household names, they weren’t widely known even within the intelligence community in the 1990s. In fact, as late as 2000, it was not even clear publicly whether bin Laden was an actual planner of terrorist activity, or simply a supporter and financier. Al-Qaeda was known from their prior attacks, but they were just one of numerous terrorist or extremist organizations in the world.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Intelligence_2",
+    body_en: "Throughout 2000 and 2001, both U.S. and foreign intelligence services received information consistent with a coming attack on the United States. These reports varied in their specificity, but a number included the detail that aircraft hijackings would be involved. Ultimately, none of these reports provided information that was largely consistent with how the attacks eventually played out.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Intelligence_3",
+    body_en: "Despite the lack of evidence that such an attack was imminent, the 9/11 Commission report later faulted the intelligence community for failing to imagine and plan for such a scenario. Had analysts identified airborne attacks as a possible threat, the government could have developed a series of warning signs, such as individuals on visas attending flight school.",
     body_es: "Spanish body"
   },
 ]
