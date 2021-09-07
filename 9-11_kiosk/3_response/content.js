@@ -369,30 +369,6 @@ var timelineContentList = [
 
 var bodyContentList = [
   {
-    id: "Flights_para_1",
-    header_en: "Four Fated Flights",
-    header_es: "Spanish header",
-    body_en: "At 7:59 AM, a Boeing 767 jetliner lifts off from Boston, headed to Los Angeles. Within the next 45 minutes, three more planes—another 767 and two Boeing 757s—would also depart from airports on the East Coast to destinations on the West. In total, nineteen hijackers were on board the four aircraft. Al-Qaeda had not chosen these planes at random—the 757 and 767 were the only commercial aircraft to share a cockpit layout, ensuring each hijacker could be trained in the same way. The planes were also large aircraft typically used for international travel; their West Coast destinations ensured that they were carrying a full load of fuel. ",
-    body_es: "Spanish body"
-  },
-  {
-    id: "Hijacking_para_1",
-    header_en: "No Ordinary Hijacking",
-    header_es: "Spanish header",
-    body_en: "Hijackings were commonplace in the 20th century. In just the five years leading up to 2001, 76 planes were seized in flight around the world. The vast majority of these incidents played out as hostage situations, and most victims weren’t physically harmed. In many cases, the attackers used the plane as transportation to an unlawful destination, such as Cuba. In others, the passengers were ransomed back to their government for money or the release of prisoners. For passengers, the rules were simple: don’t fight back and things would usually turn out okay.",
-    body_es: "Spanish body"
-  },
-  {
-    id: "Hijacking_para_2",
-    body_en: "As hijackers seize American Airlines Flight 11 at 8:14 AM, the situation seems to be playing out exactly as it had for decades. The hijackers attack two flight attendants and one passenger who rise to confront them, but most sit quietly as the crew treat the wounded. Two more flight attendants use crew telephones to contact managers on the ground and relay information. One reports being shown a bomb. It is a very bad morning, but nothing the airline hadn’t faced before.",
-    body_es: "Spanish body"
-  },
-  {
-    id: "Hijacking_para_3",
-    body_en: "Then, at 8:46 AM, everything changes. The telephone connection with AA11 goes dead. Moments later, American Airlines receives news: an aircraft has just collided with the World Trade Center. ",
-    body_es: "Spanish body"
-  },
-  {
     id: "Confusion_para_1",
     header_en: "A World of Confusion",
     header_es: "Spanish header",
@@ -405,61 +381,109 @@ var bodyContentList = [
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_3",
-    body_en: "Around 8:46 AM, two F-15 fighters take off to intercept AA11. It crashes into the World Trade Center eight seconds before they are airborne.",
-    body_es: "Spanish body"
-  },
-  {
-    id: "More_hijacking_para_1",
-    header_en: "A Second Hijacking, and Then a Third",
+    id: "Before_1",
+    header_en: "Before the First Impact",
     header_es: "Spanish header",
-    body_en: "At 8:43 AM—three minutes before AA11 would strike the North Tower—five hijackers seize United Airlines Flight 175. Seven minutes later, five others gain control of American Flight 77. It’s not until after the third plane is hijacked that President Bush learns of even the first event. He’s at an elementary school in Florida, preparing to spend the day promoting his education agenda.",
+    body_en: "Within five minutes of the hijacking of American Airlines Flight 11, the airline is aware of what has happened. A minute later, air traffic controllers in Boston come to the same conclusion on their own. But, as late as the 1990s, hijackings of commercial aircraft were a relatively common occurrence. Radio messages accidently sent by the hijacker piloting the plane reinforced the notion that this was a hijacking intended to create a hostage situation.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_2",
-    body_en: "It takes only 20 minutes for the terrorists to steer UA175 into the South Tower of the World Trade Center. The plane strikes just minutes after television networks switch to live coverage of AA11’s crash. Millions of viewers see the impact live on TV.",
+    id: "Before_2",
+    body_en: "Because air traffic controllers don’t realize that the plane is intended as a weapon, they proceed with a more traditional response. They notify other air traffic control regions, and begin redirecting other flights out of AA11’s path. It is 20 minutes after the hijacking before the first call is made to the military.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_3",
-    body_en: "By 9:33 AM, air traffic controllers in Washington, D.C. are warning the Secret Service that AA77 appears headed for the White House. Then, it abruptly changes direction. Five minutes later, it strikes the Pentagon. In a rare stroke of luck, the plane hits a part of the massive building that is under renovation. Of tens of thousands of employees, just 125 are killed.",
+    id: "Before_3",
+    body_en: "All four flights are airborne, and United Airlines Flight 175 has already also been hijacked, before AA11 impacts the North Tower. Only now do the first authorities begin to realize that the aims of the hijackers are catastrophically different than in the past.",
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_1",
-    header_en: "A Fighting Chance",
+    id: "Reports_1",
+    header_en: "The First Reports",
     header_es: "Spanish header",
-    body_en: `Of all the hijacked aircraft, only United Airlines Flight 93 had any chance to react. At 9:24 AM, the flight receives a brief message from United headquarters: "Beware any cockpit intrusion—Two [aircraft] hit World Trade Center." But, without context, the pilots don’t understand the warning. They respond, asking for clarification. Four minutes later, four attackers storm the cockpit and seize control of the plane.`,
+    body_en: `Just three seconds after the World Trade Center is hit, a battalion chief in the NY Fire Department makes the first official report of the impact. He calls for units to be redirected to the complex.`,
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_2",
-    body_en: "The pilots aren’t the only ones to receive a warning. Like on other hijacked flights, passengers make phone calls to the ground after the hijacking. But, by the time of the UA93 hijacking, the events at the World Trade Center are already global news. Within minutes, the first passengers learn that their plane, too, is likely on a suicide mission. Their only chance is to act.",
+    id: "Reports_2",
+    body_en: "Two minutes later, WNYW, the local Fox station, makes the first media report regarding the impact and broadcasts the first live images of a fire burning in the North Tower. In the confusion, they initially report that it is the South Tower that has been hit. Within ten minutes, every major U.S. network, and others around the world, has switched to live coverage of the event.",
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_1",
-    header_en: `"Let's roll"`,
+    id: "Firefighters_1",
+    header_en: `Firefighters Converge`,
     header_es: "Spanish header",
-    body_en: `Huddled at the back of the plane, UA93’s passengers take a vote on whether to charge the cockpit. One flight attendant boils a pot of water to use as a weapon. Others may have readied the food service cart, or looked for other makeshift tools. At 9:57 AM, they’re ready. Moments later, a struggle erupts outside the cockpit, as passengers fight to get in. The hijacker piloting the plane beings to tilt it violently, trying to knock the fighting passengers off their feet. When it’s clear that the passengers will soon be successful, the hijackers elect to fly the plane straight into the ground.`,
+    body_en: `By ten minutes after the first impact, FDNY, the Fire Department of New York, establishes a command center adjacent to the WTC. At this point, the officers on the scene are cognizant of falling debris, but judge it unlikely that the North Tower will entirely collapse. By the time UA175 hits the South Tower, operations are already being coordinated from the lobby of the North Tower. Soon, a second operations center is set up in the South Tower lobby. The FDNY chiefs on the scene decide to focus on search-and-rescue, rather than fighting the fire.`,
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_2",
-    body_en: "The plane crashes six minutes after the struggle begins, landing in a field in Somerset County, Pennsylvania. Interrogations in the years following 9/11 revealed that UA93’s intended target was most likely the U.S. Capitol building in Washington, D.C. At the speed of a Boeing 757, the flight would have reached Washington only fifteen minutes later.",
+    id: "Firefighters_2",
+    body_en: "As an unprecedented number of first responders swarm the WTC complex, their communications systems begin to get overwhelmed. In a building 110 stories tall, the handheld radios carried by most firefighters were too weak to reliably reach command posts on the ground. Both the North and South Towers were equipped with a signal-boosting system designed to overcome this difficulty, but the impact of the hijacked planes had knocked it offline. For the remainder of the day, effective communication will be sporadic.",
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_1",
-    header_en: `Collapse`,
+    id: "Firefighters_3",
+    body_en: "At 9:59 AM, the South Tower collapses, claiming the lives of many first responders and trapped employees. But, in the confusion of the moment, leaders in the North Tower don’t even realize the collapse has occurred. Once they do, the order is given to evacuate the North Tower. In the chaotic communication network, people on the building’s upper floors never hear the order.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Firefighters_4",
+    body_en: "Thousands of firefighters and other first responders work on the scene in the hours after the attack. In total, 412 would give their lives.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Heroes_1",
+    header_en: `Ordinary Heroes`,
     header_es: "Spanish header",
-    body_en: `The crash of UA93 marked the end of the hijackings. But, in New York City, the scale of the disaster was only starting to come into focus. After burning for nearly an hour, the impact zone on the South Tower of the World Trade Center gives way. Structural elements within the building were designed to support one another; As fire weakens the beams not destroyed on impact, they begin to bend, fatally compromising the tower’s strength.`,
+    body_en: `For nearly everyone on the scene at the World Trade Center and the Pentagon, it was the worst day of their life. Yet, in the midst of the shock, fear, and confusion, countless Americans stepped up to save themselves and those around them.`,
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_2",
-    body_en: "Half an hour later, the North Tower collapses as well. Debris from the falling towers damages or destroys nearby buildings, including others in the World Trade Center complex. Still, the buildings performed admirably in the face of events they were never designed to withstand. The vast majority of those who perished on 9/11 were trapped above the impact zone on each building; the towers remained standing long enough to enable the evacuation of nearly everyone located below where the planes struck.",
+    id: "Heroes_2",
+    body_en: "Welles Crowther was trading equities on the 104th floor of the South Tower when it was hit. When he arrived at the scene of the disaster on the 78th floor Sky Lobby, he immediately began organizing the evacuation. After guiding at least a dozen people to safety, he returned to the Sky Lobby to help fight the fire alongside FDNY until the building’s collapse.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Heroes_3",
+    body_en: "Frank De Martini and Pablo Ortiz were Port Authority construction staff working in the North Tower when it was hit. Rather than evacuate, the pried open stuck elevators, rescued people trapped in offices, and guided more than 50 people to safety. They were still searching for people to save when the North Tower collapsed.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Accident_1",
+    header_en: `This Is No Accident`,
+    header_es: "Spanish header",
+    body_en: `In the 17 minutes between the impact of AA11 into the North Tower and UA175 into the South Tower, most Americans assume the events at the World Trade Center are merely a terrible accident. News of the plane’s hijacking is not widely known. Even among flight controllers, it’s not clear whether the impact was deliberate, or simply the result of an amateur pilot failing to avoid one of the world’s tallest buildings. At 9:03 AM, the truth becomes stunningly clear.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Grounding_1",
+    header_en: `"Get Them on the Ground"`,
+    header_es: "Spanish header",
+    body_en: `As the scale of the crisis becomes evident, authorities move to shut down the nation’s airspace. One minute after the second World Trade Center impact, Boston Air Traffic Control stops all planes from departing in New England. Two minutes later, the FAA bans takeoffs on all flights headed to New York from a region as far west as Michigan and as far south as North Carolina.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Grounding_2",
+    body_en: "At 9:26 AM, the FAA bans flights from taking off anywhere in the United States. Twenty minutes after that, it takes an action unprecedented in the history of aviation: ordering every civilian flight in America to land as soon as is safely possible. Flights approaching the U.S. from abroad are denied entry to American airspace and ordered to land in Canada or Mexico. These actions are ordered by Ben Sliney, the FAA National Operations Manager; it is his first day on the job.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Ribbon_1",
+    header_en: `Operation Yellow Ribbon`,
+    header_es: "Spanish header",
+    body_en: `As incoming flights from Europe and Asia were denied entry to U.S. airspace, they were forced to land in Canada. In an effort to protect America, Canada generously accepted more than 225 international aircraft into their borders through Operation Yellow Ribbon. No city made a bigger contribution than Gander, Newfoundland. This town of just 10,000 residents hosted more than 6,500 passengers and crew members for days until airspace in Canada and the United States was reopened.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Ribbon_2",
+    body_en: "As news of the events of 9/11 swept the continent, countless citizens from every Canadian province called their local airports to offer food and other aid to stranded travelers. Their generosity is the first indication of the worldwide outpouring of support the U.S. soon received.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Evac_1",
+    header_en: `Evacuating Manhattan `,
+    header_es: "Spanish header",
+    body_en: `Around 11 AM, New York Mayor Rudolph Giuliani orders the evacuation of Lower Manhattan. Yet, the bridges and tunnels connecting the peninsula with New Jersey have already been closed as a security precaution. From south of the World Trade Center, the only way out is via the water. Ferries, police boats, cutters from the U.S. Coast Guard, and a host of civilian craft undertake what will become one of the largest maritime evacuations in history. Staging from Battery Park, more than half a million people are taken to New Jersey by sea before the day is over.`,
     body_es: "Spanish body"
   },
 ]
