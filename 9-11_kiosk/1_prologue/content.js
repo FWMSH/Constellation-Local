@@ -54,7 +54,8 @@ var timelineContentList = [
     caption_es: "Spanish caption",
     image: "WTC_1993_ATF_Public_Domain.jpg",
     credit: "",
-    rank: 2
+    rank: 2,
+    link: "1993_1"
   },
   {
     title_en: "The Taliban seizes control of Afghanistan",
@@ -72,7 +73,8 @@ var timelineContentList = [
     time_es: "",
     body_en: "His announcement, published in an Arabic-language newspaper in London, gains the attention of U.S. authorities",
     body_es: "Spanish body",
-    rank: 3
+    rank: 3,
+    link: "Jihad_1"
   },
   {
     title_en: "Al-Qaeda attacks U.S. embassies",
@@ -158,7 +160,8 @@ var timelineContentList = [
     caption_en: "CIA memo warning President Bush that al-Qaeda may attempt a hijacking attack.",
     caption_es: "Spanish caption",
     image: "Bin_Laden_Memo_Public_Domain.jpg",
-    rank: 1
+    rank: 1,
+    link: "Intelligence_2"
   },
   {
     title_en: "Zacarias Moussaoui arrested in Minnesota",
