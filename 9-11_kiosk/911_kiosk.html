@@ -382,6 +382,11 @@
 
           if (cmd == "refresh_page") {
               location.reload();
+          } else if (["shutdown", "power_off"].includes(cmd)) {
+            shutdown();
+          }
+          else {
+            console.log("Command not recognized:", cmd)
           }
         }
       }
@@ -477,6 +482,21 @@
 
       currentLang = lang;
       localize();
+    }
+
+    function shutdown() {
+
+      // Ask the helper to shutdown the system
+
+      var requestDict = {"action": "shutdown"}
+
+      requestString = JSON.stringify(requestDict);
+
+      var xhr = new XMLHttpRequest();
+      xhr.timeout = 2000;
+      xhr.open("POST", helperAddress, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(requestString);
     }
 
     function toggleLang() {
