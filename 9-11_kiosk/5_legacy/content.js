@@ -206,97 +206,151 @@ var timelineContentList = [
 
 var bodyContentList = [
   {
-    id: "Flights_para_1",
-    header_en: "Four Fated Flights",
+    id: "Patriotism_1",
+    header_en: "Patriotism and Dissent After 9/11",
     header_es: "Spanish header",
-    body_en: "At 7:59 AM, a Boeing 767 jetliner lifts off from Boston, headed to Los Angeles. Within the next 45 minutes, three more planes—another 767 and two Boeing 757s—would also depart from airports on the East Coast to destinations on the West. In total, nineteen hijackers were on board the four aircraft. Al-Qaeda had not chosen these planes at random—the 757 and 767 were the only commercial aircraft to share a cockpit layout, ensuring each hijacker could be trained in the same way. The planes were also large aircraft typically used for international travel; their West Coast destinations ensured that they were carrying a full load of fuel. ",
+    body_en: "Shortly following the attacks on the Pentagon and World Trade Center, America entered an immediate and sustained period of collective grief. Central to post-9/11 mourning was an increase in expressions of patriotic symbolism. People across the country hung American flags in their windows and on their porches in a sign of national solidarity.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_1",
-    header_en: "No Ordinary Hijacking",
+    id: "Patriotism_2",
+    body_en: `A wave of patriotic songs, paintings, essays, and poetry began to spread across American media. These works expressed sorrow for the victims and a belief that the tragedy would make America stronger. Author Diana Hoffman’s 2002 poem, “The Power of Freedom,” expressed this sentiment, writing “You’ve galvanized our nation into a force so strong. We’ll end your reign of terror although the fight is long.” In 2001, country music artist Toby Keith recorded his popular “Courtesy of the Red, White and Blue,” a patriotic anthem centered around the theme of retribution. “And you'll be sorry that you messed with The U.S. of A,” Keith famously sang, “Cause we'll put a boot in your ass. It's the American way.”`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Patriotism_3",
+    body_en: `Conversely, dissent was harshly criticized and often silenced. American writer and political activist, Susan Sontag, received backlash after writing in the New Yorker, “Where is the acknowledgement that this was not a ‘cowardly’ attack on ’civilization’ or ’liberty’ or ‘humanity’ or ‘the free world’ but an attack on the world's self-proclaimed super-power, undertaken as a consequence of specific American alliances and actions?”`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Patriotism_4",
+    body_en: `Her article was vilified by the media. Columnist Charles Krauthammer lambasted Sontag as “morally obtuse,” and historian and journalist Richard Brookhiser called her article “shameful,” compared her to Osama bin Laden, and described her as the “the harbinger of the ‘we deserved it’ school of thought.” In a similar fashion, the band, “The Dixie Chicks” were blacklisted from country music radio stations across the U.S. after they publicly criticized George W. Bush’s actions in the Middle East.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Commerce_1",
+    header_en: "The Commercialization of Tragedy",
     header_es: "Spanish header",
-    body_en: "Hijackings were commonplace in the 20th century. In just the five years leading up to 2001, 76 planes were seized in flight around the world. The vast majority of these incidents played out as hostage situations, and most victims weren’t physically harmed. In many cases, the attackers used the plane as transportation to an unlawful destination, such as Cuba. In others, the passengers were ransomed back to their government for money or the release of prisoners. For passengers, the rules were simple: don’t fight back and things would usually turn out okay.",
+    body_en: `The outpouring of patriotic zeal mirrored a wave of 9/11 memorabilia. Before the rubble even settled, consumers were presented with an abundance of patriotic merchandise to entice them. From “Never Forget” bumper stickers to a seemingly limitless supply of American flag t-shirts, many Americans sought to express their solidarity with the victims through their purchases.`,
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_2",
-    body_en: "As hijackers seize American Airlines Flight 11 at 8:14 AM, the situation seems to be playing out exactly as it had for decades. The hijackers attack two flight attendants and one passenger who rise to confront them, but most sit quietly as the crew treat the wounded. Two more flight attendants use crew telephones to contact managers on the ground and relay information. One reports being shown a bomb. It is a very bad morning, but nothing the airline hadn’t faced before.",
+    id: "Commerce_2",
+    body_en: "Wal-Mart sold 116,000 American flags on the day of the attacks. On the following day, they sold 250,000 more. By comparison, Wal-Mart sold 6,400 and 10,000 on the same days a year earlier. Numerous other stores also reported a dramatic increase in flag sales.",
     body_es: "Spanish body"
   },
   {
-    id: "Hijacking_para_3",
-    body_en: "Then, at 8:46 AM, everything changes. The telephone connection with AA11 goes dead. Moments later, American Airlines receives news: an aircraft has just collided with the World Trade Center. ",
+    id: "Commerce_3",
+    body_en: "Many Americans criticized the flood of memorabilia as overly sentimental, or even tasteless, often accusing companies of capitalizing on tragedy. The 9/11 Memorial and Museum in New York City received extensive criticism after its opening in 2014. Museum-goers reported being taken aback by their gift shop, which sold, among other items, 9/11 stuffed animals, bottles of 9/11 memorial wine, and a 9/11-themed commemorative cheese plate.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_1",
-    header_en: "A World of Confusion",
+    id: "Commerce_4",
+    body_en: "Several companies also attempted to use 9/11 as a marketing tactic. In 2016, a mattress store in San Antonio received national outrage after advertising a “Twin Towers sale,” where consumers could “get any sized mattress for a twin price,” before toppling two piles of mattresses. The same year, a Wal-Mart in Florida got backlash after setting up a 9/11 promotional display made of Coke boxes in the shape of the Twin Towers.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Islamophobia_1",
+    header_en: "Islamophobia and Anti-Arab Racism",
     header_es: "Spanish header",
-    body_en: "The events of 9/11 were unparalleled in their complexity. Four aircraft left three airports headed for two destinations before being diverted towards three targets—all in the same airspace, all within a two-hour window. With a top speed of around 600 mph (965 kph), a Boeing 757 could travel from Boston to New York City in less than half an hour. ",
+    body_en: "In the weeks and months following 9/11, Arab Americans and Muslim Americans often became targets of violence, racial profiling, surveillance, and even deportation. Although Islamophobia existed prior to 2001, 9/11 suddenly made Muslim Americans and Arab Americans a highly visible community.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_2",
-    body_en: "A vast array of oversight complicated and slowed the nation’s response to the unfolding disaster. Various pieces of critical information lay in the hands of the airlines, civilian air traffic controllers, military aerospace defense coordinators, and elected decisionmakers. Time and again on September 11, vital information passed from one organization to the next too slowly to be useful. At the same time, the terrorists’ careful planning and coordination ensured that the windows in which lifesaving decisions could be made were impossibly small.",
+    id: "Islamophobia_2",
+    body_en: "A series of polls released shortly after the attacks revealed that many Americans held harsh views of Arabs and Arab Americans. A Newsweek poll conducted on September 13, 2001 found that 32% of respondents believed that Arab Americans should be put under special surveillance and required to carry special documentation. Three days later, a Gallup Poll revealed that nearly 60% of Americans were willing to support increased security measures aimed specifically at Arabs and Arab Americans in the United States.",
     body_es: "Spanish body"
   },
   {
-    id: "Confusion_para_3",
-    body_en: "Around 8:46 AM, two F-15 fighters take off to intercept AA11. It crashes into the World Trade Center eight seconds before they are airborne.",
+    id: "Islamophobia_3",
+    body_en: `Growing hostility was also reflected in American immigration policy. After the passage of the Patriot Act, new security policies targeted specific immigrant communities. One of the earliest post-9/11 security initiatives was a targeted round-up of more than 1,200 Arab and Muslim individuals who did not hold legal immigration status. This and other efforts targeted people on the basis of religion and national origin, not conduct. As a result of these actions, Muslim and Arab communities have reported being increasingly hesitant about contacting the police.`,
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_1",
-    header_en: "A Second Hijacking, and Then a Third",
+    id: "Islamophobia_4",
+    body_en: `This happened at a time when these communities needed police protection more than ever. They were often targets of hate crimes immediately following the 9/11 attacks. These included acts of violence against mosques, Arab American-owned businesses, individual Muslims, and people perceived to be Muslims. In the following weeks, Waqar Hasan, a Muslim born in Pakistan, and Vasudev Patel, an Indian immigrant who was Hindu, were gunned down in Dallas. The killer stated that he did it to “avenge" the United States for 9/11. Sikh-American entrepreneur Balbir Singh Sodhi was murdered in Mesa, Arizona. Upon his arrest, the killer told the police, “I am a patriot! I stand for America!” These murders were not isolated incidents. According to FBI data, hate crimes against Muslims rose more than 1,600% following 9/11.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Islamophobia_5",
+    body_en: `Anti-Arab racism and Islamophobia continues to persist throughout the United States. A 2016 study found 174 incidents of anti-Muslim violence and vandalism, including 12 murders and 54 acts of vandalism or destruction of property.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Islamophobia_6",
+    body_en: "Islamophobia also persists locally. In 2014, a member of the Keller School Board wrote, “YOU NOW HAVE A ‘MUSLIM’ on the City Council!!! WHAT A SHAME!!!!!” In 2017, 14-year-old Ahmed Mohamed, a ninth-grader from Irving was arrested after bringing a homemade clock to school, under the presumption that the clock was a bomb.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Patriot_act_1 ",
+    header_en: `The Surveillance State`,
     header_es: "Spanish header",
-    body_en: "At 8:43 AM—three minutes before AA11 would strike the North Tower—five hijackers seize United Airlines Flight 175. Seven minutes later, five others gain control of American Flight 77. It’s not until after the third plane is hijacked that President Bush learns of even the first event. He’s at an elementary school in Florida, preparing to spend the day promoting his education agenda.",
+    body_en: `<H2>The Patriot Act</H2>While Operation Enduring Freedom swept Afghanistan, Americans experienced the War on Terror on the home-front. 45 days following the attacks, President Bush signed the Patriot Act into law, easing restrictions on intelligence gathering. It gave law enforcement agencies the authority to wiretap telephones, monitor email messages, and freely search records of individuals suspected of terrorism.`,
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_2",
-    body_en: "It takes only 20 minutes for the terrorists to steer UA175 into the South Tower of the World Trade Center. The plane strikes just minutes after television networks switch to live coverage of AA11’s crash. Millions of viewers see the impact live on TV.",
+    id: "Patriot_act_2",
+    body_en: "The Department of Justice believes that the Patriot Act greatly improved U.S. counterterrorism efforts. It allowed federal agents to disrupt potential threats, dismantle terrorist funding networks, use more sophisticated surveillance techniques, and obtain business records in national security terrorism cases. The act also facilitated information sharing between government agencies and law enforcement. Government officials argue that many acts of terrorism, including 9/11, could have been prevented with simpler communication between the CIA, FBI, and other intelligence or law enforcement agencies.",
     body_es: "Spanish body"
   },
   {
-    id: "More_hijacking_para_3",
-    body_en: "By 9:33 AM, air traffic controllers in Washington, D.C. are warning the Secret Service that AA77 appears headed for the White House. Then, it abruptly changes direction. Five minutes later, it strikes the Pentagon. In a rare stroke of luck, the plane hits a part of the massive building that is under renovation. Of tens of thousands of employees, just 125 are killed.",
+    id: "Patriot_act_3",
+    body_en: "While the act has given law enforcement agencies more tools to prevent terrorism, it has also been criticized as giving the government unchecked power to look through the records of American citizens. Opponents of the act argue that these measures violate the Fourth Amendment to the Constitution, which prohibits unreasonable search and seizure. Supporters of the act, however, argue that these measures do not violate the Constitution and are necessary to prevent future acts of terrorism.",
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_1",
-    header_en: "A Fighting Chance",
-    header_es: "Spanish header",
-    body_en: `Of all the hijacked aircraft, only United Airlines Flight 93 had any chance to react. At 9:24 AM, the flight receives a brief message from United headquarters: "Beware any cockpit intrusion—Two [aircraft] hit World Trade Center." But, without context, the pilots don’t understand the warning. They respond, asking for clarification. Four minutes later, four attackers storm the cockpit and seize control of the plane.`,
+    id: "Patriot_act_4",
+    body_en: "Central to many critiques of the Patriot Act is the expansion of National Security Letters (NSLs). NSLs allowed FBI investigators to gather large amounts of information on Americans without prior approval from a judge. The Justice Department's Inspector General reported that between 2003 and 2006, the FBI issued nearly 200,000 NSLs. Of these, only 53 led to criminal investigations and none were linked to acts of terrorism. The use of NSLs was later challenged in court.",
     body_es: "Spanish body"
   },
   {
-    id: "Fighting_chance_para_2",
-    body_en: "The pilots aren’t the only ones to receive a warning. Like on other hijacked flights, passengers make phone calls to the ground after the hijacking. But, by the time of the UA93 hijacking, the events at the World Trade Center are already global news. Within minutes, the first passengers learn that their plane, too, is likely on a suicide mission. Their only chance is to act.",
+    id: "Patriot_act_5",
+    body_en: `The Patriot Act also allowed federal law enforcement agencies to issue “Sneak and Peek” warrants, otherwise known as delayed notice warrants. These warrants enable investigators to enter a home while the occupant is away, search their property, and not alert them until after the fact. In 2010, 3,970 “Sneak and Peek” warrants were issued. Less than 1% were linked to terrorism-related crimes. The vast majority—over 75%—were linked to drug-related offenses.`,
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_1",
-    header_en: `"Let's roll"`,
-    header_es: "Spanish header",
-    body_en: `Huddled at the back of the plane, UA93’s passengers take a vote on whether to charge the cockpit. One flight attendant boils a pot of water to use as a weapon. Others may have readied the food service cart, or looked for other makeshift tools. At 9:57 AM, they’re ready. Moments later, a struggle erupts outside the cockpit, as passengers fight to get in. The hijacker piloting the plane beings to tilt it violently, trying to knock the fighting passengers off their feet. When it’s clear that the passengers will soon be successful, the hijackers elect to fly the plane straight into the ground.`,
+    id: "Patriot_act_6",
+    body_en: `Americans remain divided over the efficacy of the Patriot Act. In 2004, a poll revealed that 33% of Americans believe the Patriot Act to be a necessary tool that helps the government find terrorists, while 39% believed the act goes too far and poses a threat to civil liberties. By 2011, poll results shifted somewhat in its favor, with 42% believing it to be necessary, and 34% believing it goes too far.`,
     body_es: "Spanish body"
   },
   {
-    id: "Struggle_para_2",
-    body_en: "The plane crashes six minutes after the struggle begins, landing in a field in Somerset County, Pennsylvania. Interrogations in the years following 9/11 revealed that UA93’s intended target was most likely the U.S. Capitol building in Washington, D.C. At the speed of a Boeing 757, the flight would have reached Washington only fifteen minutes later.",
+    id: "Patriot_act_7",
+    body_en: `After several reauthorizations, the Patriot Act expired on March 15, 2020. As of September 2021, it has not been reauthorized.`,
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_1",
-    header_en: `Collapse`,
-    header_es: "Spanish header",
-    body_en: `The crash of UA93 marked the end of the hijackings. But, in New York City, the scale of the disaster was only starting to come into focus. After burning for nearly an hour, the impact zone on the South Tower of the World Trade Center gives way. Structural elements within the building were designed to support one another; As fire weakens the beams not destroyed on impact, they begin to bend, fatally compromising the tower’s strength.`,
+    id: "PSP_1",
+    body_en: `<H2>The President’s Surveillance Program</H2>The Patriot Act was far from the only sweeping change to American security policy in reaction to 9/11. Shortly following the attacks, President Bush authorized the President’s Surveillance Program (PSP). The PSP authorized the National Security Agency to collect certain communications data in an effort to prevent terrorism.`,
     body_es: "Spanish body"
   },
   {
-    id: "Collapse_para_2",
-    body_en: "Half an hour later, the North Tower collapses as well. Debris from the falling towers damages or destroys nearby buildings, including others in the World Trade Center complex. Still, the buildings performed admirably in the face of events they were never designed to withstand. The vast majority of those who perished on 9/11 were trapped above the impact zone on each building; the towers remained standing long enough to enable the evacuation of nearly everyone located below where the planes struck.",
+    id: "PSP_2",
+    body_en: `Central to the PSP was the Terrorist Surveillance Program, which was responsible for intercepting communications with members of al-Qaeda or groups affiliated with al-Qaeda. In 2005, the New York Times revealed that the Bush administration had been conducting warrantless electronic surveillance of Americans’ communications for four years, sometimes unrelated to al-Qaed. In response, President Bush argued that the Authorization for Use of Military Force of 2001 implicitly authorized warrantless surveillance in these circumstances. The NSA has been sued by multiple organizations over warrantless wiretapping. It came under further fire in 2013 after Edward Snowden, a computer intelligence consultant and former CIA employee, released classified NSA documents that revealed a larger, global surveillance network.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "TSA_1",
+    body_en: `<H2>The TSA</H2>On November 19, 2001, Congress passed the Aviation and Transportation Security Act (ATSA). The ATSA gave the federal government direct responsibility for airport screenings and created the Transportation Security Administration, also known as the TSA.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "TSA_2",
+    body_en: `Before 9/11, airport security was shared between airport authorities and commercial airlines. In most cases, security screenings only looked for major weapons, like handguns and bombs. Travelers were generally able to carry baseball bats, scissors, and blades up to 4-inches in length. Airport security often consisted of simple metal detectors. Guests were usually allowed to accompany travelers all the way to their departure gate.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "TSA_3",
+    body_en: `Following 9/11, the TSA implemented enhanced security procedures. Today, most airports in the U.S. use full-body scanning machines to detect weapons. The TSA also performs pat-downs, restricts certain devices, checks identification, screens for explosives, and only allows ticketed passengers to go to the gate.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "TSA_4",
+    body_en: `Enhanced security measures did not end there. In 2006, airports banned liquids above 3.5 oz in carry-on luggage in response to a liquid bomb plot. In 2007, the TSA implemented the SPOT (Screening of Passengers by Observation Techniques) program. The program trains TSA agents to identify potential terrorists by looking for signs for either stress, fear, or deception. The program has been critiqued as pseudoscientific. It has also been accused of leading to racial profiling.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "DHS_1",
+    body_en: `<H2>The Department of Homeland Security</H2>On November 25, 2002, Congress established the Department of Homeland Security (DHS) in response to the attacks. The Department’s stated goals include cyber security, anti-terrorism, border security, immigration and customs, and disaster prevention. A number of agencies fall under the Department, including the U.S. Customs and Border Protection, U.S. Immigration and Customs Enforcement (ICE), and the Secret Service. The DHS also absorbed the TSA.`,
     body_es: "Spanish body"
   },
 ]
