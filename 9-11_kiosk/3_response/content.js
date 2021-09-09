@@ -367,6 +367,18 @@ var timelineContentList = [
     image: "Noble_Eagle_art_Public_Domain.jpg",
     rank: 3
   },
+  {
+    title_en: "President Bush speaks from Ground Zero",
+    title_es: "Spanish title",
+    time_en: "Sept 14",
+    time_es: "",
+    body_en: `Standing on a pile of rubble and holding a megaphone, Bush tells the world that the terrorists “will hear all of us soon.”`,
+    body_es: "Spanish body",
+    caption_en: "President Bush speaking to first responders at the World Trade Center site.",
+    caption_es: "Spanish caption",
+    image: "Bush_at_Ground_Zero_Public_Domain.jpg",
+    rank: 2
+  },
 ];
 
 var bodyContentList = [
@@ -483,9 +495,21 @@ var bodyContentList = [
   },
   {
     id: "Evac_1",
-    header_en: `Evacuating Manhattan `,
+    header_en: `Evacuating Manhattan`,
     header_es: "Spanish header",
     body_en: `Around 11 AM, New York Mayor Rudolph Giuliani orders the evacuation of Lower Manhattan. Yet, the bridges and tunnels connecting the peninsula with New Jersey have already been closed as a security precaution. From south of the World Trade Center, the only way out is via the water. Ferries, police boats, cutters from the U.S. Coast Guard, and a host of civilian craft undertake what will become one of the largest maritime evacuations in history. Staging from Battery Park, more than half a million people are taken to New Jersey by sea before the day is over.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Bush_1",
+    header_en: `President Bush's Repsonse`,
+    header_es: "Spanish header",
+    body_en: `In the hours and days after 9/11, America turned to President Bush for comfort. Speaking first from the elementary school he was visiting in the midst of the attacks, then from the Oval Office, and finally from the site of the World Trade Center collapse, Bush projected strength and channeled the country’s outrage. At the same time, he led the nation in mourning for those they had lost and honoring the countless stories of courage that began to emerge.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Bush_2",
+    body_en: `The nation overwhelming supported President Bush’s actions in the wake of the attacks. Polls conducted in the following weeks showed that as much as 90% of Americans supported Bush’s response. In the 2002 midterm elections, Republicans would expand their representation in the House and Senate, unusual for a party in power. This support would continue in some form until the U.S. public began to weary of the wars in Iraq and Afghanistan after 2005.`,
     body_es: "Spanish body"
   },
 ]
