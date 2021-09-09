@@ -301,7 +301,7 @@ var timelineContentList = [
     body_en: "The Act, signed by President Trump, extends the filing deadline for the Victims Compensation Fund to 2090, ensuring that 9/11 victims and first responders could continue to receive financial support for their 9/11 related illnesses.",
     body_es: "Spanish body",
     rank: 2,
-    link: "",
+    link: "Health_4",
     caption_en: "President Donald Trump signs permanent authorization for the Victim Compensation Fund.",
     caption_es: "Spanish caption",
     image: "Trump_signs_VCF_Public_Domain.jpg",
