@@ -282,7 +282,7 @@ var bodyContentList = [
     body_es: "Spanish body"
   },
   {
-    id: "Patriot_act_1 ",
+    id: "Patriot_act_1",
     header_en: `The Surveillance State`,
     header_es: "Spanish header",
     body_en: `<H2>The Patriot Act</H2>While Operation Enduring Freedom swept Afghanistan, Americans experienced the War on Terror on the home-front. 45 days following the attacks, President Bush signed the Patriot Act into law, easing restrictions on intelligence gathering. It gave law enforcement agencies the authority to wiretap telephones, monitor email messages, and freely search records of individuals suspected of terrorism.`,
@@ -351,6 +351,50 @@ var bodyContentList = [
   {
     id: "DHS_1",
     body_en: `<H2>The Department of Homeland Security</H2>On November 25, 2002, Congress established the Department of Homeland Security (DHS) in response to the attacks. The Department’s stated goals include cyber security, anti-terrorism, border security, immigration and customs, and disaster prevention. A number of agencies fall under the Department, including the U.S. Customs and Border Protection, U.S. Immigration and Customs Enforcement (ICE), and the Secret Service. The DHS also absorbed the TSA.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Rebuilding_1",
+    header_en: `Rebuilding and Commemorating`,
+    header_es: "Spanish header",
+    body_en: `In the days and weeks following 9/11, communities throughout the United States held ceremonies, candlelight vigils, and marches to memorialize the 2,977 who were killed. Designers worked on commemorative pieces to honor the victims. Spontaneous memorials appeared in New York City. The first major memorial art installation was <i>Tribute in Light</i>, first displayed in March 2002. The installation is made up of vertical searchlights arranged in two columns to represent the Twin Towers. <i>Tribute in Light</i> is reignited every year on the anniversary of September 11.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Rebuilding_2",
+    body_en: `<H2>The National September 11 Memorial</H2>Five years after the attacks, construction began on the National September 11 Memorial, located on the former site of the World Trade Center. On the 10th anniversary of the attacks, the memorial was dedicated, and it opened to the public the following day. The memorial consists of two reflective pools with the victims’ names inscribed on the side. It also includes the names of the six individuals killed in the 1993 World Trade Center bombing.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Rebuilding_3",
+    body_en: `<H2>One World Trade Center</H2>Almost immediately after September 11, New York City planners began considering proposals for a World Trade Center replacement. In the summer of 2002, a design competition was launched to replace the fallen towers. The winning building design was announced in early 2003, though the original design underwent several modifications. The final design was unveiled on June 28, 2005 and construction began less than a year later. The building officially opened on November 3, 2014 as Condé Nast, a New York based publishing company, became the building’s first occupant. On May 29, 2015, the One World Trade observatory opened to the public, offering a view of the city at 1,250 feet.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Rebuilding_4",
+    body_en: `Today, One World Trade stands at 1,776 feet tall (including the tower’s spire). The height was purposefully chosen in honor of 1776, the year the Declaration of Independence was signed. With the spire included in the building's height, One World Trade is currently the tallest building in the United States and the sixth-tallest building in the world.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Health_1",
+    header_en: `Rebuilding and Commemorating`,
+    header_es: "Spanish header",
+    body_en: `Within seconds of the attacks, debris spewed from the World Trade Center, coating lower Manhattan in a thick film of toxic dust. Exposure to the debris has led to debilitating, ongoing illnesses among New Yorkers closest to the attacks. These include upper respiratory illnesses, certain cancers, hearing loss, and stroke. On top of the physical ailments, those who witnessed and responded to the attacks experience higher rates of mental illness, including post-traumatic stress disorder (PTSD), depression, alcoholism, and other forms of substance abuse.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Health_2",
+    body_en: `These ailments hit no one harder than the rescue, recovery, and cleanup workers who responded to the attacks. Increasing numbers of first responders are developing serious respiratory ailments, prostate cancer, thyroid cancer, and multiple myeloma.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Health_3",
+    body_en: `In response to the growing health concerns associated with 9/11, Congress quickly passed the Victim Compensation Fund (VCF) in 2001. The VCF provides medical assistance to those most affected by the attacks. This fund initially closed in 2004. Due to the nature of many of these illnesses, the 2004 cutoff proved to be a problem for those with lingering health conditions.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Health_4",
+    body_en: `In 2011, Congress passed the Zadroga Act, which authorized the Victim Compensation Fund to operate for an additional period of five years. In 2015, President Obama signed a new bill into law that reauthorized the Zadroga Act, extending the VCF through 2020. And, on July 29, 2019, President Trump signed into law H.R. 1327, The Never Forget the Heroes Act, also known as the VCF Permanent Authorization Act. The Act extends the VCF’s claim filing deadline from December 18, 2020, to October 1, 2090. The act appropriates all necessary funds to pay out the victims’ claims in perpetuity.`,
     body_es: "Spanish body"
   },
 ]
