@@ -260,7 +260,8 @@ var timelineContentList = [
     caption_en: "",
     caption_es: "Spanish caption",
     image: "",
-    rank: 1
+    rank: 1,
+    link: "Grounding_2"
   },
   {
     title_en: "Firefighters reach impact zone of South Tower",
@@ -303,6 +304,7 @@ var timelineContentList = [
     body_en: "Due to overwhelmed communication systems, many firefighters never receive the evacuation message.",
     body_es: "Spanish body",
     rank: 4,
+    link: "Firefighters_3"
   },
   {
     title_en: "UA93 crashes",
@@ -341,7 +343,8 @@ var timelineContentList = [
     time_es: "11:02 AM",
     body_en: "With bridges and tunnels closed, more than half a million people are evacuated by water. Tugboats, ferries, and private vessels all contribute to one of the largest maritime evacuations in history.",
     body_es: "Spanish body",
-    rank: 2
+    rank: 2,
+    link: "Evac_1"
   },
   {
     title_en: "7 WTC falls",
@@ -377,7 +380,22 @@ var timelineContentList = [
     caption_en: "President Bush speaking to first responders at the World Trade Center site.",
     caption_es: "Spanish caption",
     image: "Bush_at_Ground_Zero_Public_Domain.jpg",
-    rank: 2
+    rank: 2,
+    link: "Bush_1"
+  },
+  {
+    title_en: "Fort Worth firefighters search for survivors",
+    title_es: "Spanish title",
+    time_en: "September",
+    time_es: "",
+    body_en: `Members of the Fort Worth Fire Department are deployed to New York as part of Texas Task Force 1.`,
+    body_es: "Spanish body",
+    caption_en: "Members of the Fort Worth Fire Department at Ground Zero as part of Texas Task Force 1.",
+    caption_es: "Spanish caption",
+    image: "TTF1_pose_Fort_Worth_Fire_Department.png",
+    credit: "Fort Worth Fire Department",
+    rank: 3,
+    link: "Search_2"
   },
 ];
 
@@ -510,6 +528,18 @@ var bodyContentList = [
   {
     id: "Bush_2",
     body_en: `The nation overwhelming supported President Bush’s actions in the wake of the attacks. Polls conducted in the following weeks showed that as much as 90% of Americans supported Bush’s response. In the 2002 midterm elections, Republicans would expand their representation in the House and Senate, unusual for a party in power. This support would continue in some form until the U.S. public began to weary of the wars in Iraq and Afghanistan after 2005.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Search_1",
+    header_en: `Search and Rescue`,
+    header_es: "Spanish header",
+    body_en: `As the dust settled in New York on what became known as Ground Zero, a massive search for survivors began. Burning fires and unstable debris made the effort a difficult and dangerous task. Still, in the day after the attack, twenty survivors were rescued from as deep at 30 feet (10 m) underground.`,
+    body_es: "Spanish body"
+  },
+  {
+    id: "Search_2",
+    body_en: `Assisting with the search and rescue operations were first responders from around the nation. This included members of the Fort Worth Fire Department, who deployed for two weeks to New York City as part of Texas Task Force 1. Many other North Texas citizens assisted on a volunteer basis. Their search was aided by teams of rescue dogs, who scoured the rubble pile for the smells and sounds of trapped victims.`,
     body_es: "Spanish body"
   },
 ]

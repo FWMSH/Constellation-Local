@@ -21,7 +21,7 @@ var timelineContentList = [
     image: "Operation_Enduring_Freedom_Public_Domain.jpg",
     credit: "",
     rank: 1,
-    link: "Swift_response",
+    link: "Swift_response_2",
   },
   {
     title_en: "U.N. Security Council Resolution 1378",
@@ -108,7 +108,7 @@ var timelineContentList = [
     image: "Hamid_Karzai_Piublic_Domain.jpg",
     credit: "",
     rank: 2,
-    link: "Swift_response",
+    link: "Swift_response_2",
   },
   {
     title_en: "Authorization for Use of Military Force Against Iraq Resolution of 2002",
@@ -450,6 +450,20 @@ var timelineContentList = [
     rank: 1,
     link: "Legacy_1"
   },
+  {
+    title_en: `American troops withdraw from Afghanistan`,
+    title_es: "Spanish title",
+    time_en: "August 30, 2021",
+    time_es: "",
+    body_en: ``,
+    body_es: "Spanish body",
+    caption_en: "",
+    caption_es: "Spanish caption",
+    image: "",
+    credit: "",
+    rank: 1,
+    link: "Legacy_2"
+  },
 ];
 
 var bodyContentList = [
@@ -457,7 +471,12 @@ var bodyContentList = [
     id: "Swift_response",
     header_en: "A Swift Response",
     header_es: "Spanish header",
-    body_en: "In the immediate aftermath of September 11, Congress passed the Authorization for Use of Military Force of 2001 (420-1 in the House and 98-0 in the Senate), formally launching the War on Terror and Operation Enduring Freedom. President Bush signed the resolution into law on September 18, 2001. He quickly dispatched U.S. troops to Afghanistan after Taliban leaders refused to turn over Osama bin Laden and other terrorist leaders. On October 7, 2001, American and British warplanes began targeting Taliban forces and al-Qaeda. A combination of anti-Taliban leaders and U.S. military special forces temporarily toppled the Taliban regime in December of 2001 at the Battle of Tora Bora and installed a pro-American government in June of 2002 led by Hamid Karzai. Although the Taliban regime was temporarily defeated, Osama bin Laden escaped to northern Pakistan.",
+    body_en: "In the immediate aftermath of September 11, Congress passed the Authorization for Use of Military Force of 2001 (420-1 in the House and 98-0 in the Senate), formally launching the War on Terror and Operation Enduring Freedom. President Bush signed the resolution into law on September 18, 2001.",
+    body_es: "Spanish body"
+  },
+  {
+    id: "Swift_response_2",
+    body_en: "He quickly dispatched U.S. troops to Afghanistan after Taliban leaders refused to turn over Osama bin Laden and other terrorist leaders. On October 7, 2001, American and British warplanes began targeting Taliban forces and al-Qaeda. A combination of anti-Taliban leaders and U.S. military special forces temporarily toppled the Taliban regime in December of 2001 at the Battle of Tora Bora and installed a pro-American government in June of 2002 led by Hamid Karzai. Although the Taliban regime was temporarily defeated, Osama bin Laden escaped to northern Pakistan.",
     body_es: "Spanish body"
   },
   {
@@ -593,12 +612,12 @@ var bodyContentList = [
     id: "Legacy_1",
     header_en: `America's Uncertain Legacy`,
     header_es: "Spanish header",
-    body_en: "On August 15, 2021, nearly twenty years after the attacks on the World Trade Center and Pentagon, the Taliban retook Kabul after President Ashraf Ghani fled the country. More than 300,000 Afghan civilians currently risk Taliban retaliation because they worked for the US government, and as of August 17, 2021, there are nearly 11,000 American citizens stranded in Afghanistan. With the death toll mounting, evacuation efforts remain a matter of life and death for Afghan civilians and Americans currently residing in Afghanistan.",
+    body_en: `On August 15, 2021, nearly twenty years after the attacks on the World Trade Center and Pentagon, the Taliban retook Kabul after President Ashraf Ghani fled the country. More than 300,000 Afghan civilians currently risk Taliban retaliation because they worked for the US government. Covert American military efforts successfully evacuated over 123,000 people from Afghanistan between August 14 and August 26. According to President Biden, “Ninety percent of Americans in Afghanistan who wanted to leave were able to leave.”`,
     body_es: "Spanish body"
   },
   {
     id: "Legacy_2",
-    body_en: "The blame game over who lost Afghanistan has only just begun. The future of Afghanistan and the legacy of American military involvement in the Middle East remains uncertain.",
+    body_en: "On Monday, August 30, 2021, the U.S. pulled the last troops out of Kabul, signaling the end of America’s nearly 20-year military presence in Afghanistan. The future of Afghanistan and the legacy of American military involvement in the Middle East remains uncertain.",
     body_es: "Spanish body"
   },
 ]
