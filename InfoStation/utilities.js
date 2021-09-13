@@ -21,7 +21,16 @@ function openPage(pageName,elmnt,color) {
   };
 
   // Send action to analytics servers
-  sendAnalytics(pageName, 'show');
+  var analyticsData = {
+    "action": "gotoPage",
+    "target": pageName,
+  };
+  if (currentlyActive) {
+    analyticsData["idle"] = "false"
+  } else {
+    analyticsData["idle"] = "true"
+  }
+  sendAnalytics(analyticsData);
 }
 
 /* Adjust the text size */
@@ -80,7 +89,12 @@ function showAttractor() {
       setDefaults()
 
       // Send action to analytics servers
-      sendAnalytics('attractor', 'show');
+      var analyticsData = {
+        "action": "showAttractor",
+        "target": "attractor",
+        "idle": "true"
+      };
+      sendAnalytics(analyticsData);
       currentlyActive = false;
   }
 }
@@ -90,7 +104,12 @@ function hideAttractor() {
   document.getElementById("overlay").style.display = "none";
 
   // Send action to analytics servers
-  sendAnalytics('attractor', 'hide');
+  var analyticsData = {
+    "action": "hideAttractor",
+    "target": "hide",
+    "idle": "false"
+  };
+  sendAnalytics(analyticsData);
   currentlyActive = true;
 }
 

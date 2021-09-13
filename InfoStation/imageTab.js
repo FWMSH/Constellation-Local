@@ -46,7 +46,13 @@ function switchImg(image, caption_en) {
   document.getElementById("imgCaptionText").innerHTML = caption_en;
 
   // Send action to analytics servers
-  sendAnalytics(image, 'show');
+
+  var analyticsData = {
+    "action": "showImage",
+    "target": image,
+    "idle": "false"
+  };
+  sendAnalytics(analyticsData);
 }
 
 

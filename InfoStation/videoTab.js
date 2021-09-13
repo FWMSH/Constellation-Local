@@ -44,7 +44,12 @@ function switchVideo(tab, video, caption_en) {
   expandVid.play()
 
   // Send action to analytics servers
-  sendAnalytics(video, 'show');
+  var analyticsData = {
+    "action": "showVideo",
+    "target": video,
+    "idle": "false"
+  };
+  sendAnalytics(analyticsData);
 }
 
 
