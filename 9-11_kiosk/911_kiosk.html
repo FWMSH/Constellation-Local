@@ -264,7 +264,6 @@
         currentIdleTime += attractorIntervalTime;
         attractorActive = false;
       }
-      console.log(attractorActive, previousAttractorState)
       if (attractorActive != previousAttractorState) {
         // If the attractor state has changed, send analytics
         var analyticsData = {"target": "attractor"};
