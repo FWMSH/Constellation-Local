@@ -40,6 +40,6 @@ var military_description = {
 };
 
 var legacy_description = {
-  "en": "English legacy description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "en": "The terrorist attacks of September 11 left the nation reeling. Within hours, expressions of national unity swept the United States and memorials honoring the victims were already underway. Amidst the nation’s collective grief, many also experienced anger, hatred, and fear as they worried about what would come next. In the name of counterterrorism, some Americans grew to distrust their neighbors, committed acts of violence, and sacrificed their civil liberties.",
   "es": "Spanish legacy description. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 };
