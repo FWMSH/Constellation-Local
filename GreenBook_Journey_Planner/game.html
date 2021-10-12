@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta name="description" content="">
+    <meta name="author" content="Morgan Rehnberg">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+    </style>
+
+    <title></title>
+
+  </head>
+
+  <body>
+    <div class="container-fluid">
+
+      <canvas id="gameBoard" width="1000px" height="1000px">
+      </canvas>
+    </div>
+
+  <script type="text/javascript" src="js/jquery-3.5.1.slim.min.js"></script>
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/showdown.min.js"></script>
+
+  <script>
+
+    class Site {
+
+      constructor(name, x, y, selected=false) {
+
+        this.name = name;
+        this.position = [x, y];
+        this.size = 10; // Size of the circle;
+        this.color = 'yellow'
+        this.selected = selected;
+      }
+    }
+
+    class City extends Site {
+
+      constructor(name, x, y, selected=false) {
+        super(name, x, y, selected);
+        this.size = 15;
+        this.color = 'blue';
+      }
+    }
+
+    class Road {
+
+      constructor(coords) {
+        this.coords = coords;
+        this.size = 5;
+        this.colorUnselected = 'gray';
+        this.colorSelected = "black";
+        this.selected = false;
+      }
+    }
+
+    function draw() {
+
+      // Update the contents of the gameBoard
+
+      var ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+
+      // Draw the background
+      ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw dot grid
+      const gridSpacing = 50;
+      for (var i=0; i<=canvas.width/gridSpacing; i++) {
+        for (var j=0; j<=canvas.width/gridSpacing; j++) {
+          var X = i*gridSpacing;
+          var Y = j*gridSpacing;
+
+          ctx.fillStyle = 'gray';
+
+          ctx.beginPath();
+          ctx.arc(X, Y, 5, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+      }
+      drawRoads(ctx, gridSpacing);
+      drawSites(ctx, gridSpacing);
+
+    }
+
+    function drawSites(ctx, gridSpacing) {
+
+      siteList.forEach((item, i) => {
+        ctx.fillStyle = item.color;
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(item.position[0]*gridSpacing, item.position[1]*gridSpacing, item.size, 0, 2 * Math.PI);
+        if (item.selected) {
+          ctx.stroke();
+        }
+        ctx.fill();
+      });
+    }
+
+    function drawRoads(ctx, gridSpacing) {
+
+      roadList.forEach((item, i) => {
+        for (var i=0; i<item.coords.length-1; i++) {
+          var start = item.coords[i];
+          var end = item.coords[i+1];
+
+          ctx.beginPath();
+          if (item.selected) {
+            ctx.strokeStyle = item.colorSelected;
+          } else {
+            ctx.strokeStyle = item.colorUnselected;
+          }
+          ctx.lineWidth = item.size;
+          ctx.moveTo(start[0]*gridSpacing, start[1]*gridSpacing);
+          ctx.lineTo(end[0]*gridSpacing, end[1]*gridSpacing);
+          ctx.stroke();
+        }
+      });
+    }
+
+    function checkForSiteHit(x, y) {
+
+      // Check if a pair of corrdinates matches a city
+
+      var gridSpacing = 50;
+      var matchDist = 10;
+
+      for (var i=0; i<siteList.length; i++) {
+        var site = siteList[i];
+        var siteX = site.position[0]*gridSpacing;
+        var siteY = site.position[1]*gridSpacing;
+        if (Math.abs(siteX - x) < matchDist && Math.abs(siteY - y) < matchDist) {
+          if (site.selected) {
+            siteList[i].selected = false;
+          } else {
+            siteList[i].selected = true;
+            extendRoute(siteList[i]);
+          }
+        }
+      }
+    }
+
+    function extendRoute(site) {
+      if (!route.includes(site.name)) {
+        // Check for a matching road.
+        var currentStop = getSite(route.slice(-1)[0])[0];
+        for (var i=0; i<roadList.length; i++) {
+          var road = roadList[i];
+          // First match start-to-start, and then end-to-start
+          if (((road.coords[0])[0] == currentStop.position[0] &&
+              (road.coords[0])[1] == currentStop.position[1] &&
+              (road.coords.slice(-1)[0])[0] == site.position[0] &&
+              (road.coords.slice(-1)[0])[1] == site.position[1]) ||
+              ((road.coords[0])[0] == site.position[0] &&
+              (road.coords[0])[1] == site.position[1] &&
+              (road.coords.slice(-1)[0])[0] == currentStop.position[0] &&
+              (road.coords.slice(-1)[0])[1] == currentStop.position[1])){
+            road.selected = true;
+            route.push(site.name);
+            break;
+          }
+        }
+      }
+    }
+
+    function getSite(name) {
+
+      // Return a site from siteList that matches the given name
+
+      var result = siteList.filter(obj => {
+        return obj.name === name;
+      })
+      return(result);
+    }
+
+    function getCursorPosition(canvas, event) {
+      const rect = canvas.getBoundingClientRect()
+      const x = event.clientX - rect.left
+      const y = event.clientY - rect.top
+      checkForSiteHit(x,y);
+      draw();
+    }
+
+    const canvas = document.getElementById('gameBoard');
+    canvas.addEventListener('mousedown', function(e) {
+      getCursorPosition(canvas, e)
+    })
+
+    var siteList = [
+      new Site("Gas1", 4, 6),
+      new Site("Gas2", 10, 12),
+      new Site("Gas3", 12, 8),
+      new City("Amarillo", 3, 3, selected=true),
+      new City("Fort Worth", 18,11)
+      ];
+
+    var roadList = [
+      new Road([[3,3], [3, 6], [4,6]]),
+      new Road([[4,6], [18,6], [18,11]]),
+      new Road([[4,6], [4,12], [10,12]]),
+      new Road([[10,12], [10,8], [12,8]]),
+      new Road([[12,8], [15,8], [15, 11], [18,11]]),
+    ];
+
+    var route = ["Amarillo"];
+
+    draw();
+  </script>
+
+  </body>
+
+</html>
