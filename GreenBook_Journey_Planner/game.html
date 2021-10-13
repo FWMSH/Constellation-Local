@@ -34,22 +34,40 @@
 
     class Site {
 
-      constructor(name, x, y, selected=false) {
+      constructor(name, x, y, type, amount, selected=false) {
 
         this.name = name;
         this.position = [x, y];
         this.size = 10; // Size of the circle;
-        this.color = 'yellow'
         this.selected = selected;
+        this.resourceType = type;
+        this.resourceAmount = amount;
+        this.resourceClaimed = false; // Set to true when we take this resource
+        this.font = "30px Arial"
+
+        switch (type) {
+          case "fuel":
+            this.color = 'yellow';
+            break;
+          case "food":
+            this.color = 'pink';
+            break;
+          case "sleep":
+            this.color = 'purple';
+            break;
+          default:
+            this.color = 'black';
+        }
       }
     }
 
     class City extends Site {
 
-      constructor(name, x, y, selected=false) {
-        super(name, x, y, selected);
+      constructor(name, x, y, type, amount, selected=false) {
+        super(name, x, y, type, amount, selected);
         this.size = 15;
         this.color = 'blue';
+        this.font = "40px Arial"
       }
     }
 
@@ -61,6 +79,159 @@
         this.colorUnselected = 'gray';
         this.colorSelected = "black";
         this.selected = false;
+      }
+    }
+
+    class Trip {
+
+      constructor() {
+
+        this.speed = 2/100000; // gridSpacing/ms
+        this.roadSegmentIndex = 0;
+        this.currentPosition = roadRoute[0].slice();
+        this.lastFrameTime = 0;
+
+        this.resources = {
+          "food": 20,
+          "fuel": 30,
+          "sleep": 50,
+        }
+        this.resourceLimit = {
+          "food": 20,
+          "fuel": 30,
+          "sleep": 50,
+        }
+        this.resourceLossRate = {
+          "food":  0.00002,
+          "fuel":  0.00002,
+          "sleep": 0.00002,
+        }
+      }
+
+      replenishResource(type, amount) {
+        console.log("Replenishing:", type, "Current amount:", this.resources[type], "Adding:", amount)
+        this.resources[type] += amount;
+        if (this.resources[type] > this.resourceLimit[type]) {
+          this.resources[type] = this.resourceLimit[type];
+        }
+      }
+
+      begin() {
+
+        // Start animating the trip
+
+        this.lastFrameTime = performance.now();
+
+        window.requestAnimationFrame((timestamp) => this.drawTrip(timestamp));
+      }
+
+      drawTrip(timestamp) {
+        // Calculate the new position
+        let timeSinceLastFrame = Math.abs(timestamp - this.lastFrameTime);
+        let distTraveled = timeSinceLastFrame*this.speed;
+        let segStart = roadRoute[this.roadSegmentIndex]
+        let segEnd = roadRoute[this.roadSegmentIndex+1]
+        let dx = segEnd[0] - segStart[0];
+        let dy = segEnd[1] - segStart[1];
+        var xDir = 0; // -1, 0, 1
+        var yDir = 0;
+
+        if (dx != 0) {
+          if (dx > 0) {
+            xDir = 1;
+          } else {
+            xDir = -1;
+          }
+        } else {
+          if (dy > 0) {
+            yDir = 1;
+          } else {
+            yDir = -1;
+          }
+        }
+
+        this.currentPosition[0] += xDir*distTraveled;
+        this.currentPosition[1] += yDir*distTraveled;
+
+        var segEnded = false;
+        var keepAnimating = true;
+        if (yDir == 1 && this.currentPosition[1] > segEnd[1]) {
+          this.currentPosition[1] = segEnd[1];
+          segEnded = true;
+        } else if (yDir == -1 && this.currentPosition[1] < segEnd[1]) {
+          this.currentPosition[1] = segEnd[1];
+          segEnded = true;
+        } else if (xDir == 1 && this.currentPosition[0] > segEnd[0]) {
+          this.currentPosition[0] = segEnd[0];
+          segEnded = true;
+        } else if (xDir == -1 && this.currentPosition[0] < segEnd[0]) {
+          this.currentPosition[0] = segEnd[0];
+          segEnded = true;
+        }
+
+        if (segEnded) {
+          // Gather resources from this segment if there is a site
+          var matchingSite = siteList.filter(obj => {
+            return obj.position[0] == this.currentPosition[0] && obj.position[1] == this.currentPosition[1];
+          })[0];
+          if (matchingSite != undefined && matchingSite.resourceClaimed == false) {
+            matchingSite.resourceClaimed = true;
+            this.replenishResource(matchingSite.resourceType, matchingSite.resourceAmount);
+          }
+
+          if (this.roadSegmentIndex+1 < roadRoute.length-1) {
+            this.roadSegmentIndex += 1
+          } else {
+            keepAnimating = false;
+          }
+        }
+
+        // Calculate resource loss
+        let keys = Object.keys(this.resources);
+        keys.forEach((key, i) => {
+          this.resources[key] -= this.resourceLossRate[key]*timeSinceLastFrame;
+          if (this.resources[key] < 0) {
+            keepAnimating = false;
+          }
+        });
+
+        // First, draw the map, then place the car on it.
+        draw();
+
+        // Then draw the vehicle
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "orange";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(this.currentPosition[0]*gridSpacing, this.currentPosition[1]*gridSpacing, 15, 0, 2 * Math.PI);
+        ctx.fill();
+
+        if (keepAnimating) {
+          window.requestAnimationFrame((timestamp) => this.drawTrip(timestamp));
+        }
+
+        // Then, draw the resource indicators
+
+        // Fuel
+        ctx.strokeStyle = "yellow";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(2*gridSpacing, 0.935*canvas.width, 50, 0, 2 * Math.PI * this.resources["fuel"]/30);
+        ctx.stroke();
+
+        // Food
+        ctx.strokeStyle = "pink";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(5*gridSpacing, 0.935*canvas.width, 50, 0, 2 * Math.PI * this.resources["food"]/20);
+        ctx.stroke();
+
+        // Sleep
+        ctx.strokeStyle = "purple";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(8*gridSpacing, 0.935*canvas.width, 50, 0, 2 * Math.PI * this.resources["sleep"]/50);
+        ctx.stroke();
       }
     }
 
@@ -77,9 +248,8 @@
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw dot grid
-      const gridSpacing = 50;
       for (var i=0; i<=canvas.width/gridSpacing; i++) {
-        for (var j=0; j<=canvas.width/gridSpacing; j++) {
+        for (var j=0; j<=0.85*canvas.width/gridSpacing; j++) {
           var X = i*gridSpacing;
           var Y = j*gridSpacing;
 
@@ -98,6 +268,7 @@
     function drawSites(ctx, gridSpacing) {
 
       siteList.forEach((item, i) => {
+        // Draw icon
         ctx.fillStyle = item.color;
         ctx.strokeStyle = "black";
         ctx.lineWidth = 10;
@@ -107,6 +278,10 @@
           ctx.stroke();
         }
         ctx.fill();
+
+        // Draw name
+        ctx.font = item.font;
+        ctx.fillText(item.name, item.position[0]*gridSpacing+item.size, item.position[1]*gridSpacing);
       });
     }
 
@@ -135,7 +310,6 @@
 
       // Check if a pair of corrdinates matches a city
 
-      var gridSpacing = 50;
       var matchDist = 10;
 
       for (var i=0; i<siteList.length; i++) {
@@ -144,35 +318,98 @@
         var siteY = site.position[1]*gridSpacing;
         if (Math.abs(siteX - x) < matchDist && Math.abs(siteY - y) < matchDist) {
           if (site.selected) {
-            siteList[i].selected = false;
+            if (shortenRoute(site)) {
+              siteList[i].selected = false;
+            }
           } else {
-            siteList[i].selected = true;
-            extendRoute(siteList[i]);
+            if (extendRoute(siteList[i])) {
+              siteList[i].selected = true;
+            }
           }
         }
       }
     }
 
+    function shortenRoute(site) {
+
+      // Check that the given site is the most recent stop. If so, remove it.
+      if (site.name == route.slice(-1)[0]) {
+        route.pop();
+        rebuildRoads();
+        return(true);
+      } else {
+        return(false);
+      }
+    }
+
     function extendRoute(site) {
+
+      // Check that the given site is adjacent to the most recent site in the
+      // route. If so, add it to the route.
       if (!route.includes(site.name)) {
         // Check for a matching road.
-        var currentStop = getSite(route.slice(-1)[0])[0];
-        for (var i=0; i<roadList.length; i++) {
-          var road = roadList[i];
-          // First match start-to-start, and then end-to-start
-          if (((road.coords[0])[0] == currentStop.position[0] &&
-              (road.coords[0])[1] == currentStop.position[1] &&
-              (road.coords.slice(-1)[0])[0] == site.position[0] &&
-              (road.coords.slice(-1)[0])[1] == site.position[1]) ||
-              ((road.coords[0])[0] == site.position[0] &&
-              (road.coords[0])[1] == site.position[1] &&
-              (road.coords.slice(-1)[0])[0] == currentStop.position[0] &&
-              (road.coords.slice(-1)[0])[1] == currentStop.position[1])){
-            road.selected = true;
-            route.push(site.name);
-            break;
-          }
+        var currentStop = getSite(route.slice(-1)[0]);
+        if (selectRoad(currentStop, site)) {
+          route.push(site.name);
+          return(true);
+        } else {
+          return(false);
         }
+      } else {
+        return(false);
+      }
+    }
+
+    function selectRoad(site1, site2) {
+
+      // Check for the existance of a direct road between these two sites.
+      // If it exists, select it.
+      for (var i=0; i<roadList.length; i++) {
+        var road = roadList[i];
+        // First match start-to-start, and then end-to-start
+        if (((road.coords[0])[0] == site1.position[0] &&
+            (road.coords[0])[1] == site1.position[1] &&
+            (road.coords.slice(-1)[0])[0] == site2.position[0] &&
+            (road.coords.slice(-1)[0])[1] == site2.position[1]) ||
+            ((road.coords[0])[0] == site2.position[0] &&
+            (road.coords[0])[1] == site2.position[1] &&
+            (road.coords.slice(-1)[0])[0] == site1.position[0] &&
+            (road.coords.slice(-1)[0])[1] == site1.position[1])){
+          road.selected = true;
+          // Make sure that the end of one road matches the beginning of the next
+          var lastCoord;
+          if (roadRoute.length > 0) {
+            lastCoord = roadRoute.slice(-1)[0];
+          } else {
+            lastCoord = getSite(route[0]).position;
+          }
+          if ((road.coords[0])[0] != lastCoord[0] || (road.coords[0])[1] != lastCoord[1]) {
+            road.coords.reverse();
+          }
+          road.coords.forEach((roadCoord, i) => {
+            roadRoute.push(roadCoord);
+          });
+
+          return(true);
+        }
+      }
+      return(false);
+    }
+
+    function rebuildRoads() {
+
+      // Iterate through the route, selecting roads as necessary.
+
+      // First unselect every road
+      roadList.forEach((item, i) => {
+        item.selected = false;
+      });
+      roadRoute = [];
+      // Then, selecet the roads as needed
+      for (var i=0; i<route.length-1; i++) {
+        var stop1 = route[i];
+        var stop2 = route[i+1];
+        selectRoad(getSite(stop1), getSite(stop2));
       }
     }
 
@@ -182,7 +419,7 @@
 
       var result = siteList.filter(obj => {
         return obj.name === name;
-      })
+      })[0]
       return(result);
     }
 
@@ -199,24 +436,63 @@
       getCursorPosition(canvas, e)
     })
 
+    // var siteList = [
+    //   new Site("Gas1", 4, 6, 'fuel', 50),
+    //   new Site("Food1", 10, 12, 'food', 10),
+    //   new Site("Good2", 12, 8, 'food', 12),
+    //   new City("Amarillo", 3, 3, 'sleep', 100, selected=true),
+    //   new City("Fort Worth", 18, 11, 'sleep', 100)
+    //   ];
+    //
+    // var roadList = [
+    //   new Road([[3,3], [3, 6], [4,6]]),
+    //   new Road([[4,6], [18,6], [18,11]]),
+    //   new Road([[4,6], [4,12], [10,12]]),
+    //   new Road([[10,12], [10,8], [12,8]]),
+    //   new Road([[12,8], [15,8], [15, 11], [18,11]]),
+    // ];
+
     var siteList = [
-      new Site("Gas1", 4, 6),
-      new Site("Gas2", 10, 12),
-      new Site("Gas3", 12, 8),
-      new City("Amarillo", 3, 3, selected=true),
-      new City("Fort Worth", 18,11)
-      ];
+      new City("Fort Worth", 10, 3, 'sleep', 50, selected=true),
+      new City("Dallas", 12, 3, 'sleep', 50),
+      new City("Austin", 7, 12, 'sleep', '50'),
+      new City("San Antonio", 4, 16, 'sleep', 50),
+      new City("Houston", 16, 15, 'sleep', 50),
+      new Site("Waco", 9, 8, "fuel", 20),
+      new Site("College Station", 12, 12, "fuel", 20),
+      new Site("Tyler", 15, 5, "food", 20),
+      new Site("Palestine", 13, 9, "food", 20),
+      new Site("Brownwood", 4, 9, "food", 20),
+      new Site("Lufkin", 17, 9, "fuel", 20),
+      new Site("Abilene", 3, 4, "fuel", 20),
+      new Site("Columbus", 11, 16, "food", 20),
+    ]
 
     var roadList = [
-      new Road([[3,3], [3, 6], [4,6]]),
-      new Road([[4,6], [18,6], [18,11]]),
-      new Road([[4,6], [4,12], [10,12]]),
-      new Road([[10,12], [10,8], [12,8]]),
-      new Road([[12,8], [15,8], [15, 11], [18,11]]),
-    ];
+      new Road([[10,3], [12,3]]), // Fort Worth - Dallas
+      new Road([[10,3], [3,3], [3,4]]), // Fort Worth - Abilene
+      new Road([[12,3], [12,4], [15, 4], [15,5]]), // Dallas - Tyler
+      new Road([[10,3], [10,6], [9, 6], [9,8]]), // Fort Worth - Waco
+      new Road([[9,8], [7,8], [7,10], [9,10], [9,12], [7,12]]), // Waco - Austin
+      new Road([[9,8], [9,9], [4,9]]), // Waco - Brownwood
+      new Road([[3,4], [3,5], [4,5], [4,9]]), // Abilene - Brownwood
+      new Road([[10,3], [10,7], [11, 7], [11, 9], [13,9]]), // Fort Worth - Palestine
+      new Road([[13,9], [14,9], [14,8], [17,8], [17,9]]), // Palestine - Lufkin
+      new Road([[9,8], [10,8], [10,9], [13,9]]), // Waco - Palestine
+      new Road([[15,5], [17,5], [17,9]]), // Tyler - Lufkin
+      new Road([[13,9], [14,9], [14,10], [15,10], [15,11], [16,11], [16,15]]), // Palestine - Houston
+      new Road([[7,12], [2,12], [2,13], [4,13], [4,16]]), // Austin - San Antonio
+      new Road([[7,12], [12,12]]), // Austin - College Station
+      new Road([[12,12], [18,12], [18, 16], [16,16], [16,15]]), // College Station - Houston
+      new Road([[12,12], [12,14], [11,14], [11,16]]), // College Station - Columbus
+      new Road([[4,16], [8,16], [8,15], [11,15], [11,16]]), // San Antonio - Columbus
+      new Road([[11,16], [13,16], [13,15], [16,15]]), // Columbus - Houston
+      new Road([[4,9], [4,10], [5,10], [5,11], [6,11], [7,11], [7,12]]), // Brownwood - Austin
+    ]
 
-    var route = ["Amarillo"];
-
+    var route = ["Fort Worth"];
+    var roadRoute = [];
+    const gridSpacing = 50;
     draw();
   </script>
 
