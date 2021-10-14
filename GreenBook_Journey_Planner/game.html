@@ -102,9 +102,9 @@
           "sleep": 50,
         }
         this.resourceLossRate = {
-          "food":  0.00002,
-          "fuel":  0.00002,
-          "sleep": 0.00002,
+          "food":  0.000025,
+          "fuel":  0.000025,
+          "sleep": 0.000025,
         }
       }
 
@@ -260,7 +260,7 @@
           ctx.fill();
         }
       }
-      drawRoads(ctx, gridSpacing);
+      drawAllRoads(ctx, gridSpacing);
       drawSites(ctx, gridSpacing);
 
     }
@@ -285,25 +285,57 @@
       });
     }
 
-    function drawRoads(ctx, gridSpacing) {
+    function drawAllRoads(ctx, gridSpacing) {
 
-      roadList.forEach((item, i) => {
-        for (var i=0; i<item.coords.length-1; i++) {
-          var start = item.coords[i];
-          var end = item.coords[i+1];
+      // Draw all the roads on the map
 
-          ctx.beginPath();
-          if (item.selected) {
-            ctx.strokeStyle = item.colorSelected;
-          } else {
-            ctx.strokeStyle = item.colorUnselected;
-          }
-          ctx.lineWidth = item.size;
-          ctx.moveTo(start[0]*gridSpacing, start[1]*gridSpacing);
-          ctx.lineTo(end[0]*gridSpacing, end[1]*gridSpacing);
-          ctx.stroke();
-        }
+      var selectedRoads = roadList.filter(obj => {
+        return obj.selected === true;
       });
+      var unSelectedRoads = roadList.filter(obj => {
+        return obj.selected === false;
+      });
+
+      // Draw unselected roads first, so they don't overlap selected ones.
+      unSelectedRoads.forEach((item, i) => {
+        drawRoad(item);
+      });
+      selectedRoads.forEach((item, i) => {
+        drawRoad(item);
+      });
+    }
+
+    function drawRoad(road) {
+
+      // Draw a single road on the map
+
+      var ctx = canvas.getContext("2d");
+
+      for (var i=0; i<road.coords.length-1; i++) {
+        var start = road.coords[i];
+        var end = road.coords[i+1];
+
+        // Draw the road
+        if (road.selected) {
+          ctx.strokeStyle = road.colorSelected;
+        } else {
+          ctx.strokeStyle = road.colorUnselected;
+        }
+
+        ctx.beginPath();
+        ctx.lineWidth = road.size;
+        ctx.moveTo(start[0]*gridSpacing, start[1]*gridSpacing);
+        ctx.lineTo(end[0]*gridSpacing, end[1]*gridSpacing);
+        ctx.stroke();
+
+        // Draw center yellow line
+        // ctx.beginPath();
+        // ctx.lineWidth = 1;
+        // ctx.strokeStyle = "yellow";
+        // ctx.moveTo(start[0]*gridSpacing, start[1]*gridSpacing);
+        // ctx.lineTo(end[0]*gridSpacing, end[1]*gridSpacing);
+        // ctx.stroke();
+      }
     }
 
     function checkForSiteHit(x, y) {
@@ -419,7 +451,7 @@
 
       var result = siteList.filter(obj => {
         return obj.name === name;
-      })[0]
+      })[0];
       return(result);
     }
 
@@ -488,6 +520,7 @@
       new Road([[4,16], [8,16], [8,15], [11,15], [11,16]]), // San Antonio - Columbus
       new Road([[11,16], [13,16], [13,15], [16,15]]), // Columbus - Houston
       new Road([[4,9], [4,10], [5,10], [5,11], [6,11], [7,11], [7,12]]), // Brownwood - Austin
+      new Road([[13,9], [13,10], [12,10], [12,12]]), //Palestine - College Station
     ]
 
     var route = ["Fort Worth"];
