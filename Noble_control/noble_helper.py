@@ -148,8 +148,9 @@ def commandProjector(command):
 
     # Send a command to the projector
 
-    com = projector_control.serial_connect_with_url("10.8.0.246", make="barco")
-
+    com = projector_control.serial_connect_with_url(PROJECTOR_IP, make="barco")
+    if com is None:
+        return
     if command in ["power_on", "power_off", "set_dvi_1", "set_dvi_2"]:
         projector_control.serial_send_command(com, command, make="barco")
 
@@ -160,21 +161,25 @@ def getCurrentSettings():
     result = {}
 
     # Projector power state
-    com = projector_control.serial_connect_with_url("10.8.0.246", make="barco")
-    power_state = projector_control.serial_send_command(com, "power_state", make="barco")
-    if power_state in ["on", "powering_on"]:
-        result["projector_power_state"] = "on"
-    else:
-        result["projector_power_state"] = "off"
+    try:
+        com = projector_control.serial_connect_with_url(PROJECTOR_IP, make="barco")
+        if com is not None:
+            power_state = projector_control.serial_send_command(com, "power_state", make="barco")
+            if power_state in ["on", "powering_on"]:
+                result["projector_power_state"] = "on"
+            else:
+                result["projector_power_state"] = "off"
 
-    # Projector input
-    result["projector_input"] = projector_control.serial_send_command(com, "get_source", make="barco")
+            # Projector input
+            result["projector_input"] = projector_control.serial_send_command(com, "get_source", make="barco")
+    except socket.timeout:
+        print("Projector conneciton timed out")
 
     # System volumes
     volumes = []
     for source in ["Overall", "Amateras", "Microphone"]:
         volumes.append(audio_control.getVolume(source))
-    result["system_volumes"] = volumes
+        result["system_volumes"] = volumes
 
     return(result)
 
@@ -185,13 +190,15 @@ def loadAmaterasPlaylist(playlist):
     playlist_dict = {
         "Black Holes": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Black_Holes.lst",
         "Our Solar System": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Our_Solar_System.lst",
+        "Spooky Space": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Spooky_Space.lst",
         "Texas Sky Tonight": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Texas_Sky_Tonight.lst",
         "Thundering Herd": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Thundering_Herd.lst"
     }
 
     audio_dict = {
         "Black Holes": [50, 100, 0],
-        "Our Solar System": [80, 15, 100],
+        "Our Solar System": [80, 20, 95],
+        "Spooky Space": [40, 100, 0],
         "Texas Sky Tonight": [60, 30, 100],
         "Thundering Herd": [50, 100, 0],
     }
@@ -199,6 +206,7 @@ def loadAmaterasPlaylist(playlist):
     input_dict = {
         "Black Holes": "set_dvi_1",
         "Our Solar System": "set_dvi_1",
+        "Spooky Space": "set_dvi_1",
         "Texas Sky Tonight": "set_dvi_2",
         "Thundering Herd": "set_dvi_1",
     }
@@ -218,16 +226,23 @@ def triggerLights(show):
     # Mapping of show names to numbers
     show_dict = {"blues": 1,
                  "black": 10,
+                 "oranges": 7,
                  "white": 11}
 
-    com = iPlayer3_control.connect("COM4")
-    iPlayer3_control.trigger_show(com, show_dict[show])
+    com = iPlayer3_control.connect(IPLAYER_PORT)
+    if com is not None:
+        iPlayer3_control.trigger_show(com, show_dict[show])
+    else:
+        print("triggerLights: error: iPlayer3 port is not correct")
 
 def quit_handler(sig, frame):
     print('\nKeyboard interrupt detected. Cleaning up and shutting down...')
     sys.exit(0)
 
 signal.signal(signal.SIGINT, quit_handler)
+
+PROJECTOR_IP = "10.8.10.70"
+IPLAYER_PORT = "COM4"
 
 print(f"Launching server on port 8000 to serve the Noble control panel")
 
