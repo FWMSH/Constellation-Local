@@ -1,0 +1,14 @@
+Close target=DomePlayer
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_blue.bat,workdir=C:\Users\user\Documents\iPlayer3_control
+VolumeBGM volume=1,duration=4,waitfinish=0
+LoadBGM fileName=_Planetarium Shows/Intro_material/dokapi-tales_from_the_silver_coast_02-polar_lights.mp3,loop=1,volume=0.45
+VolumeBGM volume=0,duration=2
+CloseBGM
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_intro.bat,workdir=C:\Users\user\Documents\iPlayer3_control
+LoadBGM fileName=_Planetarium Shows/Intro_material/Noble_intro_audio.mp3,volume=0.5
+CloseBGM
+LoadBGM fileName=C:/Users/user/Desktop/Planetarium Shows/Planetarium Music/standard_background_music.mp3,loop=1,volume=0.18
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_outro.bat,workdir=C:\Users\user\Documents\iPlayer3_control,waitfinish=0
+LoadBGM fileName=_Planetarium Shows/Intro_material/Noble_outro_audio.mp3,waitfinish=0
+Close target=DomePlayer
+JumpInPlaylist index=0

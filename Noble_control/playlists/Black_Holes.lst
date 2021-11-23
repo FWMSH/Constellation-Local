@@ -1,0 +1,16 @@
+Close target=DomePlayer
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_blue.bat,workdir=C:\Users\user\Documents\iPlayer3_control
+VolumeBGM volume=1,duration=4,waitfinish=0
+LoadBGM fileName=_Planetarium Shows/Intro_material/dokapi-tales_from_the_silver_coast_02-polar_lights.mp3,loop=1,volume=0.08
+VolumeBGM volume=0,duration=2
+CloseBGM
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_intro.bat,workdir=C:\Users\user\Documents\iPlayer3_control
+LoadBGM fileName=_Planetarium Shows/Intro_material/Noble_intro_audio.mp3,volume=0.4
+CloseBGM
+Load fileName=_Planetarium Shows/OurSolarSystem/Noble Credits_2k.png,target=DomePlayer,duration=5,transitionType=crossFade,transitionDuration=1
+Load fileName=C:/Users/user/Desktop/Planetarium Shows/_Planetarium Shows/Black Holes/Black_Holes-A.mp4,target=DomePlayer,transitionType=crossFade,transitionDuration=1
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_outro.bat,workdir=C:\Users\user\Documents\iPlayer3_control,waitfinish=0
+LoadBGM fileName=_Planetarium Shows/Intro_material/Noble_outro_audio.mp3,waitfinish=0,volume=0.39
+Load fileName=C:/Users/user/Desktop/Planetarium Shows/_Planetarium Shows/Black Holes/Black_Holes-B.mp4,target=DomePlayer,transitionDuration=0,volume=0
+Close target=DomePlayer
+JumpInPlaylist index=0

@@ -31,7 +31,7 @@
       </div>
 
       <div class="row mt-4">
-        <div class="col-4">
+        <div class="col-6 col-lg-4">
           <div class="row col-12">
             <H3>Projector</H3>
             <div class='col-6'>
@@ -75,7 +75,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-6 col-lg-4">
           <H3>Content</H3>
           <div class="row col-12 mt-2">
             <nav>
@@ -91,17 +91,22 @@
                 <div class="row col-12">
                   <button id="BlackHolesShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Black Holes')">Black Holes</button>
                   <button id="OurSolarSystemShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Our Solar System')">Our Solar System</button>
+                  <button id="SpookySpaceShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Spooky Space')">Spooky Space</button>
                   <button id="TexasSkyTonightShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Texas Sky Tonight')">Texas Sky Tonight</button>
                   <button id="ThunderingHerdShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Thundering Herd')">Thundering Herd</button>
                 </div>
               </div>
               <div class="tab-pane fade mt-2 col-12" id="nav-school-shows" role="tabpanel" aria-labelledby="school-shows-tab">
-                School shows here
+                <div class='row col-12'>
+                  <button id="LosingTheDarkShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Losing the Dark')">Losing the Dark</button>
+                  <button id="TMTTMShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('Take Me To The Moon')">Take Me to the Moon</button>
+                  <button id="TIYCSShowButton" class='btn btn-secondary btn-block showButton mt-2' onclick="goToShow('This Is Your Captain Speaking')">This Is Your Captain Speaking</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
           <H3>Actions</H3>
           <H4>Lights</H4>
           <button class='btn btn-primary btn-block' onclick="triggerLights('blues')">Trigger walk-in lights</button>
@@ -262,10 +267,18 @@
         $(".showButton").addClass("btn-secondary").removeClass("btn-success");
         if (show == "Black Holes") {
           $("#BlackHolesShowButton").addClass("btn-success");
+        } if (show == "Losing the Dark") {
+          $("#LosingTheDarkShowButton").addClass("btn-success");
         } else if (show == "Our Solar System") {
           $("#OurSolarSystemShowButton").addClass("btn-success");
+        } else if (show == "Spooky Space") {
+          $("#SpookySpaceShowButton").addClass("btn-success");
+        }else if (show == "Take Me To The Moon") {
+            $("#TMTTMShowButton").addClass("btn-success");
         } else if (show == "Texas Sky Tonight") {
           $("#TexasSkyTonightShowButton").addClass("btn-success");
+        } else if (show == "This Is Your Captain Speaking") {
+          $("#TIYCSShowButton").addClass("btn-success");
         } else if (show == "Thundering Herd") {
           $("#ThunderingHerdShowButton").addClass("btn-success");
         }

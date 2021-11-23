@@ -113,7 +113,10 @@ class RequestHandler(SimpleHTTPRequestHandler):
                         audio_control.setVolume(data["source"], int(data["percent"]))
                         response_dict = getCurrentSettings()
                         json_string = json.dumps(response_dict)
-                        self.wfile.write(bytes(json_string, encoding="UTF-8"))
+                        try:
+                            self.wfile.write(bytes(json_string, encoding="UTF-8"))
+                        except ConnectionAbortedError:
+                            pass
                     else:
                         print("Errpr: must send value 'percent' to set the volume!")
                 elif data["action"] == "triggerLights":
@@ -189,25 +192,34 @@ def loadAmaterasPlaylist(playlist):
 
     playlist_dict = {
         "Black Holes": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Black_Holes.lst",
+        "Losing the Dark": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Losing_the_Dark.lst",
         "Our Solar System": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Our_Solar_System.lst",
         "Spooky Space": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Spooky_Space.lst",
+        "Take Me To The Moon": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Take_Me_To_The_Moon.lst",
         "Texas Sky Tonight": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Texas_Sky_Tonight.lst",
+        "This Is Your Captain Speaking": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\This_Is_Your_Captain_Speaking.lst",
         "Thundering Herd": "C:\\Users\\user\\Desktop\\Planetarium Shows\\playlists\\Thundering_Herd.lst"
     }
 
     audio_dict = {
         "Black Holes": [50, 100, 0],
+        "Losing the Dark": [25, 100, 0],
         "Our Solar System": [80, 20, 95],
         "Spooky Space": [40, 100, 0],
+        "Take Me To The Moon": [80, 20, 95],
         "Texas Sky Tonight": [60, 30, 100],
+        "This Is Your Captain Speaking": [80, 20, 95],
         "Thundering Herd": [50, 100, 0],
     }
 
     input_dict = {
         "Black Holes": "set_dvi_1",
+        "Losing the Dark": "set_dvi_1",
         "Our Solar System": "set_dvi_1",
         "Spooky Space": "set_dvi_1",
+        "Take Me To The Moon": "set_dvi_1",
         "Texas Sky Tonight": "set_dvi_2",
+        "This is Your Captain Speaking": "set_dvi_1",
         "Thundering Herd": "set_dvi_1",
     }
 

@@ -1,0 +1,13 @@
+Close target=DomePlayer
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_orange.bat,workdir=C:\Users\user\Documents\iPlayer3_control
+VolumeBGM volume=1,duration=4,waitfinish=0
+LoadBGM fileName=_Planetarium Shows/Intro_material/dokapi-tales_from_the_silver_coast_02-polar_lights.mp3,loop=1,volume=0.08
+VolumeBGM volume=0,duration=2
+CloseBGM
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_black.bat,workdir=C:\Users\user\Documents\iPlayer3_control
+Load fileName=_Planetarium Shows/OurSolarSystem/Noble Credits_2k.png,target=DomePlayer,duration=5,transitionType=crossFade,transitionDuration=1
+Load fileName=C:/Users/user/Desktop/Planetarium Shows/_Planetarium Shows/Spooky Space/ickOrTreat.mov,target=DomePlayer,transitionType=crossFade,transitionDuration=1,volume=0.63
+Close target=DomePlayer
+RunApp command=C:\Users\user\Documents\iPlayer3_control\play_outro.bat,waitfinish=0
+LoadBGM fileName=_Planetarium Shows/Intro_material/Noble_outro_audio.mp3,volume=0.6
+JumpInPlaylist index=0
