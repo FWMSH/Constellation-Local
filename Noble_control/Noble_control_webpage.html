@@ -228,10 +228,10 @@
         currentlyPlaying = false;
         $("#showStopButton").html("Resume").addClass('btn-success').removeClass("btn-danger");
       } else {
-        commandAmateras("play");
-        triggerLights("black");
-        currentlyPlaying = true;
         $("#showStopButton").html("Emergency Stop").addClass('btn-danger').removeClass("btn-success");
+        triggerLights("black");
+        setTimeout(function(){commandAmateras("play")}, 2000);
+        currentlyPlaying = true;
       }
     }
 
@@ -293,14 +293,14 @@
 
       if (currentlyPlaying) {
         commandAmateras("pause");
-        triggerLights("blues");
+        triggerLights("dark_blues");
         currentlyPlaying = false;
         $("#showPauseButton").html("Resume").addClass('btn-success').removeClass("btn-warning");
       } else {
-        commandAmateras("play");
-        triggerLights("black");
-        currentlyPlaying = true;
         $("#showPauseButton").html("Pause Show").addClass('btn-warning').removeClass("btn-success");
+        triggerLights("black");
+        setTimeout(function(){commandAmateras("play")}, 2000);
+        currentlyPlaying = true;
       }
     }
 

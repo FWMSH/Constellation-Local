@@ -238,6 +238,7 @@ def triggerLights(show):
     # Mapping of show names to numbers
     show_dict = {"blues": 1,
                  "black": 10,
+                 "dark_blues": 12,
                  "oranges": 7,
                  "white": 11}
 
