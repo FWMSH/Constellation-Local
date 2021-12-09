@@ -1,11 +1,11 @@
 const webcamElement = document.getElementById('webcam');
 const webcam = new Webcam(webcamElement, 'enviroment'); // user or enviroment
 const canvasPerson = document.getElementById("canvasPerson");
-const multiplier = 1;
-const outputStride = 16;
-const quantBytes = 4;
-const internalResolution = "full";
-const segmentationThreshold = 0.75;
+const multiplier = 0.5; // MobileNetV1 only - 0.5/0.75/1.0 smaller is faster
+const outputStride = 16; // 8,16,32 for MobileNetV1, 16,32 for ResNet50 (smaller is faster)
+const quantBytes = 1; // 1/2/4 (smaller is faster)
+const internalResolution = "low"; // low, medium, full, full
+const segmentationThreshold = 0.75; // [0,1]
 const backgrounds = ["greatwall", "pyramid", "Colosseum", "monchu", "ayers-rock","taj", "easter-island", "moon"];
 const backgroundImagesPath =  'images/';
 const snapSound = new Audio('audio/snap.wav');
