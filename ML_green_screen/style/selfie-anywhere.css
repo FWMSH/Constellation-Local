@@ -170,15 +170,15 @@
   #canvasPerson{
     background-color: transparent;
     position: absolute;
-    /* width: 100vw;
-    height: auto; */
-    width: 2560px;
-    height: 1920px;
+    width: 100vw;
+    height: auto;
+    /* width: 2560px;
+    height: 1920px; */
     z-index: 9999;
     margin: auto;
     top: 0;
     bottom: 0;
-    left: -740px;
+    /* left: -740px; */
     right: 0;
     margin-left: auto;
     margin-right: auto;
