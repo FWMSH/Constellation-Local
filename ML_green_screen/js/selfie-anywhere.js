@@ -1,5 +1,5 @@
 const webcamElement = document.getElementById('webcam');
-const webcam = new Webcam(webcamElement, 'user');
+const webcam = new Webcam(webcamElement, 'enviroment');
 const canvasPerson = document.getElementById("canvasPerson");
 const multiplier = 1;
 const outputStride = 16;
