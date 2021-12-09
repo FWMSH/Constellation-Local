@@ -45,7 +45,7 @@ $("#webcam-switch").change(function () {
 });
 
 $("#webcam").bind("loadedmetadata", function () {
-    screenModeChange();
+    // screenModeChange();
     if(net != null){
         cameraFrame = detectBody();
     }
@@ -57,7 +57,7 @@ function startDetectBody() {
             if(net == null){
                 $(".spinner-border").removeClass('d-none');
                 bodyPix.load({
-                    architecture: 'ResNet50',
+                    architecture: 'MobileNetV1', // MobileNetV1 or ResNet50
                     outputStride: outputStride,
                     multiplier: multiplier,
                     quantBytes: quantBytes
@@ -189,11 +189,12 @@ $("#exit-app").click(function () {
     $("#webcam-switch").prop("checked", false).change();
 });
 
-$(window).resize(function() {
-    screenModeChange();
-});
+// $(window).resize(function() {
+//     screenModeChange();
+// });
 
 function screenModeChange(){
+    console.log("screenModeChange")
     screenMode = window.innerWidth > window.innerHeight? 'l' : 'p';
     if(screenMode == 'l'){
         canvasPerson.style.width = '100vw';
