@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const webcamElement = document.getElementById('webcam');
 const webcam = new Webcam(webcamElement, 'enviroment'); // user or enviroment
 const canvasPerson = document.getElementById("canvasPerson");

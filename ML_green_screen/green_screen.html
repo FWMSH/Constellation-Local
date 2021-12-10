@@ -1,0 +1,187 @@
+<html>
+  <head>
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
+    <!-- Load BodyPix -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
+
+    <style>
+      body {
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+      }
+      #image {
+        z-index: 1;
+        position: absolute;
+        top: 0px;
+        height: 100vh;
+        width: auto;
+      }
+      #video {
+        z-index: 3;
+        -moz-transform: scale(-1, 1);
+        -webkit-transform: scale(-1, 1);
+        -o-transform: scale(-1, 1);
+        transform: scale(-1, 1);
+
+        position: absolute;
+        top: 0px;
+        left: -1166px;
+        height: 100vh;
+        width: auto;
+      }
+      #canvas {
+        z-index: 2;
+        -moz-transform: scale(-1, 1);
+        -webkit-transform: scale(-1, 1);
+        -o-transform: scale(-1, 1);
+        transform: scale(-1, 1);
+        filter: FlipH;
+        filter: grayscale(1);
+
+        position: absolute;
+        top: 0px;
+        left: -1166px;
+        height: 100vh;
+        width: auto;
+      }
+      #container {
+        position: fixed;
+      }
+      #startButton {
+        z-index: 4;
+        font-size:100px;
+        position: absolute;
+        left: 100px;
+        top: 1800px;
+      }
+      #countdownDisplay {
+        z-index: 5;
+        font-size: 200px;
+        position: absolute;
+        left: 500px;
+        top: 900px;
+        color: white;
+        background-color: green;
+        display: none;
+      }
+    </style>
+ </head>
+
+  <body>
+    <div id='container'>
+      <img id='image' src='West_Texas_Fair.jpg' crossorigin='anonymous'/>
+      <video id="video" autoplay width='1920' height='1080'>
+      </video>
+      <canvas id="canvas" width='1920' height='1080'></canvas>
+      <button id="startButton" onclick="countdown();">Start</button>
+      <span id="countdownDisplay">5</span>
+    </div>
+  </body>
+
+  <script>
+    const img = document.getElementById('image');
+    const video = document.getElementById('video');
+
+    const architecture = 'ResNet50'; // MobileNetV1 or ResNet50
+    const multiplier = 1.0; // MobileNetV1 only - 0.5/0.75/1.0 smaller is faster
+    const outputStride = 32; // 8,16 for MobileNetV1, 16,32 for ResNet50 (smaller is faster)
+    const quantBytes = 4; // 1/2/4 (smaller is faster)
+    const internalResolution = "full"; // low, medium, high, full
+    const segmentationThreshold = 0.75; // [0,1]
+    let net;
+
+    async function loadAndPredict() {
+      net = await bodyPix.load({
+          architecture: architecture,
+          outputStride: outputStride,
+          multiplier: multiplier,
+          quantBytes: quantBytes
+      })
+      .catch(error => {
+          console.log(error);
+      })
+      .then(objNet => {
+          net = objNet;
+          cameraFrame = detectBody();
+      });
+    }
+
+    function detectBody(){
+      canvas = document.getElementById("canvas");
+      net.segmentPerson(video,  {
+          flipHorizontal: false,
+          internalResolution: internalResolution,
+          segmentationThreshold: segmentationThreshold
+        })
+      .catch(error => {
+          console.log(error);
+      })
+      .then(personSegmentation => {
+          if(personSegmentation!=null){
+              drawBody(personSegmentation);
+          }
+      });
+    }
+
+    function drawBody(personSegmentation)
+      {
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext('2d');
+        ctx.drawImage(canvas, 0, 0, video.width, video.height);
+        var imageData = ctx.getImageData(0,0, video.width, video.height);
+        console.log(imageData)
+        var pixel = imageData.data;
+        for (var p = 0; p<pixel.length; p+=4)
+        {
+          if (personSegmentation.data[p/4] == 0) {
+              pixel[p+3] = 0;
+          }
+        }
+        ctx.imageSmoothingEnabled = true;
+        ctx.putImageData(imageData,0,0);
+      }
+
+    var startWebcam = function () {
+        var video = document.getElementById('video'),
+            vendorUrl = window.URL || window.webkitURL;
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia(
+              { video: {
+                  width: { ideal: 3840},
+                  height: { ideal: 2160}
+                }
+              }
+            )
+                .then(function (stream) {
+                    video.srcObject = stream;
+                }).catch(function (error) {
+                    console.log("Something went wrong!");
+                });
+        }
+    }
+
+    function countdown(time=5) {
+
+      if (time > 0) {
+        document.getElementById("countdownDisplay").style.display = 'block';
+        document.getElementById("countdownDisplay").innerHTML = time;
+        setTimeout(function(){countdown(time-1)}, 1000);
+      } else {
+        document.getElementById("countdownDisplay").style.display = 'none';
+        takeSnapshot();
+      }
+    }
+
+    function takeSnapshot() {
+      canvas = document.getElementById("canvas");
+      ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+      video.style.opacity = 0;
+      loadAndPredict();
+    }
+    startWebcam();
+    // loadAndPredict();
+  </script>
+</html>
