@@ -195,8 +195,8 @@
       // canvas = document.getElementById("canvas");
       // ctx = canvas.getContext('2d');
       // ctx.drawImage(video, 0,0, canvas.width, canvas.height);
-      video.style.opacity = 0;
       flashIn();
+      $(video).fadeOut(40);
       loadAndPredict();
       setTimeout(function(){video.style.opacity = 1;}, 10000); // Re-show the camera
     }
