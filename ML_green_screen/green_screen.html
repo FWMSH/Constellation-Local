@@ -183,6 +183,7 @@
       ctx.drawImage(video, 0,0, canvas.width, canvas.height);
       video.style.opacity = 0;
       loadAndPredict();
+      setTimeout(function(){video.style.opacity = 1;}, 10000); // Re-show the camera
     }
     startWebcam();
     // loadAndPredict();
