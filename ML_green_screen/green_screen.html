@@ -104,16 +104,15 @@
     const quantBytes = 4; // 1/2/4 (smaller is faster)
     const internalResolution = "full"; // low, medium, high, full
     const segmentationThreshold = 0.75; // [0,1]
-    let net;
+    let net = bodyPix.load({
+        architecture: architecture,
+        outputStride: outputStride,
+        multiplier: multiplier,
+        quantBytes: quantBytes
+    })
 
     async function loadAndPredict() {
-      net = await bodyPix.load({
-          architecture: architecture,
-          outputStride: outputStride,
-          multiplier: multiplier,
-          quantBytes: quantBytes
-      })
-      .catch(error => {
+      net.catch(error => {
           console.log(error);
       })
       .then(objNet => {
@@ -195,10 +194,11 @@
       // canvas = document.getElementById("canvas");
       // ctx = canvas.getContext('2d');
       // ctx.drawImage(video, 0,0, canvas.width, canvas.height);
+      clearTimeout(fadeOutTimer);
       flashIn();
       $(video).fadeOut(40);
       loadAndPredict();
-      setTimeout(function(){$(video).fadeIn(40)}, 10000); // Re-show the camera
+      fadeOutTimer = setTimeout(function(){$(video).fadeIn(40)}, 10000); // Re-show the camera
     }
 
     function flashIn() {
@@ -215,6 +215,8 @@
 
       $("#flashDiv").animate({opacity: 0}, {duration: 300, queue: false});
     }
+
+    var fadeOutTimer;
     startWebcam();
     // loadAndPredict();
   </script>
