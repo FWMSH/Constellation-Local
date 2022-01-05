@@ -141,6 +141,7 @@
 
     function drawBody(personSegmentation)
       {
+        flashOut();
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
         ctx.drawImage(canvas, 0, 0, video.width, video.height);
@@ -154,7 +155,6 @@
         }
         ctx.imageSmoothingEnabled = true;
         ctx.putImageData(imageData,0,0);
-        flashOut();
       }
 
     var startWebcam = function () {
