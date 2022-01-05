@@ -4,6 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
     <!-- Load BodyPix -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
 
     <style>
       body {
@@ -51,6 +52,16 @@
       #container {
         position: fixed;
       }
+      #flashDiv {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        z-index: 4;
+        background-color: white;
+        opacity: 0;
+      }
       #startButton {
         z-index: 4;
         font-size:100px;
@@ -73,6 +84,7 @@
 
   <body>
     <div id='container'>
+      <div id="flashDiv"></div>
       <img id='image' src='West_Texas_Fair.jpg' crossorigin='anonymous'/>
       <video id="video" autoplay width='1920' height='1080'>
       </video>
@@ -133,7 +145,6 @@
         ctx = canvas.getContext('2d');
         ctx.drawImage(canvas, 0, 0, video.width, video.height);
         var imageData = ctx.getImageData(0,0, video.width, video.height);
-        console.log(imageData)
         var pixel = imageData.data;
         for (var p = 0; p<pixel.length; p+=4)
         {
@@ -182,8 +193,18 @@
       ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0,0, canvas.width, canvas.height);
       video.style.opacity = 0;
+      flash();
       loadAndPredict();
       setTimeout(function(){video.style.opacity = 1;}, 10000); // Re-show the camera
+    }
+
+    function flash() {
+
+      // Create a flash effect over the screen
+
+      let out = function() {$("#flashDiv").animate({opacity: 0}, {duration: 500, queue: false})};
+      $("#flashDiv").animate({opacity: 1},
+                             {duration: 40, queue: false, complete: out})
     }
     startWebcam();
     // loadAndPredict();
