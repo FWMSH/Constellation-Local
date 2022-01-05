@@ -7,6 +7,14 @@
     <script src="js/jquery-3.6.0.min.js"></script>
 
     <style>
+      @font-face {
+        font-family: Gotham-Bold;
+        src: url(fonts/Gotham-Bold.otf);
+      }
+      @font-face {
+        font-family: Gotham-Medium;
+        src: url(fonts/Gotham-Medium.otf);
+      }
       body {
         overflow: hidden;
         height: 100vh;
@@ -65,13 +73,20 @@
       #startButton {
         z-index: 4;
         font-size:100px;
+        font-family: Gotham-Medium;
         position: absolute;
-        left: 100px;
-        top: 1800px;
+        width: 400px;
+        height: 150px;
+        line-height: 150px;
+        left: 50px;
+        top: 1720px;
+        background-color: RGBA(237, 252, 242, 1);
+        border-radius: 50px;
       }
       #countdownDisplay {
         z-index: 5;
         font-size: 200px;
+        font-family: Gotham-Bold;
         position: absolute;
         left: 500px;
         top: 900px;
@@ -186,8 +201,8 @@
 
     function countdown(time=5, first=false) {
       if (time > 1) {
-        $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 300, fontSize: 300}, 100);
-        $("#countdownDisplay").animate({width:200, height: 200, lineHeight: 200, fontSize: 200}, 900);
+        $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 325, fontSize: 300}, 100);
+        $("#countdownDisplay").animate({width:200, height: 200, lineHeight: 225, fontSize: 200}, 900);
       } else {
         $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 300, fontSize: 300}, 100);
         $("#countdownDisplay").animate({width:0, height: 0, lineHeight: 0, fontSize: 0}, 900);
