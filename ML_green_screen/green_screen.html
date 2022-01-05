@@ -60,6 +60,23 @@
       #container {
         position: fixed;
       }
+      #countdownDisplay {
+        z-index: 5;
+        font-size: 200px;
+        font-family: Gotham-Bold;
+        position: absolute;
+        left: 500px;
+        top: 900px;
+        color: white;
+        background-color: RGBA(3, 252, 140, 0.8);
+        display: none;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        transform: translate(-50%, -50%);
+      }
       #flashDiv {
         position: absolute;
         top: 0px;
@@ -84,21 +101,12 @@
         background-color: RGBA(237, 252, 242, 1);
         border-radius: 50px;
       }
-      #countdownDisplay {
+      #thumb {
         z-index: 5;
-        font-size: 200px;
-        font-family: Gotham-Bold;
         position: absolute;
-        left: 500px;
-        top: 900px;
-        color: white;
-        background-color: RGBA(3, 252, 140, 0.8);
-        display: none;
-        border-radius: 50%;
-        width: 200px;
-        height: 200px;
-        line-height: 200px;
-        text-align: center;
+        width: 300px;
+        left: 250px;
+        top: 1450px;
         transform: translate(-50%, -50%);
       }
     </style>
@@ -107,10 +115,11 @@
   <body>
     <div id='container'>
       <div id="flashDiv"></div>
-      <img id='image' src='West_Texas_Fair.jpg' crossorigin='anonymous'/>
+      <img id='image' src='images/West_Texas_Fair.jpg' crossorigin='anonymous'/>
       <video id="video" autoplay width='1920' height='1080'>
       </video>
       <canvas id="canvas" width='1920' height='1080'></canvas>
+      <img id='thumb' src='thumbs/West_Texas_Fair.jpg'/>
       <button id="startButton" onclick="countdown(5, true);">Start</button>
       <span id="countdownDisplay">5</span>
     </div>
@@ -119,6 +128,8 @@
   <script>
     const img = document.getElementById('image');
     const video = document.getElementById('video');
+    const thumb = document.getElementById('thumb');
+    const backgroundList = ["West_Texas_Fair.jpg"]
 
     const architecture = 'ResNet50'; // MobileNetV1 or ResNet50
     const multiplier = 1.0; // MobileNetV1 only - 0.5/0.75/1.0 smaller is faster
@@ -164,8 +175,8 @@
       });
     }
 
-    function drawBody(personSegmentation)
-      {
+    function drawBody(personSegmentation) {
+
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
         ctx.drawImage(canvas, 0, 0, video.width, video.height);
@@ -183,6 +194,7 @@
       }
 
     var startWebcam = function () {
+
         var video = document.getElementById('video'),
             vendorUrl = window.URL || window.webkitURL;
         if (navigator.mediaDevices.getUserMedia) {
