@@ -154,6 +154,7 @@
         }
         ctx.imageSmoothingEnabled = true;
         ctx.putImageData(imageData,0,0);
+        flashOut();
       }
 
     var startWebcam = function () {
@@ -193,18 +194,24 @@
       ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0,0, canvas.width, canvas.height);
       video.style.opacity = 0;
-      flash();
+      flashIn();
       loadAndPredict();
       setTimeout(function(){video.style.opacity = 1;}, 10000); // Re-show the camera
     }
 
-    function flash() {
+    function flashIn() {
 
       // Create a flash effect over the screen
 
-      let out = function() {$("#flashDiv").animate({opacity: 0}, {duration: 500, queue: false})};
+      // let out = function() {$("#flashDiv").animate({opacity: 0}, {duration: 500, queue: false})};
       $("#flashDiv").animate({opacity: 1},
-                             {duration: 40, queue: false, complete: out})
+                             {duration: 40, queue: false})
+    }
+    function flashOut() {
+
+      // Create a flash effect over the screen
+
+      $("#flashDiv").animate({opacity: 0}, {duration: 500, queue: false});
     }
     startWebcam();
     // loadAndPredict();
