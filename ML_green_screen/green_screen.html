@@ -104,15 +104,16 @@
     const quantBytes = 4; // 1/2/4 (smaller is faster)
     const internalResolution = "full"; // low, medium, high, full
     const segmentationThreshold = 0.75; // [0,1]
-    let net = bodyPix.load({
-        architecture: architecture,
-        outputStride: outputStride,
-        multiplier: multiplier,
-        quantBytes: quantBytes
-    })
+    let net;
 
     async function loadAndPredict() {
-      net.catch(error => {
+      net = await bodyPix.load({
+          architecture: architecture,
+          outputStride: outputStride,
+          multiplier: multiplier,
+          quantBytes: quantBytes
+      })
+      .catch(error => {
           console.log(error);
       })
       .then(objNet => {
