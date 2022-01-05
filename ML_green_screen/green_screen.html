@@ -78,8 +78,9 @@
         width: 400px;
         height: 150px;
         line-height: 150px;
-        left: 50px;
-        top: 1720px;
+        left: 250px;
+        top: 1795px;
+        transform: translate(-50%, -50%);
         background-color: RGBA(237, 252, 242, 1);
         border-radius: 50px;
       }
@@ -178,6 +179,7 @@
         }
         ctx.imageSmoothingEnabled = true;
         ctx.putImageData(imageData,0,0);
+        showStartButton();
       }
 
     var startWebcam = function () {
@@ -200,6 +202,9 @@
     }
 
     function countdown(time=5, first=false) {
+      if (first == true) {
+        hideStartButton();
+      }
       if (time > 1) {
         $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 325, fontSize: 300}, 100);
         $("#countdownDisplay").animate({width:200, height: 200, lineHeight: 225, fontSize: 200}, 900);
@@ -245,6 +250,29 @@
 
       $("#flashDiv").animate({opacity: 0}, {duration: 300, queue: false});
     }
+
+    function hideStartButton() {
+
+      // Animation to hide the start button
+
+      // $("#startButton").prop("disabled", true);
+      let contract = function() {
+        $("#startButton").animate({width: 0, height: 0, opacity: 0, fontSize: 0}, 500);
+      };
+      $("#startButton").animate({width: 440, height: 165, fontSize: 110}, {duration: 100, complete: contract});
+    }
+
+    function showStartButton() {
+
+      // Animation to show the start button
+
+      // $("#startButton").prop("disabled", false);
+      let contract = function() {
+        $("#startButton").animate({width: 400, height: 150, fontSize: 100}, 100);
+      };
+      $("#startButton").animate({width: 440, height: 165, fontSize: 110, opacity: 1}, {duration: 500, complete: contract});
+    }
+
 
     var fadeOutTimer;
     startWebcam();
