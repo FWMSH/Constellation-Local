@@ -76,8 +76,14 @@
         left: 500px;
         top: 900px;
         color: white;
-        background-color: green;
+        background-color: RGBA(3, 252, 140, 0.8);
         display: none;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        transform: translate(-50%, -50%);
       }
     </style>
  </head>
@@ -89,7 +95,7 @@
       <video id="video" autoplay width='1920' height='1080'>
       </video>
       <canvas id="canvas" width='1920' height='1080'></canvas>
-      <button id="startButton" onclick="countdown();">Start</button>
+      <button id="startButton" onclick="countdown(5, true);">Start</button>
       <span id="countdownDisplay">5</span>
     </div>
   </body>
@@ -178,15 +184,23 @@
         }
     }
 
-    function countdown(time=5) {
-
+    function countdown(time=5, first=false) {
+      if (time > 1) {
+        $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 300, fontSize: 300}, 100);
+        $("#countdownDisplay").animate({width:200, height: 200, lineHeight: 200, fontSize: 200}, 900);
+      } else {
+        $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 300, fontSize: 300}, 100);
+        $("#countdownDisplay").animate({width:0, height: 0, lineHeight: 0, fontSize: 0}, 900);
+      }
       if (time > 0) {
         $(video).fadeIn(1)
+        $("#countdownDisplay").html(time).show()
+
         document.getElementById("countdownDisplay").style.display = 'block';
         document.getElementById("countdownDisplay").innerHTML = time;
         setTimeout(function(){countdown(time-1)}, 1000);
       } else {
-        document.getElementById("countdownDisplay").style.display = 'none';
+        $("#countdownDisplay").hide();
         takeSnapshot();
       }
     }
