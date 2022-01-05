@@ -181,7 +181,7 @@
     function countdown(time=5) {
 
       if (time > 0) {
-        video.style.opacity = 1;
+        $(video).fadeIn(1)
         document.getElementById("countdownDisplay").style.display = 'block';
         document.getElementById("countdownDisplay").innerHTML = time;
         setTimeout(function(){countdown(time-1)}, 1000);
