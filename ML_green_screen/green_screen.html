@@ -135,6 +135,7 @@
           console.log(error);
       })
       .then(personSegmentation => {
+          flashOut();
           if(personSegmentation!=null){
               drawBody(personSegmentation);
           }
@@ -143,7 +144,6 @@
 
     function drawBody(personSegmentation)
       {
-        flashOut();
         canvas = document.getElementById("canvas");
         ctx = canvas.getContext('2d');
         ctx.drawImage(canvas, 0, 0, video.width, video.height);
