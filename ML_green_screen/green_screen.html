@@ -198,7 +198,7 @@
       flashIn();
       $(video).fadeOut(40);
       loadAndPredict();
-      setTimeout(function(){video.style.opacity = 1;}, 10000); // Re-show the camera
+      setTimeout(function(){$(video).fadeIn(40)}, 10000); // Re-show the camera
     }
 
     function flashIn() {
