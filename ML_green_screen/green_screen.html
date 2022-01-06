@@ -216,7 +216,7 @@
         }
         ctx.imageSmoothingEnabled = true;
         ctx.putImageData(imageData,0,0);
-        showStartButton();
+        showOptions();
       }
 
     var startWebcam = function () {
@@ -241,7 +241,7 @@
 
     function countdown(time=5, first=false) {
       if (first == true) {
-        hideStartButton();
+        hideOptions();
       }
       if (time > 1) {
         $("#countdownDisplay").animate({width:300, height: 300, lineHeight: 325, fontSize: 300}, 100);
@@ -304,26 +304,38 @@
       $("#flashDiv").animate({opacity: 0}, {duration: 300, queue: false});
     }
 
-    function hideStartButton() {
+    function hideOptions() {
 
       // Animation to hide the start button
 
-      // $("#startButton").prop("disabled", true);
+      // Hide button
       let contract = function() {
         $("#startButton").animate({width: 0, height: 0, opacity: 0, lineHeight: 0, fontSize: 0}, 500);
       };
       $("#startButton").animate({width: 440, height: 165, lineHeight: 165, fontSize: 110}, {duration: 100, complete: contract});
+
+      // Hide image picker
+      let left = function() {
+        $("#optionsDiv").animate({left: -400}, 500);
+      }
+      $("#optionsDiv").animate({left: 100}, {duration: 100, complete: left});
     }
 
-    function showStartButton() {
+    function showOptions() {
 
       // Animation to show the start button
 
-      // $("#startButton").prop("disabled", false);
+      // Show start button
       let contract = function() {
         $("#startButton").animate({width: 400, height: 150, lineHeight: 150, fontSize: 100}, 100);
       };
       $("#startButton").animate({width: 440, height: 165, lineHeight: 165, fontSize: 110, opacity: 1}, {duration: 500, complete: contract});
+
+      // Show image picker
+      let left = function() {
+        $("#optionsDiv").animate({left: 50}, 100);
+      }
+      $("#optionsDiv").animate({left: 100}, {duration: 500, complete: left});
     }
 
 
