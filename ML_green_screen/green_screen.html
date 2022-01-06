@@ -154,7 +154,8 @@
     const img = document.getElementById('image');
     const video = document.getElementById('video');
     const thumb = document.getElementById('thumb');
-    const backgroundList = ["West_Texas_Fair.jpg"]
+    const backgroundList = ["West_Texas_Fair.jpg", "Downtown_1930s.jpg"]
+    var currentImageIndex = 0;
 
     const architecture = 'ResNet50'; // MobileNetV1 or ResNet50
     const multiplier = 1.0; // MobileNetV1 only - 0.5/0.75/1.0 smaller is faster
@@ -260,6 +261,21 @@
         $("#countdownDisplay").hide();
         takeSnapshot();
       }
+    }
+
+    function cycleImages(dir) {
+
+      // dir is 1 if we want the next images, -1 if we want the previous
+
+      currentImageIndex += dir;
+      if (currentImageIndex < 0) {
+        currentImageIndex = backgroundList.length-1;
+      } else if (currentImageIndex > backgroundList.length-1) {
+        currentImageIndex = 0;
+      }
+
+      thumb.src = "thumbs/" + backgroundList[currentImageIndex];
+      img.src = "images/" + backgroundList[currentImageIndex];
     }
 
     function takeSnapshot() {
