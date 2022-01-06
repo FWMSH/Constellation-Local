@@ -141,9 +141,9 @@
       </video>
       <canvas id="canvas" width='1920' height='1080'></canvas>
       <div id='optionsDiv'>
-        <button id='leftThumbButton' class='thumbButton'>&#9664;</button>
+        <button id='leftThumbButton' class='thumbButton' onclick="cycleImages(-1)">&#9664;</button>
         <img id='thumb' src='thumbs/West_Texas_Fair.jpg'/>
-        <button id='rightThumbButton' class='thumbButton'>&#9654;</button>
+        <button id='rightThumbButton' class='thumbButton' onclick="cycleImages(1)">&#9654;</button>
       </div>
       <button id="startButton" onclick="countdown(5, true);">Start</button>
       <span id="countdownDisplay">5</span>
