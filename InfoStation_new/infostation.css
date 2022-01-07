@@ -1,0 +1,96 @@
+body, html {
+  margin: 0px;
+  padding: 0px;
+  background: #719abf;
+  overscroll-behavior-x: none;
+  user-select: none;
+  /* cursor: none; */
+  overflow: hidden;
+}
+H1 {
+  color: white;
+  font-size: 3.5vh;
+}
+H2 {
+  color: white;
+  font-size: 3.2vh;
+}
+H3 {
+  color: white;
+  font-size: 2.9vh;
+}
+H4 {
+  color: white;
+  font-size: 2.6vh;
+}
+H5 {
+  color: white;
+  font-size: 2.3vh;
+}
+H6 {
+  color: white;
+  font-size: 2vh;
+}
+p {
+  color: white;
+  font-size: 1.6vh;
+}
+::-webkit-scrollbar {
+  width: 0;
+}
+.bigImage {
+  object-fit: contain;
+  max-height: 50vh;
+  max-width: 100%;
+}
+.card {
+}
+.card-img-top {
+  object-fit: contain;
+  max-height: 28vw;
+}
+.card-title {
+  font-size: 2.3vh;
+}
+.overlay {
+  position: absolute;
+  left: 0px;
+  top: 10vh;
+  height: 80vh;
+  width: 100vw;
+  background-color: RGBA(0,0,0, 0.85);
+}
+.overlayCaption {
+  color: white;
+  font-size: 50px;
+}
+.overlayCredit {
+  color: white;
+  font-size: 30px;
+}
+.overlayTitle {
+  font-size: 75px;
+  color: white;
+}
+.tabButton {
+  font-size: 2.5vh;
+}
+#buttonRow {
+  height: 6vh;
+}
+#masthead {
+  font-size: 5vh;
+  height: 10vh;
+  line-height: 10vh;
+  color: white;
+}
+#nav-tabContent {
+  height: 80vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+#toolbar {
+  background-color: gray;
+  height: 4vh;
+}
