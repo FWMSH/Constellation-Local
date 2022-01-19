@@ -1,5 +1,52 @@
 /*jshint esversion: 6 */
 
+function askForDefaults() {
+
+  // Send a message to the local helper and ask for the latest configuration
+  // defaults, then use them.
+
+  var requestString = JSON.stringify({"action": "getDefaults"});
+
+  let checkAgain = function() {
+    console.log("Could not get defaults... checking again");
+    setTimeout(askForDefaults, 500);
+  };
+  let xhr = new XMLHttpRequest();
+  xhr.timeout = 2000;
+  xhr.onerror = checkAgain;
+  xhr.ontimeout = checkAgain;
+  xhr.open("POST", helperAddress, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+
+    if (this.readyState != 4) return;
+
+    if (this.status == 200) {
+      readUpdate(this.responseText);
+    }
+  };
+  xhr.send(requestString);
+}
+
+function checkForSoftwareUpdate() {
+
+  console.log("WARNING: update not checked because source link is incorrect.")
+  // var xhr = new XMLHttpRequest();
+  // xhr.timeout = 2000;
+  // xhr.open('GET', 'https://raw.githubusercontent.com/FWMSH/Constellation-Local/main/infostation_new/version.txt', true);
+  // xhr.onreadystatechange = function () {
+  //
+  //   if (this.readyState != 4) return;
+  //
+  //   if (this.status == 200) {
+  //     if(parseFloat(this.responseText) > SOFTWARE_VERSION) {
+  //       errorDict.softwareUpdateAvailable = "true";
+  //     }
+  //   }
+  // };
+  // xhr.send(null);
+}
+
 function createButton(title, id) {
 
   // Create a button in the bottom bar that shows the pane with the given id
@@ -267,6 +314,147 @@ function imageOverlayShow(id, card) {
   $("#"+id+"_overlay").fadeIn(100);
 }
 
+function readUpdate(responseText) {
+
+  // Function to read a message from the server and take action based
+  // on the contents
+
+  var update = JSON.parse(responseText);
+  sendConfigUpdate(update); // Send to helper to update the default config
+
+  if ('commands' in update) {
+    for (var i=0; i<update.commands.length; i++) {
+      var cmd = (update.commands)[i];
+
+      if (cmd == "restart") {
+        askForRestart();
+      } else if (cmd == "shutdown") {
+        askForShutdown();
+      } else if (cmd == "sleepDisplays") {
+          sleepDisplays();
+      } else if (cmd == "wakeDisplays") {
+          wakeDisplays();
+      } else if (cmd == "refresh_page") {
+        if ("refresh" in allowedActionsDict && allowedActionsDict.refresh == "true") {
+          location.reload();
+        }
+      } else if (cmd == "reloadDefaults"){
+          askForDefaults();
+      } else {
+          console.log(`Command not recognized: ${cmd}`);
+      }
+    }
+  }
+  if ("id" in update) {
+    id = update.id;
+  }
+  if ("type" in update) {
+    type = update.type;
+  }
+  if (("server_ip_address" in update) && ("server_port" in update)) {
+    serverAddress = "http://" + update.server_ip_address + ":" + update.server_port;
+  }
+  if ("helperAddress" in update) {
+    helperAddress = update.helperAddress;
+  }
+  if ("contentPath" in update) {
+    contentPath = update.contentPath;
+  }
+  if ("current_exhibit" in update) {
+    currentExhibit = update.current_exhibit;
+  }
+  if ("missingContentWarnings" in update) {
+    errorDict.missingContentWarnings = update.missingContentWarnings;
+  }
+  if ("allow_restart" in update) {
+    allowedActionsDict.restart = update.allow_restart;
+  }
+  if ("allow_shutdown" in update) {
+    allowedActionsDict.shutdown = update.allow_shutdown;
+  }
+  if ("helperSoftwareUpdateAvailable" in update) {
+    if (update.helperSoftwareUpdateAvailable == "true")
+    errorDict.helperSoftwareUpdateAvailable = "true";
+  }
+}
+
+function sendConfigUpdate(update) {
+
+  // Send a message to the helper with the latest configuration to set as
+  // the default
+
+  var requestDict = {"action": "updateDefaults"};
+
+  if ("content" in update) {
+    requestDict.content = update.content;
+  }
+  if ("current_exhibit" in update) {
+    requestDict.current_exhibit = update.current_exhibit;
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 1000;
+  xhr.open("POST", helperAddress, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(requestDict));
+}
+
+function sendPing() {
+
+  // Contact the control server and ask for any updates
+
+  if (serverAddress != "") {
+    requestDict = {"class": "exhibitComponent",
+                   "id": id,
+                   "type": type,
+                   "helperPort": helperAddress.split(":")[2], // Depreciated
+                   "helperAddress": helperAddress,
+                   "allowed_actions": allowedActionsDict};
+
+    // See if there is an error to report
+    let errorString = JSON.stringify(errorDict);
+    if (errorString != "") {
+      requestDict.error = errorString;
+    }
+    requestString = JSON.stringify(requestDict);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", serverAddress, true);
+    xhr.timeout = 2000;
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState != 4) return;
+
+      if (this.status == 200) {
+        readUpdate(this.responseText);
+      }
+  };
+    xhr.send(requestString);
+  }
+}
+
+function sleepDisplays() {
+
+  // Send a message to the local helper process and ask it to sleep the
+  // displays
+
+  var requestString = JSON.stringify({"action": "sleepDisplays"});
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", helperAddress, true);
+  xhr.timeout = 2000;
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+    if (this.readyState != 4) return;
+
+    if (this.status == 200) {
+    }
+  };
+  xhr.send(requestString);
+}
+
 function videoOverlayHide(id) {
     videoPlaying = false;
     $("#"+id+"_overlay").fadeOut(100);
@@ -303,7 +491,42 @@ function videoOverlayShow(id, card) {
   document.getElementById(id+"_video").play();
 }
 
+function wakeDisplays() {
+
+  // Send a message to the local helper process and ask it to sleep the
+  // displays
+
+  var requestString = JSON.stringify({"action": "wakeDisplays"});
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", helperAddress, true);
+  xhr.timeout = 2000;
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+    if (this.readyState != 4) return;
+
+    if (this.status == 200) {
+    }
+};
+  xhr.send(requestString);
+}
+
 var videoPlaying = false; // Is a video currently playing?
+var errorDict = {};
+const SOFTWARE_VERSION = 1.0;
+
+// These will be replaced by values from the helper upon loading
+var id = "UNKNOWN";
+var type = "INFOSTATION";
+var serverAddress = ""; // The address of the main control server
+var allowedActionsDict = {"refresh": "true"};
+var contentPath = "";
+var current_exhibit = "";
+
+askForDefaults();
+checkForSoftwareUpdate();
+sendPing();
+setInterval(sendPing, 5000);
 
 var videoContent = [{video: 'videos/test_video.mp4', thumb: 'thumbs/test_video.jpg', caption_en: 'This is a test video.', caption_es: "Ésta es una imagen de prueba.", title_en: "Test 1", credit_en: "Public Domain."},];
 createVideoTab(videoContent, "Videos");
