@@ -1,10 +1,14 @@
 <html>
   <head>
+    <!-- Disabling pinch-to-zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="true" />
     <!-- Load TensorFlow.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
+    <script src="js/tensorflow-1.2.js"></script>
     <!-- Load BodyPix -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
+    <script src="js/body-pix@2.0.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="config.js"></script>
 
     <style>
       @font-face {
@@ -21,12 +25,14 @@
         width: 100vw;
         margin: 0;
         padding: 0;
+        touch-action: none;
       }
       .thumbButton {
         font-size: 30px;
         height: 60px;
         width: 60px;
         border-radius: 20px;
+        touch-action: none;
       }
       #image {
         z-index: 1;
@@ -34,6 +40,7 @@
         top: 0px;
         height: 100vh;
         width: auto;
+        touch-action: none;
       }
       #video {
         z-index: 3;
@@ -41,6 +48,7 @@
         -webkit-transform: scale(-1, 1);
         -o-transform: scale(-1, 1);
         transform: scale(-1, 1);
+        touch-action: none;
 
         position: absolute;
         top: 0px;
@@ -56,6 +64,7 @@
         transform: scale(-1, 1);
         filter: FlipH;
         filter: grayscale(1);
+        touch-action: none;
 
         position: absolute;
         top: 0px;
@@ -65,6 +74,7 @@
       }
       #container {
         position: fixed;
+        touch-action: none;
       }
       #countdownDisplay {
         z-index: 5;
@@ -82,6 +92,7 @@
         line-height: 200px;
         text-align: center;
         transform: translate(-50%, -50%);
+        touch-action: none;
       }
       #flashDiv {
         position: absolute;
@@ -92,6 +103,7 @@
         z-index: 4;
         background-color: white;
         opacity: 0;
+        touch-action: none;
       }
       #optionsDiv {
         display: flex;
@@ -107,6 +119,7 @@
         background-color: RGBA(0,0,0,.3);
         border-radius: 30px;
         gap: 15px;
+        touch-action: none;
       }
       #startButton {
         z-index: 4;
@@ -121,6 +134,7 @@
         transform: translate(-50%, -50%);
         background-color: RGBA(237, 252, 242, 1);
         border-radius: 30px;
+        touch-action: none;
       }
       #thumb {
         /* z-index: 5; */
@@ -129,6 +143,7 @@
         /* left: 250px;
         top: 1450px; */
         /* transform: translate(-50%, -50%); */
+        touch-action: none;
       }
     </style>
  </head>
@@ -233,7 +248,7 @@
                 .then(function (stream) {
                     video.srcObject = stream;
                 }).catch(function (error) {
-                    console.log("Something went wrong!");
+                    console.log("Something went wrong!", error);
                 });
         }
     }
@@ -326,6 +341,163 @@
       $("#optionsDiv").animate({left: 100}, {duration: 100, complete: left});
     }
 
+    function askForDefaults() {
+
+      // Send a message to the local helper and ask for the latest configuration
+      // defaults, then use them.
+
+      var requestString = JSON.stringify({"action": "getDefaults"});
+
+      let checkAgain = function() {
+        console.log("Could not get defaults... checking again");
+        setTimeout(askForDefaults, 500);
+      };
+      let xhr = new XMLHttpRequest();
+      xhr.timeout = 2000;
+      xhr.onerror = checkAgain;
+      xhr.ontimeout = checkAgain;
+      xhr.open("POST", helperAddress, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+
+        if (this.readyState != 4) return;
+
+        if (this.status == 200) {
+          readUpdate(this.responseText);
+        }
+      };
+      xhr.send(requestString);
+    }
+
+    function readUpdate(responseText) {
+
+      // Function to read a message from the server and take action based
+      // on the contents
+
+      var update = JSON.parse(responseText);
+      sendConfigUpdate(update); // Send to helper to update the default config
+
+      if ('commands' in update) {
+        for (var i=0; i<update.commands.length; i++) {
+          var cmd = (update.commands)[i];
+
+          if (cmd == "restart") {
+            askForRestart();
+          } else if (cmd == "shutdown") {
+            askForShutdown();
+          } else if (cmd == "sleepDisplays") {
+              sleepDisplays();
+          } else if (cmd == "wakeDisplays") {
+              wakeDisplays();
+          } else if (cmd == "refresh_page") {
+            if ("refresh" in allowedActionsDict && allowedActionsDict.refresh == "true") {
+              location.reload();
+            }
+          } else if (cmd == "reloadDefaults"){
+              askForDefaults();
+          } else {
+              console.log(`Command not recognized: ${cmd}`);
+          }
+        }
+      }
+      if ("id" in update) {
+        id = update.id;
+      }
+      if ("type" in update) {
+        type = update.type;
+      }
+      if (("server_ip_address" in update) && ("server_port" in update)) {
+        serverAddress = "http://" + update.server_ip_address + ":" + update.server_port;
+      }
+      if ("helperAddress" in update) {
+        helperAddress = update.helperAddress;
+      }
+      if ("contentPath" in update) {
+        contentPath = update.contentPath;
+      }
+      if ("current_exhibit" in update) {
+        currentExhibit = update.current_exhibit;
+      }
+      if ("missingContentWarnings" in update) {
+        errorDict.missingContentWarnings = update.missingContentWarnings;
+      }
+      if ("allow_restart" in update) {
+        allowedActionsDict.restart = update.allow_restart;
+      }
+      if ("allow_shutdown" in update) {
+        allowedActionsDict.shutdown = update.allow_shutdown;
+      }
+      if ("helperSoftwareUpdateAvailable" in update) {
+        if (update.helperSoftwareUpdateAvailable == "true")
+        errorDict.helperSoftwareUpdateAvailable = "true";
+      }
+    }
+
+    function resetActivityTimer() {
+
+      // Cancel the existing activity timer and set a new one
+
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(showAttractor, 30000);
+    }
+
+    function sendConfigUpdate(update) {
+
+      // Send a message to the helper with the latest configuration to set as
+      // the default
+
+      var requestDict = {"action": "updateDefaults"};
+
+      if ("content" in update) {
+        requestDict.content = update.content;
+      }
+      if ("current_exhibit" in update) {
+        requestDict.current_exhibit = update.current_exhibit;
+      }
+
+      var xhr = new XMLHttpRequest();
+      xhr.timeout = 1000;
+      xhr.open("POST", helperAddress, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(requestDict));
+    }
+
+    function sendPing() {
+
+      // Contact the control server and ask for any updates
+
+      if (serverAddress != "") {
+        requestDict = {"class": "exhibitComponent",
+                       "id": id,
+                       "type": type,
+                       "helperPort": helperAddress.split(":")[2], // Depreciated
+                       "helperAddress": helperAddress,
+                       "allowed_actions": allowedActionsDict};
+
+        // See if there is an error to report
+        let errorString = JSON.stringify(errorDict);
+        if (errorString != "") {
+          requestDict.error = errorString;
+        }
+        requestString = JSON.stringify(requestDict);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", serverAddress, true);
+        xhr.timeout = 2000;
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = function () {
+
+          if (this.readyState != 4) return;
+
+          if (this.status == 200) {
+            readUpdate(this.responseText);
+          }
+      };
+        xhr.send(requestString);
+      }
+    }
+
     function showOptions() {
 
       // Animation to show the start button
@@ -343,9 +515,21 @@
       $("#optionsDiv").animate({left: 100}, {duration: 500, complete: left});
     }
 
+    // These will be replaced by values from the helper upon loading
+    var id = "UNKNOWN";
+    var type = "GAME";
+    var serverAddress = ""; // The address of the main control server
+    var allowedActionsDict = {"refresh": "true"};
+    var contentPath = "";
+    var current_exhibit = "";
 
     var fadeOutTimer;
+    var errorDict = {};
+    var currentlyActive = false;
+    askForDefaults();
+    sendPing();
+    setInterval(sendPing, 5000);
+
     startWebcam();
-    // loadAndPredict();
   </script>
 </html>

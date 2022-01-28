@@ -195,7 +195,6 @@ function createTextTab(content, tabName) {
   // Now convert the Markdown to HTML
   let converter = new showdown.Converter({parseImgDimensions: true});
   let html = converter.makeHtml(content.text);
-  console.log(html)
   $(col).html(html);
 
   // Create button for this tab
@@ -273,6 +272,48 @@ function createVideoTab(content, tabName) {
   createButton(tabName, id);
 }
 
+function fontSizeDecrease(animate=false) {
+
+  // Take the given number of font ticks and convert it into the proper
+  // font size for each kind of elements
+
+  var duration = 0;
+  if (animate) {
+    duration = 50;
+  }
+
+  $("p, h1, h2, h3, h4, h5, h6, button, .card-title").animate({fontSize: "-=3", queue: false}, duration);
+}
+
+function fontSizeDecreaseButtonPressed() {
+
+  if (fontTicks > 0) {
+    fontTicks -= 1;
+    fontSizeDecrease(true);
+  }
+}
+
+function fontSizeIncrease(animate=false) {
+
+  // Take the given number of font ticks and convert it into the proper
+  // font size for each kind of elements
+
+  var duration = 0;
+  if (animate) {
+    duration = 50;
+  }
+
+  $("p, h1, h2, h3, h4, h5, h6, button, .card-title").animate({fontSize: "+=3", queue: false}, duration);
+}
+
+function fontSizeIncreaseButtonPressed() {
+
+  if (fontTicks < 10) {
+    fontTicks += 1;
+    fontSizeIncrease(true);
+  }
+}
+
 function gotoTab(id, button) {
 
   // Swap the active tab
@@ -282,6 +323,17 @@ function gotoTab(id, button) {
   // Chance button color
   $(".tabButton").removeClass("btn-primary").addClass("btn-secondary");
   $(button).removeClass("btn-secondary").addClass("btn-primary");
+}
+
+function hideAttractor() {
+
+  // Make the attractor layer invisible
+
+    $("#attractorOverlay").fadeOut(100, result => {
+    document.getElementById("attractorVideo").pause();
+    currentlyActive = true;
+    resetActivityTimer();
+  });
 }
 
 function imageOverlayHide(id) {
@@ -378,6 +430,14 @@ function readUpdate(responseText) {
   }
 }
 
+function resetActivityTimer() {
+
+  // Cancel the existing activity timer and set a new one
+
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(showAttractor, 30000);
+}
+
 function sendConfigUpdate(update) {
 
   // Send a message to the helper with the latest configuration to set as
@@ -433,6 +493,17 @@ function sendPing() {
   };
     xhr.send(requestString);
   }
+}
+
+function showAttractor() {
+
+  // Make the attractor layer visible
+
+  document.getElementById("attractorVideo").play()
+  .then(result => {
+    $("#attractorOverlay").fadeIn(100);
+    currentlyActive = false;
+  });
 }
 
 function sleepDisplays() {
@@ -511,9 +582,13 @@ function wakeDisplays() {
   xhr.send(requestString);
 }
 
+
 var videoPlaying = false; // Is a video currently playing?
 var errorDict = {};
 const SOFTWARE_VERSION = 1.0;
+var inactivityTimer = 0;
+var currentlyActive = false;
+var fontTicks = 0; // Number of times we have increased the font size
 
 // These will be replaced by values from the helper upon loading
 var id = "UNKNOWN";
@@ -522,6 +597,8 @@ var serverAddress = ""; // The address of the main control server
 var allowedActionsDict = {"refresh": "true"};
 var contentPath = "";
 var current_exhibit = "";
+
+$(document).bind("touchstart", resetActivityTimer);
 
 askForDefaults();
 checkForSoftwareUpdate();

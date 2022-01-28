@@ -193,6 +193,7 @@ class Trip {
     ctx.drawImage(carIcon, this.currentPosition[0]*gridSpacing-carSize/2, this.currentPosition[1]*gridSpacing-carSize/2, carSize, carSize);
     if (keepAnimating) {
       window.requestAnimationFrame((timestamp) => this.drawTrip(timestamp));
+      resetActivityTimer();
     }
 
     // Then, draw the resource indicators
@@ -205,6 +206,34 @@ class Trip {
     // Sleep
     drawGauge(gridSpacing, "sleep", this.resources.sleep);
   }
+}
+
+function askForDefaults() {
+
+  // Send a message to the local helper and ask for the latest configuration
+  // defaults, then use them.
+
+  var requestString = JSON.stringify({"action": "getDefaults"});
+
+  let checkAgain = function() {
+    console.log("Could not get defaults... checking again");
+    setTimeout(askForDefaults, 500);
+  };
+  let xhr = new XMLHttpRequest();
+  xhr.timeout = 2000;
+  xhr.onerror = checkAgain;
+  xhr.ontimeout = checkAgain;
+  xhr.open("POST", helperAddress, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function () {
+
+    if (this.readyState != 4) return;
+
+    if (this.status == 200) {
+      readUpdate(this.responseText);
+    }
+  };
+  xhr.send(requestString);
 }
 
 function draw() {
@@ -526,3 +555,154 @@ const canvas = document.getElementById('gameBoard');
 canvas.addEventListener('mousedown', function(e) {
   getCursorPosition(canvas, e);
 });
+
+function readUpdate(responseText) {
+
+  // Function to read a message from the server and take action based
+  // on the contents
+
+  var update = JSON.parse(responseText);
+  sendConfigUpdate(update); // Send to helper to update the default config
+
+  if ('commands' in update) {
+    for (var i=0; i<update.commands.length; i++) {
+      var cmd = (update.commands)[i];
+
+      if (cmd == "restart") {
+        askForRestart();
+      } else if (cmd == "shutdown") {
+        askForShutdown();
+      } else if (cmd == "sleepDisplays") {
+          sleepDisplays();
+      } else if (cmd == "wakeDisplays") {
+          wakeDisplays();
+      } else if (cmd == "refresh_page") {
+        if ("refresh" in allowedActionsDict && allowedActionsDict.refresh == "true") {
+          location.reload();
+        }
+      } else if (cmd == "reloadDefaults"){
+          askForDefaults();
+      } else {
+          console.log(`Command not recognized: ${cmd}`);
+      }
+    }
+  }
+  if ("id" in update) {
+    id = update.id;
+  }
+  if ("type" in update) {
+    type = update.type;
+  }
+  if (("server_ip_address" in update) && ("server_port" in update)) {
+    serverAddress = "http://" + update.server_ip_address + ":" + update.server_port;
+  }
+  if ("helperAddress" in update) {
+    helperAddress = update.helperAddress;
+  }
+  if ("contentPath" in update) {
+    contentPath = update.contentPath;
+  }
+  if ("current_exhibit" in update) {
+    currentExhibit = update.current_exhibit;
+  }
+  if ("missingContentWarnings" in update) {
+    errorDict.missingContentWarnings = update.missingContentWarnings;
+  }
+  if ("allow_restart" in update) {
+    allowedActionsDict.restart = update.allow_restart;
+  }
+  if ("allow_shutdown" in update) {
+    allowedActionsDict.shutdown = update.allow_shutdown;
+  }
+  if ("helperSoftwareUpdateAvailable" in update) {
+    if (update.helperSoftwareUpdateAvailable == "true")
+    errorDict.helperSoftwareUpdateAvailable = "true";
+  }
+}
+
+function resetActivityTimer() {
+
+  // Cancel the existing activity timer and set a new one
+
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(showAttractor, 30000);
+}
+
+function sendConfigUpdate(update) {
+
+  // Send a message to the helper with the latest configuration to set as
+  // the default
+
+  var requestDict = {"action": "updateDefaults"};
+
+  if ("content" in update) {
+    requestDict.content = update.content;
+  }
+  if ("current_exhibit" in update) {
+    requestDict.current_exhibit = update.current_exhibit;
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.timeout = 1000;
+  xhr.open("POST", helperAddress, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(requestDict));
+}
+
+function sendPing() {
+
+  // Contact the control server and ask for any updates
+
+  if (serverAddress != "") {
+    requestDict = {"class": "exhibitComponent",
+                   "id": id,
+                   "type": type,
+                   "helperPort": helperAddress.split(":")[2], // Depreciated
+                   "helperAddress": helperAddress,
+                   "allowed_actions": allowedActionsDict};
+
+    // See if there is an error to report
+    let errorString = JSON.stringify(errorDict);
+    if (errorString != "") {
+      requestDict.error = errorString;
+    }
+    requestString = JSON.stringify(requestDict);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", serverAddress, true);
+    xhr.timeout = 2000;
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState != 4) return;
+
+      if (this.status == 200) {
+        readUpdate(this.responseText);
+      }
+  };
+    xhr.send(requestString);
+  }
+}
+
+function showAttractor() {
+
+  // Make the attractor layer visible
+
+  document.getElementById("attractorVideo").play()
+  .then(result => {
+    $("#attractorOverlay").fadeIn(100);
+    currentlyActive = false;
+    reset();
+  });
+}
+
+function hideAttractor() {
+
+  // Make the attractor layer invisible
+
+    $("#attractorOverlay").fadeOut(100, result => {
+    document.getElementById("attractorVideo").pause();
+    currentlyActive = true;
+  });
+}

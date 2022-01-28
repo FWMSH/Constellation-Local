@@ -31,6 +31,31 @@
     .btn {
       font-size: 50px!important;
     }
+    #attractorOverlay {
+      position: fixed;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.9);
+      z-index: 5;
+      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+    }
+    #attractorVideo {
+      position: fixed;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
     #gameBoard {
       border-style: solid;
       border-width: 10px;
@@ -44,6 +69,10 @@
 
   <body>
     <div class="container-fluid">
+
+      <div id="attractorOverlay" onclick='hideAttractor();'>
+        <video id="attractorVideo" autoplay loop src='attractor.mp4'></video>
+      </div>
 
       <div class='row mt-4'>
         <div class='col-7'>
@@ -92,10 +121,11 @@
       <img id='car-right' class='hidden' src="icons/car_right.png"></img>
     </div>
 
-  <script type="text/javascript" src="js/jquery-3.5.1.slim.min.js"></script>
+  <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="js/popper.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/showdown.min.js"></script>
+  <script type="text/javascript" src="config.js"></script>
   <script type="text/javascript" src="game.js"></script>
   <script>
 
@@ -143,6 +173,22 @@
     const gridSpacing = 50;
     var trip = new Trip();
     draw();
+    $(document).bind("touchstart", resetActivityTimer);
+    
+    // These will be replaced by values from the helper upon loading
+    var id = "UNKNOWN";
+    var type = "INFOSTATION";
+    var serverAddress = ""; // The address of the main control server
+    var allowedActionsDict = {"refresh": "true"};
+    var contentPath = "";
+    var current_exhibit = "";
+
+    var inactivityTimer = 0;
+    var errorDict = {};
+    var currentlyActive = false;
+    askForDefaults();
+    sendPing();
+    setInterval(sendPing, 5000);
   </script>
 
   </body>

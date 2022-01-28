@@ -19,7 +19,11 @@
   <body>
     <main id='mainContainer' role="main" class="container-fluid px-0">
 
-      <div class="sticky-top bg-secondary">
+      <div id="attractorOverlay" onclick='hideAttractor();'>
+        <video id="attractorVideo" autoplay loop src='videos/attractor.mp4'></video>
+      </div>
+
+      <div class="bg-secondary">
         <div class="row">
           <div id='masthead' class="col-12 text-center fw-bold">
             InfoStation Title
@@ -28,7 +32,19 @@
       </div>
       <div class="tab-content" id="nav-tabContent"></div>
       <div id='buttonRow' class='row'></div>
-      <footer id='toolbar' class="fixed-bottom"></footer>
+      <footer id='toolbar' class="fixed-bottom">
+        <div class='row h-100'>
+          <div class='col-1 pe-0'>
+            <input class='w-100 h-100 bg-primary' type='image' src='icons/text_size_down.png' onclick="fontSizeDecreaseButtonPressed()"></input>
+          </div>
+          <div class='col-1 ps-0'>
+            <input class='w-100 h-100 bg-primary' type='image' src='icons/text_size_up.png' onclick="fontSizeIncreaseButtonPressed()"></input>
+          </div>
+          <div class='col-4'>
+            <button id="langToggleButton" class='btn btn-primary h-100' onclick="toggleLang();">Espanol</button>
+          </div>
+        </div>
+      </footer>
 
     </main>
   </body>

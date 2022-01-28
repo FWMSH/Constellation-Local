@@ -75,22 +75,52 @@ p {
 .tabButton {
   font-size: 2.5vh;
 }
+#attractorOverlay {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 5;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+#attractorVideo {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 #buttonRow {
   height: 6vh;
+}
+#langToggleButton {
+  font-size: 2vh;
 }
 #masthead {
   font-size: 5vh;
   height: 10vh;
   line-height: 10vh;
   color: white;
+  z-index: 1;
 }
 #nav-tabContent {
-  height: 80vh;
+  height: 79vh;
   width: 100vw;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 #toolbar {
   background-color: gray;
-  height: 4vh;
+  height: 5vh;
+  z-index: 1;
 }
