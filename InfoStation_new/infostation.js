@@ -28,6 +28,32 @@ function askForDefaults() {
   xhr.send(requestString);
 }
 
+function askForRestart() {
+
+  // Send a message to the local helper and ask for it to restart the PC
+
+  var requestString = JSON.stringify({"action": "restart"});
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", helperAddress, true);
+  xhr.timeout = 2000;
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(requestString);
+}
+
+function askForShutdown() {
+
+  // Send a message to the local helper and ask for it to shut down the PC
+
+  var requestString = JSON.stringify({"action": "shutdown"});
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", helperAddress, true);
+  xhr.timeout = 2000;
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(requestString);
+}
+
 function checkForSoftwareUpdate() {
 
   console.log("WARNING: update not checked because source link is incorrect.")
@@ -51,23 +77,34 @@ function createButton(title, id) {
 
   // Create a button in the bottom bar that shows the pane with the given id
 
-  let col = document.createElement("div");
-  col.setAttribute("class", "col-2 tabButtonCol");
-  $("#buttonRow").append(col);
+  let existingButton = $("#" + id + "ButtonCol");
+  let col;
+  if (existingButton.length == 0) {
+    // Create a new button
+    col = document.createElement("div");
+    col.setAttribute("class", "col-2 tabButtonCol");
+    col.setAttribute("id", id + "ButtonCol");
+    $("#buttonRow").append(col);
 
-  // Adjust the column size based on the number of buttons that have been added
-  let nButtons = $("#buttonRow").children().length;
-  const allButtons = $(".tabButtonCol");
-  if (nButtons == 1) {
-    allButtons.removeClass("col-1 col-2 col-3 col-4 col-6").addClass("col-12");
-  } else if (nButtons == 2) {
-    allButtons.removeClass("col-1 col-2 col-3 col-4 col-12").addClass("col-6");
-  } else if (nButtons == 3) {
-    allButtons.removeClass("col-1 col-2 col-3 col-6 col-12").addClass("col-4");
-  } else if (nButtons == 4) {
-    allButtons.removeClass("col-1 col-2 col-4 col-6 col-12").addClass("col-3");
-  } else if (nButtons > 4) {
-    allButtons.removeClass("col-1 col-6 col-3 col-4 col-12").addClass("col-2");
+    // Adjust the column size based on the number of buttons that have been added
+    let nButtons = $("#buttonRow").children().length;
+    const allButtons = $(".tabButtonCol");
+    if (nButtons == 1) {
+      allButtons.removeClass("col-1 col-2 col-3 col-4 col-6").addClass("col-12");
+    } else if (nButtons == 2) {
+      allButtons.removeClass("col-1 col-2 col-3 col-4 col-12").addClass("col-6");
+    } else if (nButtons == 3) {
+      allButtons.removeClass("col-1 col-2 col-3 col-6 col-12").addClass("col-4");
+    } else if (nButtons == 4) {
+      allButtons.removeClass("col-1 col-2 col-4 col-6 col-12").addClass("col-3");
+    } else if (nButtons > 4) {
+      allButtons.removeClass("col-1 col-6 col-3 col-4 col-12").addClass("col-2");
+    }
+  } else {
+    // Update button
+    existingButton.empty();
+    col = existingButton;
+    col.empty();
   }
 
   let button = document.createElement("button");
@@ -182,6 +219,8 @@ function createTextTab(content, tabName) {
   let pane = document.createElement("div");
   pane.setAttribute("id", id);
   pane.setAttribute("class", "tab-pane fade show active");
+  $(pane).data("user-content", content);
+  $(pane).data("user-tabName", tabName);
   $("#nav-tabContent").append(pane);
 
   let row = document.createElement("div");
@@ -190,15 +229,29 @@ function createTextTab(content, tabName) {
 
   let col = document.createElement("div");
   col.setAttribute("class", "col-12 textCol mt-3");
+  col.setAttribute("id", id + "Content");
   row.append(col);
 
-  // Now convert the Markdown to HTML
+  localizeTextTab(id);
+
+  textTabs.push(id);
+}
+
+function localizeTextTab(id) {
+
+  // Use the user-supplied data to supply the content in the current langauge;
+
+  let content = $("#" + id).data("user-content");
+  let tabName = $("#" + id).data("user-tabName");
+
+  // Convert the Markdown to HTML
   let converter = new showdown.Converter({parseImgDimensions: true});
-  let html = converter.makeHtml(content.text);
-  $(col).html(html);
+  let html = converter.makeHtml(content["text_" + currentLang]);
+  $("#" + id + "Content").html(html);
 
   // Create button for this tab
-  createButton(tabName, id);
+  createButton(tabName[currentLang], id);
+
 }
 
 function createVideoTab(content, tabName) {
@@ -282,7 +335,7 @@ function fontSizeDecrease(animate=false) {
     duration = 50;
   }
 
-  $("p, h1, h2, h3, h4, h5, h6, button, .card-title").animate({fontSize: "-=3", queue: false}, duration);
+  $("p, h1, h2, h3, h4, h5, h6, button, .card-title, li").animate({fontSize: "-=3", queue: false}, duration);
 }
 
 function fontSizeDecreaseButtonPressed() {
@@ -293,7 +346,15 @@ function fontSizeDecreaseButtonPressed() {
   }
 }
 
-function fontSizeIncrease(animate=false) {
+function fontSizeReset() {
+
+  while (fontTicks > 0) {
+    fontSizeDecrease();
+    fontTicks -= 1;
+  }
+}
+
+function fontSizeIncrease(animate=false, amount=3) {
 
   // Take the given number of font ticks and convert it into the proper
   // font size for each kind of elements
@@ -302,8 +363,7 @@ function fontSizeIncrease(animate=false) {
   if (animate) {
     duration = 50;
   }
-
-  $("p, h1, h2, h3, h4, h5, h6, button, .card-title").animate({fontSize: "+=3", queue: false}, duration);
+  $("p, h1, h2, h3, h4, h5, h6, button, .card-title, li").animate({fontSize: "+="+String(amount), queue: false}, duration);
 }
 
 function fontSizeIncreaseButtonPressed() {
@@ -317,6 +377,9 @@ function fontSizeIncreaseButtonPressed() {
 function gotoTab(id, button) {
 
   // Swap the active tab
+
+  // Make sure the tab is scrolled to the top
+  $("#nav-tabContent").scrollTop(0);
   $(".tab-pane.active").removeClass("active");
   $("#"+id).addClass("active");
 
@@ -495,6 +558,28 @@ function sendPing() {
   }
 }
 
+function setLanguages(langDict) {
+
+  languageDict = langDict;
+  currentLang = langDict.default;
+}
+
+function setMasthead(dataDict) {
+
+  // Helper function to set the masthead content (usually text)
+
+  $("#masthead").data("user-data", dataDict);
+  $("#masthead").html(dataDict[languageDict.default]);
+}
+
+function localizeMasthead() {
+
+  // Update the masthead with content matching the current language.
+
+  let dataDict = $("#masthead").data("user-data");
+  $("#masthead").html(dataDict[currentLang]);
+}
+
 function showAttractor() {
 
   // Make the attractor layer visible
@@ -503,6 +588,10 @@ function showAttractor() {
   .then(result => {
     $("#attractorOverlay").fadeIn(100);
     currentlyActive = false;
+  }).then(result => {
+    toggleLang(languageDict.default);
+    fontSizeReset();
+    $("#nav-tabContent").scrollTop(0);
   });
 }
 
@@ -524,6 +613,41 @@ function sleepDisplays() {
     }
   };
   xhr.send(requestString);
+}
+
+function toggleLang(lang) {
+
+  // Switch the currentLang and rebuild the interface.
+
+  currentLang = lang;
+
+  // First, record the current text size and reset everything to the default.
+  let sizeToSet = fontTicks;
+  fontSizeReset(); // Clear size so all elements are equally affected
+
+  localizeMasthead();
+
+  if (currentLang == "en") {
+    $("#langToggleButton").html(languageDict.es);
+    $("#langToggleButton").attr("onclick", "toggleLang('es')");
+  } else {
+    $("#langToggleButton").html(languageDict.en);
+    $("#langToggleButton").attr("onclick", "toggleLang('en')");
+  }
+
+  textTabs.forEach((item, i) => {
+    localizeTextTab(item);
+  });
+  videoTabs.forEach((item, i) => {
+    localizeVideoTab(item);
+  });
+  imageTabs.forEach((item, i) => {
+    localizeImageTab(item);
+  });
+
+  // Finally, update all elements to the previous text size.
+  fontSizeIncrease(false, 3*sizeToSet);
+  fontTicks = sizeToSet;
 }
 
 function videoOverlayHide(id) {
@@ -589,6 +713,11 @@ const SOFTWARE_VERSION = 1.0;
 var inactivityTimer = 0;
 var currentlyActive = false;
 var fontTicks = 0; // Number of times we have increased the font size
+var languageDict = {default: "en"};
+var currentLang = "en";
+var textTabs = []; // Holds ids of textTabs.
+var videoTabs = [];
+var imageTabs = [];
 
 // These will be replaced by values from the helper upon loading
 var id = "UNKNOWN";
@@ -605,36 +734,11 @@ checkForSoftwareUpdate();
 sendPing();
 setInterval(sendPing, 5000);
 
-var videoContent = [{video: 'videos/test_video.mp4', thumb: 'thumbs/test_video.jpg', caption_en: 'This is a test video.', caption_es: "Ésta es una imagen de prueba.", title_en: "Test 1", credit_en: "Public Domain."},];
-createVideoTab(videoContent, "Videos");
-
-var imageContent = [
-  {image: 'images/test_1.jpeg', thumb: 'thumbs/test_1.jpeg', caption_en: 'This is a test image.', caption_es: "Ésta es una imagen de prueba.", title_en: "Test 1", credit_en: "Public Domain."},
-  {image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "A very long title with words."},{image: 'images/test_3.jpeg', thumb: 'thumbs/test_3.jpeg', caption_en: 'Very Wide Image is here.', caption_es: "Esta es otra imagen de prueba.", title_en: "Very Wide Image"},{image: 'images/test_4.jpeg', thumb: 'thumbs/test_4.jpeg', caption_en: 'This is another test image that is very tall.', caption_es: "Esta es otra imagen de prueba.", title_en: "Very Tall Image"},
-];
-createImageTab(imageContent, "Images");
-
-var textContent = {text: `# This is a Markdown header
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id neque aliquam vestibulum morbi blandit. Mauris a diam maecenas sed enim ut sem viverra aliquet. Massa ultricies mi quis hendrerit dolor magna eget. Integer eget aliquet nibh praesent. Ut sem viverra aliquet eget sit. Dolor sit amet consectetur adipiscing. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare. Est ultricies integer quis auctor elit. Ultrices gravida dictum fusce ut placerat. Aliquam eleifend mi in nulla posuere sollicitudin.
-
-## Header 2
-
-
-  Diam donec adipiscing tristique risus nec. Molestie at elementum eu facilisis. Nisl purus in mollis nunc sed id semper risus in. Interdum posuere lorem ipsum dolor. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. <img src="images/test_2.jpeg" style="width: 50%; float: right;">Eget nunc lobortis mattis aliquam faucibus purus in massa. Eros in cursus turpis massa. Sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit. Phasellus faucibus scelerisque eleifend donec. Cursus mattis molestie a iaculis. Venenatis urna cursus eget nunc scelerisque viverra mauris. Habitasse platea dictumst quisque sagittis purus. Amet tellus cras adipiscing enim eu turpis.
-
-### Header 3
-
-  Bibendum enim facilisis gravida neque convallis a. Egestas integer eget aliquet nibh praesent. Ac felis donec et odio pellentesque. Turpis massa sed elementum tempus egestas sed sed risus pretium. Tellus orci ac auctor augue. Adipiscing elit ut aliquam purus sit. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam. Dignissim suspendisse in est ante in nibh. Nulla facilisi cras fermentum odio. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Ullamcorper velit sed ullamcorper morbi tincidunt. Ipsum faucibus vitae aliquet nec ullamcorper. Convallis convallis tellus id interdum velit laoreet id donec ultrices. Sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque. Arcu vitae elementum curabitur vitae nunc. Arcu non odio euismod lacinia at quis. Laoreet id donec ultrices tincidunt arcu non sodales neque.
-
-#### Header 4
-
-  Accumsan sit amet nulla facilisi morbi tempus iaculis. Diam quis enim lobortis scelerisque fermentum dui faucibus in. Eget velit aliquet sagittis id consectetur purus. Egestas diam in arcu cursus euismod quis. Maecenas pharetra convallis posuere morbi leo urna molestie. Risus at ultrices mi tempus imperdiet nulla malesuada. In nibh mauris cursus mattis molestie a. Nullam vehicula ipsum a arcu. Non sodales neque sodales ut etiam. Risus viverra adipiscing at in tellus. Cras adipiscing enim eu turpis egestas pretium aenean. Dignissim suspendisse in est ante. Id aliquet lectus proin nibh nisl condimentum. Diam maecenas ultricies mi eget mauris pharetra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Tristique magna sit amet purus gravida.
-
-##### Header 5
-
-  Nisi lacus sed viverra tellus in hac habitasse. Amet mattis vulputate enim nulla aliquet porttitor lacus. Viverra nibh cras pulvinar mattis nunc sed blandit. Blandit libero volutpat sed cras ornare arcu dui vivamus. Enim sed faucibus turpis in. Nulla pharetra diam sit amet nisl. Proin libero nunc consequat interdum varius sit amet mattis. Sem et tortor consequat id. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Imperdiet proin fermentum leo vel. Amet luctus venenatis lectus magna fringilla. Tempus egestas sed sed risus. Justo donec enim diam vulputate. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Proin libero nunc consequat interdum. Diam donec adipiscing tristique risus nec feugiat. Varius duis at consectetur lorem donec massa sapien faucibus. Justo eget magna fermentum iaculis eu non diam phasellus vestibulum.
-
-###### Header 6
-  `};
-createTextTab(textContent, "Text");
+// var videoContent = [{video: 'videos/test_video.mp4', thumb: 'thumbs/test_video.jpg', caption_en: 'This is a test video.', caption_es: "Ésta es una imagen de prueba.", title_en: "Test 1", credit_en: "Public Domain."},];
+// createVideoTab(videoContent, "Videos");
+//
+// var imageContent = [
+//   {image: 'images/test_1.jpeg', thumb: 'thumbs/test_1.jpeg', caption_en: 'This is a test image.', caption_es: "Ésta es una imagen de prueba.", title_en: "Test 1", credit_en: "Public Domain."},
+//   {image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "Test 2"},{image: 'images/test_2.jpeg', thumb: 'thumbs/test_2.jpeg', caption_en: 'This is another test image.', caption_es: "Esta es otra imagen de prueba.", title_en: "A very long title with words."},{image: 'images/test_3.jpeg', thumb: 'thumbs/test_3.jpeg', caption_en: 'Very Wide Image is here.', caption_es: "Esta es otra imagen de prueba.", title_en: "Very Wide Image"},{image: 'images/test_4.jpeg', thumb: 'thumbs/test_4.jpeg', caption_en: 'This is another test image that is very tall.', caption_es: "Esta es otra imagen de prueba.", title_en: "Very Tall Image"},
+// ];
+// createImageTab(imageContent, "Images");
