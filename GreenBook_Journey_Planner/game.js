@@ -236,6 +236,19 @@ function askForDefaults() {
   xhr.send(requestString);
 }
 
+function askForRestart() {
+
+  // Send a message to the local helper and ask for it to restart the PC
+
+  var requestString = JSON.stringify({"action": "restart"});
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", helperAddress, true);
+  xhr.timeout = 2000;
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(requestString);
+}
+
 function draw() {
 
   // Update the contents of the gameBoard

@@ -148,7 +148,7 @@
     </style>
  </head>
 
-  <body>
+  <body oncontextmenu="return false;">
     <div id='container'>
       <div id="flashDiv"></div>
       <img id='image' src='images/West_Texas_Fair.jpg' crossorigin='anonymous'/>
@@ -251,6 +251,19 @@
                     console.log("Something went wrong!", error);
                 });
         }
+    }
+
+    function askForRestart() {
+
+      // Send a message to the local helper and ask for it to restart the PC
+
+      var requestString = JSON.stringify({"action": "restart"});
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", helperAddress, true);
+      xhr.timeout = 2000;
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(requestString);
     }
 
     function countdown(time=5, first=false) {
